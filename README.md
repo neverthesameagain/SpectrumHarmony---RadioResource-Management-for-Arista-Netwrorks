@@ -1,6 +1,5 @@
 
-# **ARISTA RRM+ Synthetic Dataset (v7.2, 10-second Tick)**
-
+# **ARISTA RRM+ Synthetic Dataset 
 ### **Overview**
 
 This dataset simulates **Radio Resource Management (RRM)** telemetry for a multi-AP Wi-Fi network in a mixed spectrum environment containing both **Wi-Fi** and **non-Wi-Fi interferers** (BLE, ZigBee, Microwave, FHSS).
@@ -12,18 +11,6 @@ It contains three synchronized views:
 * 📱 **Client log:** per-client signal and QoE metrics every 10 seconds.
 
 Each dataset is aligned on the same timestamps and together provides a multi-modal view of Wi-Fi network state suitable for both **ML-based interference classification** and **policy learning**.
-
----
-
-## 📁 **Dataset Components**
-
-| File              | Rows (3h @10s, 6 APs × 40 clients)   | Description                                                                                       |
-| ----------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `fft_dataset.csv` | ~25 000–30 000                       | Per-AP, per-tick frequency-domain data (64 FFT bins) with labeled Wi-Fi/Non-Wi-Fi signal classes. |
-| `ap_log.csv`      | ~6 × (3 h × 360 samples) ≈ 13 000    | Per-AP, per-tick summary of channel state, interference, and QoE aggregates.                      |
-| `client_log.csv`  | ~240 × (3 h × 360 samples) ≈ 864 000 | Per-client, per-tick RSSI, SNR, retry, throughput, and QoE.                                       |
-
-> 🔸 When run for 24 hours, the row counts are exactly × 8 of the above.
 
 ---
 
