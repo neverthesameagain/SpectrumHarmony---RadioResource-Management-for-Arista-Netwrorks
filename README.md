@@ -118,22 +118,29 @@ python rrmplus_simulation.py
  Starting 24-hour simulation (6 APs, 240 clients)...
  Progress: minute 100/1440 (1.6 hrs simulated)
 ...
- Summary Statistics:
-  rssi_dbm             → min:  -74.144,  max:  -27.899
-  snr_db               → min:   10.555,  max:   40.000
-  throughput_mbps      → min:    3.787,  max:  629.999
-  retry_rate_pct       → min:    0.000,  max:  100.000
-  qoe                  → min:    1.055,  max:    5.000
+✅ Simulation complete!
+ - client_log_24h.csv
+ - ap_log_24h.csv
+ - fft_dataset_24h.csv
+
+📊 Summary Statistics:
+  rssi_dbm             → min:  -70.000,  max:  -30.000
+  snr_db               → min:   20.337,  max:   40.000
+  throughput_mbps      → min:   28.563,  max:  629.998
+  retry_rate_pct       → min:    0.000,  max:   37.901
+  qoe                  → min:    2.425,  max:    5.000
   distance_m           → min:    0.858,  max:    9.996
 
- Summary Statistics:
-  avg_client_snr_db    → min:   23.549,  max:   38.825
-  throughput_avg_mbps  → min:   37.431,  max:  581.884
-  p95_retry_pct        → min:    1.715,  max:   98.493
-  mean_qoe             → min:    2.858,  max:    4.964
+📊 Summary Statistics:
+  avg_client_snr_db    → min:   30.958,  max:   39.109
+  throughput_avg_mbps  → min:   54.524,  max:  582.676
+  p95_retry_pct        → min:    1.415,  max:   32.230
+  mean_qoe             → min:    4.115,  max:    4.979
   mean_distance_m      → min:    6.173,  max:    7.217
   p95_distance_m       → min:    9.141,  max:    9.799
   max_distance_m       → min:    9.698,  max:    9.996
+
+FFT classes: {'wifi': 6932, 'FHSS': 858, 'Microwave': 528, 'BLE': 393, 'ZigBee': 287}
 ```
 
 ---
