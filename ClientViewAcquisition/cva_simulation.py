@@ -5,6 +5,31 @@ import random
 RSSI_MIN, RSSI_MAX = -70, -30
 RADIUS_M = 10.0
 
+# --- 1. NEW: CLIENT PERSONAS CONFIG ---
+# Defines how different clients behave based on QoE, not just RSSI.
+CLIENT_PERSONAS = {
+    "default": {
+        "name": "Default (Balanced)",
+        "supports_80211v": True,
+        "qoe_hysteresis": 0.5,  # Must be 0.5 QoE points better (your original logic)
+    },
+    "sticky_laptop": {
+        "name": "Sticky Laptop (Corporate OUI)",
+        "supports_80211v": True,
+        "qoe_hysteresis": 1.5,  # Needs a *significantly* better QoE (1.5 points) to roam
+    },
+    "eager_phone": {
+        "name": "Eager Phone (Modern OS)",
+        "supports_80211v": True,
+        "qoe_hysteresis": 0.1,  # Will roam for almost any improvement (0.1 points)
+    },
+    "legacy_device": {
+        "name": "Legacy Device (No 11v)",
+        "supports_80211v": False, # Does not support 802.11v
+        "qoe_hysteresis": 99.9, # (will never be met)
+    }
+}
+
 
 def calculate_rssi(x1, y1, x2, y2):
     """Calculates the RSSI a client at (x1, y1) would see from an AP at (x2, y2)."""
@@ -49,7 +74,7 @@ class Environment:
 
     def register_client(self, client):
         self.all_clients.append(client)
-        print(f"[ENV]: Registered {client.client_id} at ({client.x}, {client.y})")
+        print(f"[ENV]: Registered {client.client_id} ({client.persona['name']}) at ({client.x}, {client.y})")
 
     def client_scan(self, scanning_client):
         """Physics engine: Client asks 'What can I see?'"""
@@ -131,9 +156,14 @@ class AccessPoint:
 
     def request_beacon_report(self, client_to_ask):
         """Simulates the 802.11k request."""
-        if client_to_ask not in self.connected_clients or not client_to_ask.rm_capable:
+        if client_to_ask not in self.connected_clients:
+            print(f"[{self.ap_id}]: Cannot send 802.11k (client not connected).")
+            return
+        
+        # --- 3. UPDATED: Check client's persona capability ---
+        if not client_to_ask.rm_capable:
             print(
-                f"[{self.ap_id}]: Cannot send 802.11k request to {client_to_ask.client_id}."
+                f"[{self.ap_id}]: RRM: Cannot send 802.11k request to {client_to_ask.client_id} (device does not support it)."
             )
             return
 
@@ -155,7 +185,7 @@ class AccessPoint:
         """
         print(f"[{self.ap_id}]: RRM: Analyzing client-view for {client.client_id}...")
 
-        # 1. Get Pre-Roam QoE
+        # 1. Get Pre-RoAM QoE
         pre_roam_qoe = client.calculate_current_qoe()
         print(f"[{self.ap_id}]: RRM: Client's pre-roam QoE is {pre_roam_qoe:.2f}/5.0")
 
@@ -245,13 +275,18 @@ class AccessPoint:
 class ClientDevice:
     """Represents a virtual Wi-Fi Client with roaming logic."""
 
-    def __init__(self, environment, client_id, x, y):
+    # --- 2. UPDATED: __init__ now accepts a persona ---
+    def __init__(self, environment, client_id, x, y, persona_key="default"):
         self.env = environment
         self.client_id = client_id
         self.x = x
         self.y = y
         self.connected_ap = None
-        self.rm_capable = True
+        
+        # Set persona
+        self.persona = CLIENT_PERSONAS.get(persona_key, CLIENT_PERSONAS["default"])
+        self.rm_capable = self.persona["supports_80211v"] # 11k/v capable
+        
         self.env.register_client(self)
 
     def receive_beacon_request_and_scan(self):
@@ -274,11 +309,16 @@ class ClientDevice:
 
         return calculate_qoe(rssi, airtime)
 
+    # --- 3. UPDATED: Decision logic is now driven by persona ---
     def receive_bss_tm_request(self, ranked_list):
         """
         Simulates the client's decision logic for an 802.11v request.
         """
         print(f"[{self.client_id}]: Received 802.11v BSS-TM request.")
+        
+        if not self.rm_capable:
+            print(f"[{self.client_id}]: Decision: REJECT. Persona '{self.persona['name']}' does not support 802.11v.")
+            return False
 
         if not ranked_list:
             return False  # Reject if list is empty
@@ -292,11 +332,14 @@ class ClientDevice:
         potential_qoe = calculate_qoe(potential_rssi, potential_load)
 
         # --- Client's Roaming Logic (Hysteresis) ---
-        # Only roam if the new AP is at least 0.5 QoE points better.
-        # This prevents "flapping" between two equally good APs.
-        if potential_qoe > (current_qoe + 0.5):
+        # Get the required QoE improvement from the persona
+        qoe_threshold = self.persona["qoe_hysteresis"]
+        
+        print(f"[{self.client_id}]: Persona '{self.persona['name']}' checking: Potential QoE ({potential_qoe:.2f}) > Current QoE ({current_qoe:.2f}) + Threshold ({qoe_threshold:.2f})")
+
+        if potential_qoe > (current_qoe + qoe_threshold):
             print(
-                f"[{self.client_id}]: Decision: ACCEPT. New QoE {potential_qoe:.2f} > Old QoE {current_qoe:.2f} + 0.5"
+                f"[{self.client_id}]: Decision: ACCEPT. New QoE {potential_qoe:.2f} > Old QoE {current_qoe:.2f} + {qoe_threshold}"
             )
             self.env.handle_roam(self, best_candidate["ap_id"])
             return True
@@ -307,12 +350,8 @@ class ClientDevice:
             return False
 
 
-# ------------------------------------------------------------------
-# --- MAIN SIMULATION SCRIPT ---
-# ------------------------------------------------------------------
-
 print("==========================================================")
-print("== RRM 802.11k/v Simulation with AP Load & Steering ==")
+print("== RRM 802.11k/v Simulation with Personas & AP Load ==")
 print("==========================================================\n")
 
 # 1. Create the World
@@ -323,14 +362,19 @@ ap1 = AccessPoint(sim_environment, "AP-1 (Hall)", x=0, y=10, channel=1)
 ap2 = AccessPoint(sim_environment, "AP-2 (Office)", x=20, y=10, channel=6)
 ap3 = AccessPoint(sim_environment, "AP-3 (Cafe)", x=40, y=10, channel=11)
 
-# 3. Create a Client
-#    This client is at (x=15, y=10), physically closer to AP-2.
+# 3. Create Clients with different personas
+#    All clients are at (x=15, y=10), physically closer to AP-2.
 #    BUT, we will make AP-2 very busy, so AP-3 becomes a better choice.
-client1 = ClientDevice(sim_environment, "Client-77", x=15, y=10)
+client_eager = ClientDevice(sim_environment, "Client-Eager", x=15, y=10, persona_key="eager_phone")
+client_sticky = ClientDevice(sim_environment, "Client-Sticky", x=15, y=10, persona_key="sticky_laptop")
+client_legacy = ClientDevice(sim_environment, "Client-Legacy", x=15, y=10, persona_key="legacy_device")
+
 
 # 4. Set up the Scenario
-#    Client-77 associates with AP-2 (the closest)
-ap2.connect_client(client1)
+#    All clients associate with AP-2 (the closest)
+ap2.connect_client(client_eager)
+ap2.connect_client(client_sticky)
+ap2.connect_client(client_legacy)
 
 #    NOW, set the "Global AP Load"
 sim_environment.ap_load_stats["AP-1 (Hall)"] = {
@@ -338,7 +382,7 @@ sim_environment.ap_load_stats["AP-1 (Hall)"] = {
     "airtime_util_pct": 20.0,
 }
 sim_environment.ap_load_stats["AP-2 (Office)"] = {
-    "client_count": 35,
+    "client_count": 35, # High client count
     "airtime_util_pct": 90.0,
 }  # <-- VERY BUSY!
 sim_environment.ap_load_stats["AP-3 (Cafe)"] = {
@@ -346,12 +390,14 @@ sim_environment.ap_load_stats["AP-3 (Cafe)"] = {
     "airtime_util_pct": 30.0,
 }  # <-- Much better
 
-print("\n--- Setup Complete (Client on busy AP-2) ---\n")
+print("\n--- Setup Complete (3 Clients on busy AP-2) ---\n")
 
 # 5. --- RUN THE SIMULATION ---
-#    AP-2's RRM engine detects its own high load and poor client QoE,
-#    so it triggers an 802.11k request to find a better option for Client-77.
-ap2.request_beacon_report(client1)
+#    AP-2's RRM engine triggers 802.11k for all its clients
+#    to see if it can steer them.
+ap2.request_beacon_report(client_eager)
+ap2.request_beacon_report(client_sticky)
+ap2.request_beacon_report(client_legacy)
 
 
 print("\n\n==========================================================")
