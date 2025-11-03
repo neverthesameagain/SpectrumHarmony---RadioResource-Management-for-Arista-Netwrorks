@@ -11,66 +11,86 @@ base_dir = os.path.dirname(__file__)
 class SensingOrchestra:
     def __init__(self, band):
         self.band = band
-        self.numChannels = 0
-        self.channelParameters = []
+        self.numChannels_2_4_GHz = 0
+        self.channelParameters_2_4_GHz = []
+        self.numChannels_5s_GHz = 0
+        self.channelParameters_5_GHz = []
         print("Initiating Sensing Orchestra...")
 
     def initiateChannels(self):
-        if (self.band == WiFiBand.BAND_2_4_GHz):
-            self.numChannels = 14
-            self.channels = BAND_2_4_CHANNELS
-        elif (self.band == WiFiBand.BAND_5_GHz):
-            self.numChannels = 24
-            self.channels = BAND_5_CHANNELS
-        elif (self.band == WiFiBand.BAND_6_GHz):
-            print("Might implement 6GHz in future...")
-        else:
-            print("Not a recognised band...")
-        for i in range(self.numChannels):
-            self.channelParameters.append(ChannelInfo(self.band, self.channels[i]))
+        self.numChannels_2_4_GHz = 14
+        self.channels_2_4_GHz = BAND_2_4_CHANNELS
+        self.numChannels_5_GHz = 24
+        self.channels_5_GHz = BAND_5_CHANNELS
+        self.chanToIdx_5_GHz = {ch: idx for idx, ch in enumerate(BAND_5_CHANNELS)}
+        self.idxToChan_5_GHz = {idx: ch for idx, ch in enumerate(BAND_5_CHANNELS)}
+        print("Might implement 6GHz in future...")
+        for i in range(self.numChannels_2_4_GHz):
+            self.channelParameters_2_4_GHz.append(ChannelInfo(WiFiBand.BAND_2_4_GHz, self.channels_2_4_GHz[i]))
+        for i in range(self.numChannels_5_GHz):
+            self.channelParameters_5_GHz.append(ChannelInfo(WiFiBand.BAND_5_GHz, self.channels_5_GHz[i]))
 
     def initializeMAB(self):
-        self.MAB = MAB(self.numChannels)
-        rewards = []
-        for channel in self.channelParameters:
-            rewards.append(channel.reward())
-        self.MAB.initializeArms(rewards)
+        self.MAB_2_4_GHz = MAB(self.numChannels_2_4_GHz)
+        rewards_2_4_GHz = []
+        for channel in self.channelParameters_2_4_GHz:
+            rewards_2_4_GHz.append(channel.reward())
+        self.MAB_2_4_GHz.initializeArms(rewards_2_4_GHz)
 
-    def chooseChannel(self):
-        bestChannel = self.MAB.selectArm()
-        channelReward = self.channelParameters[bestChannel].reward()
-        self.MAB.updateArm(bestChannel, channelReward)
-        channel = self.convertIdxToBand(bestChannel)
+        self.MAB_5_GHz = MAB(self.numChannels_5_GHz)
+        rewards_5_GHz = []
+        for channel in self.channelParameters_5_GHz:
+            rewards_5_GHz.append(channel.reward())
+        self.MAB_5_GHz.initializeArms(rewards_5_GHz)
+
+    def chooseChannel_2_4_GHz(self):
+        bestChannel = self.MAB_2_4_GHz.selectArm()
+        channelReward = self.channelParameters_2_4_GHz[bestChannel].reward()
+        self.MAB_2_4_GHz.updateArm(bestChannel, channelReward)
+        channel = self.convertIdxToBand(WiFiBand.BAND_2_4_GHz, bestChannel)
         # Might have to call BO and decide the width and send it together
         return channel
 
-    def convertbandToIdx(self, channel):
-        if (self.band == WiFiBand.BAND_2_4_GHz):
+    def chooseChannel_5_GHz(self):
+        bestChannel = self.MAB_5_GHz.selectArm()
+        channelReward = self.channelParameters_5_GHz[bestChannel].reward()
+        self.MAB_5_GHz.updateArm(bestChannel, channelReward)
+        channel = self.convertIdxToBand(WiFiBand.BAND_5_GHz, bestChannel)
+        # Might have to call BO and decide the width and send it together
+        return channel
+
+    def convertbandToIdx(self, band, channel):
+        print(band, channel)
+        if (band == WiFiBand.BAND_2_4_GHz):
             return channel
-        elif (self.band == WiFiBand.BAND_5_GHz):
-            return int((channel - 36)/4)
-        elif (self.band == WiFiBand.BAND_6_GHz):
-            return int((channel - 1) / 4)
+        elif (band == WiFiBand.BAND_5_GHz):
+            return self.chanToIdx_5_GHz[channel]
+        elif (band == WiFiBand.BAND_6_GHz):
+            print("Not yet implemented...")
+            return 0
         else:
             print("Not a recognised band...")
         return 0
 
-    def convertIdxToBand(self, channel):
-        if (self.band == WiFiBand.BAND_2_4_GHz):
-            return channel
-        elif (self.band == WiFiBand.BAND_5_GHz):
-            return 4*channel + 36
-        elif (self.band == WiFiBand.BAND_6_GHz):
-            return 4*channel + 1
+    def convertIdxToBand(self, band, idx):
+        if (band == WiFiBand.BAND_2_4_GHz):
+            return idx
+        elif (band == WiFiBand.BAND_5_GHz):
+            return self.idxToChan_5_GHz[idx]
+        elif (band == WiFiBand.BAND_6_GHz):
+            print("Not yet implemented...")
+            return 0
         else:
-            print("Not a recognised band...")
+            print("Not a recognised index...")
         return 0
 
     def simulateRadioInput(self, file: str):
         parser = CSVParser()
         beacons = parser.parseCSV(file)
         for beacon in beacons:
-            channel = self.convertbandToIdx(beacon[APLog.CHANNEL])
+            band = beacon[APLog.BAND]
+            channel = self.convertbandToIdx(band, beacon[APLog.CHANNEL])
+            print(channel)
             client = beacon[APLog.AP_ID]
             rssi = beacon[APLog.AVG_RSSI_DBM]
             noiseFloor = float(beacon[APLog.NOISE_FLOOR_DBM])
@@ -80,30 +100,35 @@ class SensingOrchestra:
             tx_power = float(beacon[APLog.TX_POWER_DBM])
             busy_time = float(beacon[APLog.BUSY_TIME])
             total_time = float(beacon[APLog.TOTAL_TIME])
-            if (self.band == WiFiBand.BAND_2_4_GHz):
-                self.channelParameters[channel].updateChannel_2_4_GHz(
+            if (band == WiFiBand.BAND_2_4_GHz):
+                self.channelParameters_2_4_GHz[channel].updateChannel_2_4_GHz(
                     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected)
-            elif (self.band == WiFiBand.BAND_5_GHz):
-                self.channelParameters[channel].updateChannel_5_GHz(
+            elif (band == WiFiBand.BAND_5_GHz):
+                self.channelParameters_5_GHz[channel].updateChannel_5_GHz(
                     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
-            elif (self.band == WiFiBand.BAND_6_GHz):
-                self.channelParameters[channel].updateChannel_6_GHz(
-                    rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
+            elif (band == WiFiBand.BAND_6_GHz):
+                # self.channelParameters[channel].updateChannel_6_GHz(
+                #     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
                 print("Might implement 6GHz in future...")
             else:
                 print("Not a recognised band...")
 
-    def printChannelParameters(self):
-        for channel in self.channelParameters:
+    def printChannelParameters_2_4_GHz(self):
+        for channel in self.channelParameters_2_4_GHz:
+            channel.printChannel()
+
+    def printChannelParameters_5_GHz(self):
+        for channel in self.channelParameters_5_GHz:
             channel.printChannel()
 
 
 if __name__ == "__main__":
     rrm = SensingOrchestra(WiFiBand.BAND_5_GHz)
     rrm.initiateChannels()
-    rrm.initializeMAB()
     file_path = os.path.join(base_dir, "data", "ap_logs_5GHz.csv")
     rrm.simulateRadioInput(file_path)
-    rrm.printChannelParameters()
-    channel = rrm.chooseChannel()
+    rrm.initializeMAB()
+    rrm.simulateRadioInput(file_path)
+    rrm.printChannelParameters_5_GHz()
+    channel = rrm.chooseChannel_5_GHz()
     print(channel)

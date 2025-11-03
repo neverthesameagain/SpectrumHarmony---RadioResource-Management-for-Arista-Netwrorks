@@ -1,9 +1,11 @@
 import csv
 import utils.APLogsColumns as APLog
+from utils.WiFiBandEnum import WiFiBand
 
 
 class CSVParser:
     def __init__(self):
+        self.floatToBand = {2.4: WiFiBand.BAND_2_4_GHz, 5.0: WiFiBand.BAND_5_GHz, 6.0: WiFiBand.BAND_6_GHz}
         print("Initializing CSV parser...")
 
     def parseCSV(self, filepath: str):
@@ -14,7 +16,7 @@ class CSVParser:
             data = []
             for row in reader:
                 row[APLog.AP_ID] = row[APLog.AP_ID]
-                row[APLog.BAND] = float(row[APLog.BAND])
+                row[APLog.BAND] = self.floatToBand[float(row[APLog.BAND])]
                 row[APLog.CHANNEL] = int(row[APLog.CHANNEL])
                 row[APLog.CHANNEL_WIDTH] = int(row[APLog.CHANNEL_WIDTH])
                 row[APLog.TX_POWER_DBM] = float(row[APLog.TX_POWER_DBM])
