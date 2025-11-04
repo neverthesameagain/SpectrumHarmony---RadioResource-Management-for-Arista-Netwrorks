@@ -1,8 +1,13 @@
+from utils.WiFiBandEnum import DFSState
+
 BAND_2_4_CHANNELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 BAND_5_CHANNELS = [36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112,
                    116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165]
 BAND_6_CHANNELS = [1,   5,   9,  13,  17,  21,  25,  29,  33,  37,  41,  45, 49,  53,  57,  61,  65,  69,  73,  77,  81,  85,  89,  93, 97, 101, 105, 109,
                    113, 117, 121, 125, 129, 133, 137, 141, 145, 149, 153, 157, 161, 165, 169, 173, 177, 181, 185, 189, 193, 197, 201, 205, 209, 213, 217, 221, 225, 229, 233]
+
+BAND_5_DFS_CHANNELS = [52, 56, 60, 64, 100, 104, 108, 112,
+                       116, 120, 124, 128, 132, 136, 140, 144]
 
 
 class ChannelInfo:
@@ -20,11 +25,15 @@ class ChannelInfo:
         self.tx_power = 0
         self.channel_width = 0
         self.inteferenceWeight = 1
-        self.DFS = 0  # TODO: Update all channels which lie in DFS as 1
+        self.DFS = 1 if self.channel in BAND_5_DFS_CHANNELS else 0
+        self.DFSState = DFSState.AVAILABLE if self.DFS else DFSState.NOT_AVAILABLE
+        self.DFSClients = set()
         print("Creating band:", band, "channel:", channel)
 
     # Define reward function based on channel parameters
     def reward(self):
+        if (not self.DFSState.value):
+            return 0
         snr_score = max(0, min(self.avgClientSNR / 50, 1))
         throughput_score = max(0, min(self.avgThroughput / 100, 1))
         utilization_penalty = 1 - min(self.channelUtilization, 1)
@@ -41,11 +50,10 @@ class ChannelInfo:
                      0.05 * client_penalty)
         return estReward
 
-    def updateChannel_2_4_GHz(self, rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected):
+    def updateChannel_2_4_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected):
         self.avgCount += 1
-        SNR = rssi - noiseFloor
         self.noiseFloor = noiseFloor
-        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+SNR)/self.avgCount
+        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+snr)/self.avgCount
         self.avgThroughput = ((self.avgCount-1)*self.avgThroughput+throughput)/self.avgCount
         self.clients.add(client)
         self.qoe = ((self.avgCount-1)*self.qoe+qoe)/self.avgCount
@@ -53,21 +61,19 @@ class ChannelInfo:
         if nwifi_detected:
             self.interference += self.inteferenceWeight  # add a value for this
 
-    def updateChannel_5_GHz(self, rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
+    def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1
-        SNR = rssi - noiseFloor
         self.noiseFloor = noiseFloor
-        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+SNR)/self.avgCount
+        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+snr)/self.avgCount
         self.avgThroughput = ((self.avgCount-1)*self.avgThroughput+throughput)/self.avgCount
         self.clients.add(client)
         self.qoe = ((self.avgCount-1)*self.qoe+qoe)/self.avgCount
         self.channelUtilization = ((self.avgCount-1)*self.channelUtilization+(busy_time/total_time))/self.avgCount
 
-    def updateChannel_6_GHz(self, rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
+    def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1
-        SNR = rssi - noiseFloor
         self.noiseFloor = noiseFloor
-        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+SNR)/self.avgCount
+        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+snr)/self.avgCount
         self.avgThroughput = ((self.avgCount-1)*self.avgThroughput+throughput)/self.avgCount
         self.clients.add(client)
         self.qoe = ((self.avgCount-1)*self.qoe+qoe)/self.avgCount

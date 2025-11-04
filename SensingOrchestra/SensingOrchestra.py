@@ -60,11 +60,10 @@ class SensingOrchestra:
         return channel
 
     def convertbandToIdx(self, band, channel):
-        print(band, channel)
         if (band == WiFiBand.BAND_2_4_GHz):
-            return channel
+            return channel-1
         elif (band == WiFiBand.BAND_5_GHz):
-            return self.chanToIdx_5_GHz[channel]
+            return self.chanToIdx_5_GHz[channel]-1
         elif (band == WiFiBand.BAND_6_GHz):
             print("Not yet implemented...")
             return 0
@@ -74,9 +73,9 @@ class SensingOrchestra:
 
     def convertIdxToBand(self, band, idx):
         if (band == WiFiBand.BAND_2_4_GHz):
-            return idx
+            return idx+1
         elif (band == WiFiBand.BAND_5_GHz):
-            return self.idxToChan_5_GHz[idx]
+            return self.idxToChan_5_GHz[idx+1]
         elif (band == WiFiBand.BAND_6_GHz):
             print("Not yet implemented...")
             return 0
@@ -90,9 +89,9 @@ class SensingOrchestra:
         for beacon in beacons:
             band = beacon[APLog.BAND]
             channel = self.convertbandToIdx(band, beacon[APLog.CHANNEL])
-            print(channel)
             client = beacon[APLog.AP_ID]
-            rssi = beacon[APLog.AVG_RSSI_DBM]
+            # rssi = beacon[APLog.AVG_RSSI_DBM]
+            snr = float(beacon[APLog.AVG_CLIENT_SNR_DB])
             noiseFloor = float(beacon[APLog.NOISE_FLOOR_DBM])
             nwifi_detected = beacon[APLog.NWIFI_DETECTED].lower() == 'true'
             throughput = float(beacon[APLog.THROUGHPUT_AVG_Mbps])
@@ -102,10 +101,10 @@ class SensingOrchestra:
             total_time = float(beacon[APLog.TOTAL_TIME])
             if (band == WiFiBand.BAND_2_4_GHz):
                 self.channelParameters_2_4_GHz[channel].updateChannel_2_4_GHz(
-                    rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected)
+                    snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected)
             elif (band == WiFiBand.BAND_5_GHz):
                 self.channelParameters_5_GHz[channel].updateChannel_5_GHz(
-                    rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
+                    snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
             elif (band == WiFiBand.BAND_6_GHz):
                 # self.channelParameters[channel].updateChannel_6_GHz(
                 #     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
@@ -125,10 +124,16 @@ class SensingOrchestra:
 if __name__ == "__main__":
     rrm = SensingOrchestra(WiFiBand.BAND_5_GHz)
     rrm.initiateChannels()
-    file_path = os.path.join(base_dir, "data", "ap_logs_5GHz.csv")
+    file_path = os.path.join(base_dir, "data", "apLogs.csv")
     rrm.simulateRadioInput(file_path)
     rrm.initializeMAB()
-    rrm.simulateRadioInput(file_path)
+    # rrm.simulateRadioInput(file_path)
+    print("For 5GHz...")
     rrm.printChannelParameters_5_GHz()
-    channel = rrm.chooseChannel_5_GHz()
-    print(channel)
+    channel_5GHz = rrm.chooseChannel_5_GHz()
+
+    print("For 2.4GHz...")
+    rrm.printChannelParameters_2_4_GHz()
+    channel_2_4_GHz = rrm.chooseChannel_2_4_GHz()
+    print("Best 5GHz channel...", channel_5GHz)
+    print("Best 2.4GHz channel...", channel_2_4_GHz)

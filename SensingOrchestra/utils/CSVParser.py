@@ -15,12 +15,14 @@ class CSVParser:
             # Make changes based on the actual column
             data = []
             for row in reader:
+                if(row[APLog.BAND] == ''):
+                    continue
                 row[APLog.AP_ID] = row[APLog.AP_ID]
                 row[APLog.BAND] = self.floatToBand[float(row[APLog.BAND])]
                 row[APLog.CHANNEL] = int(row[APLog.CHANNEL])
                 row[APLog.CHANNEL_WIDTH] = int(row[APLog.CHANNEL_WIDTH])
                 row[APLog.TX_POWER_DBM] = float(row[APLog.TX_POWER_DBM])
-                row[APLog.AVG_RSSI_DBM] = float(row[APLog.AVG_RSSI_DBM])
+                # row[APLog.AVG_RSSI_DBM] = float(row[APLog.AVG_RSSI_DBM])
                 row[APLog.NOISE_FLOOR_DBM] = float(row[APLog.NOISE_FLOOR_DBM])
                 row[APLog.NWIFI_DETECTED] = row[APLog.NWIFI_DETECTED]
                 row[APLog.AVG_CLIENT_SNR_DB] = float(row[APLog.AVG_CLIENT_SNR_DB])

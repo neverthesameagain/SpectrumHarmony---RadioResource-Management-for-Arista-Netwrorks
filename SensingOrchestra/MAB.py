@@ -25,6 +25,5 @@ class MAB:
         for i in range(self.num):
             bonus = math.sqrt((2 * math.log(self.totalCount)) / self.count[i])
             ucb_values[i] = self.rewards[i] + bonus
-
         best_index = int(np.argmax(ucb_values))
         return best_index
