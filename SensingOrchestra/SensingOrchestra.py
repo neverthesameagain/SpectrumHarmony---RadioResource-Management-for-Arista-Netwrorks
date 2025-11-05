@@ -1,5 +1,6 @@
 import threading
 from ChannelInfo import *
+from DFSTimer import DFSTimerManager
 import utils.APLogsColumns as APLog
 from utils.WiFiBandEnum import WiFiBand
 from utils.CSVParser import CSVParser
@@ -24,6 +25,8 @@ class SensingOrchestra:
         self.scanTime = 0.2  # 1 second
         self.serveTime = 5.9  # 59 seconds
         self.startTime = time.time()
+        # not use DFS channel for 30 minutes after a DFS radar encounter
+        self.DFStimer = DFSTimerManager(30 * 60, self.clearDFSClients_5_GHz)
         print("Initiating Sensing Orchestra...")
 
     def start(self):
@@ -41,12 +44,11 @@ class SensingOrchestra:
             channelTime_5_Ghz = self.scanTime * self.channelReward_5_GHz
             self.scan_thread_2_4_GHz = threading.Thread(target=self.scan_2_4_GHz)
             self.scan_thread_5_GHz = threading.Thread(target=self.scan_5_GHz)
-            self.scan_thread_2_4_GHz.start()
+            # self.scan_thread_2_4_GHz.start()
             self.scan_thread_5_GHz.start()
-            self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
+            # self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
             self.scan_thread_5_GHz.join(timeout=channelTime_5_Ghz)
             time.sleep(self.scanTime)
-            self.clearDFSClients_5_GHz()
 
     def scan_5_GHz(self):
         print("Scanning channels...")
@@ -114,7 +116,7 @@ class SensingOrchestra:
         if (band == WiFiBand.BAND_2_4_GHz):
             return channel-1
         elif (band == WiFiBand.BAND_5_GHz):
-            return self.chanToIdx_5_GHz[channel]-1
+            return self.chanToIdx_5_GHz[channel]
         elif (band == WiFiBand.BAND_6_GHz):
             print("Not yet implemented...")
             return 0
@@ -126,7 +128,7 @@ class SensingOrchestra:
         if (band == WiFiBand.BAND_2_4_GHz):
             return idx+1
         elif (band == WiFiBand.BAND_5_GHz):
-            return self.idxToChan_5_GHz[idx+1]
+            return self.idxToChan_5_GHz[idx]
         elif (band == WiFiBand.BAND_6_GHz):
             print("Not yet implemented...")
             return 0
@@ -150,26 +152,33 @@ class SensingOrchestra:
             tx_power = float(beacon[APLog.TX_POWER_DBM])
             busy_time = float(beacon[APLog.BUSY_TIME])
             total_time = float(beacon[APLog.TOTAL_TIME])
+            nwifi_type = beacon[APLog.NWIFI_TYPE]
             if (band == WiFiBand.BAND_2_4_GHz):
                 self.channelParameters_2_4_GHz[channel].updateChannel_2_4_GHz(
                     snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected)
             elif (band == WiFiBand.BAND_5_GHz):
                 self.channelParameters_5_GHz[channel].updateChannel_5_GHz(
-                    snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
+                    snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_type)
             elif (band == WiFiBand.BAND_6_GHz):
                 # self.channelParameters[channel].updateChannel_6_GHz(
                 #     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
                 print("Might implement 6GHz in future...")
             else:
                 print("Not a recognised band...")
+            isDFSPresent = not self.channelParameters_5_GHz[channel].getDFSState()  # 1 DFS radar is not present
+            if (isDFSPresent):
+                print(f"DFS detected on channel {channel}...")
+                self.DFStimer.start_or_reset(beacon[APLog.CHANNEL])
+                break
 
     def printChannelParameters_2_4_GHz(self):
         for channel in self.channelParameters_2_4_GHz:
             channel.printChannel()
 
-    def clearDFSClients_5_GHz(self):
-        for channel in self.channelParameters_5_GHz:
-            channel.clearDFSClients()
+    def clearDFSClients_5_GHz(self, channel):
+        print(f"Resetting DFS state for channel: {channel}")
+        idx = self.convertbandToIdx(WiFiBand.BAND_5_GHz, channel)
+        self.channelParameters_5_GHz[idx].clearDFSClients()
 
     def printChannelParameters_5_GHz(self):
         for channel in self.channelParameters_5_GHz:
