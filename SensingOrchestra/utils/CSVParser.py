@@ -22,6 +22,7 @@ class CSVParser:
                 row[APLog.TX_POWER_DBM] = float(row[APLog.TX_POWER_DBM])
                 row[APLog.NOISE_FLOOR_DBM] = float(row[APLog.NOISE_FLOOR_DBM])
                 row[APLog.NWIFI_DETECTED] = row[APLog.NWIFI_DETECTED]
+                row[APLog.NWIFI_TYPE] = row[APLog.NWIFI_TYPE]
                 row[APLog.AVG_CLIENT_SNR_DB] = float(row[APLog.AVG_CLIENT_SNR_DB])
                 row[APLog.THROUGHPUT_AVG_Mbps] = float(row[APLog.THROUGHPUT_AVG_Mbps])
                 row[APLog.P95_RETRY_PCT] = float(row[APLog.P95_RETRY_PCT])

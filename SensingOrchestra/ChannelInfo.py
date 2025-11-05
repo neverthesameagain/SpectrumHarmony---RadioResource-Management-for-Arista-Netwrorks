@@ -107,7 +107,10 @@ class ChannelInfo:
         self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
         self.cusum_update("QoE", qoe, self.qoe)
 
-    def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
+    def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_type):
+        if (self.DFS and nwifi_type == "radar"):
+            self.DFSClients.add(client)
+            print("DFS Radar detected...")
         self.avgCount += 1
         self.clients.add(client)
         self.alpha = self.getAlpha()
@@ -126,6 +129,9 @@ class ChannelInfo:
         self.cusum_update("Throughput", throughput, self.avgThroughput)
         self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
         self.cusum_update("QoE", qoe, self.qoe)
+
+    def clearDFSClients(self):
+        self.DFSClients = set()
 
     def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1

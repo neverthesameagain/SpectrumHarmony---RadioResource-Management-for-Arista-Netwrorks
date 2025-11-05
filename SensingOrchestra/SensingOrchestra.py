@@ -46,6 +46,7 @@ class SensingOrchestra:
             self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
             self.scan_thread_5_GHz.join(timeout=channelTime_5_Ghz)
             time.sleep(self.scanTime)
+            self.clearDFSClients_5_GHz()
 
     def scan_5_GHz(self):
         print("Scanning channels...")
@@ -165,6 +166,10 @@ class SensingOrchestra:
     def printChannelParameters_2_4_GHz(self):
         for channel in self.channelParameters_2_4_GHz:
             channel.printChannel()
+
+    def clearDFSClients_5_GHz(self):
+        for channel in self.channelParameters_5_GHz:
+            channel.clearDFSClients()
 
     def printChannelParameters_5_GHz(self):
         for channel in self.channelParameters_5_GHz:
