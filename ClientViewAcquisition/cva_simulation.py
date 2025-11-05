@@ -5,29 +5,28 @@ import random
 RSSI_MIN, RSSI_MAX = -70, -30
 RADIUS_M = 10.0
 
-# --- 1. NEW: CLIENT PERSONAS CONFIG ---
-# Defines how different clients behave based on QoE, not just RSSI.
+# --- 1. CLIENT PERSONAS CONFIG ---
 CLIENT_PERSONAS = {
     "default": {
         "name": "Default (Balanced)",
-        "supports_80211v": True,
-        "qoe_hysteresis": 0.5,  # Must be 0.5 QoE points better (your original logic)
+        "supports_80211v": True,  # Supports 802.11k/v
+        "qoe_hysteresis": 0.5,
     },
     "sticky_laptop": {
         "name": "Sticky Laptop (Corporate OUI)",
         "supports_80211v": True,
-        "qoe_hysteresis": 1.5,  # Needs a *significantly* better QoE (1.5 points) to roam
+        "qoe_hysteresis": 1.5,
     },
     "eager_phone": {
         "name": "Eager Phone (Modern OS)",
         "supports_80211v": True,
-        "qoe_hysteresis": 0.1,  # Will roam for almost any improvement (0.1 points)
+        "qoe_hysteresis": 0.1,
     },
     "legacy_device": {
         "name": "Legacy Device (No 11v)",
-        "supports_80211v": False, # Does not support 802.11v
-        "qoe_hysteresis": 99.9, # (will never be met)
-    }
+        "supports_80211v": False,  # Does not support 802.11k/v
+        "qoe_hysteresis": 99.9,
+    },
 }
 
 
@@ -44,12 +43,8 @@ def calculate_qoe(rssi, airtime_util):
     Simplified QoE function based on signal strength and AP congestion.
     Returns a score from 0 to 5.
     """
-    # Normalize signal (0-1)
     s_score = max(0, min(1, (rssi - (-85)) / ((-60) - (-85))))
-    # Normalize load (0-1, where 1 is good)
     l_score = 1 - max(0, min(1, airtime_util / 80.0))  # 80% is "full"
-
-    # Weighted average
     return 5 * (0.7 * s_score + 0.3 * l_score)
 
 
@@ -62,27 +57,26 @@ class Environment:
     def __init__(self):
         self.all_aps = []
         self.all_clients = []
-        # NEW: Global state of AP load, managed by the controller
-        self.ap_load_stats = {}  # { "AP-1": {"client_count": 10, "airtime_util_pct": 30.0}, ... }
+        self.ap_load_stats = {}
         print("[ENV]: Environment created.")
 
     def register_ap(self, ap):
         self.all_aps.append(ap)
-        # Initialize load
         self.ap_load_stats[ap.ap_id] = {"client_count": 0, "airtime_util_pct": 0.0}
         print(f"[ENV]: Registered {ap.ap_id} at ({ap.x}, {ap.y})")
 
     def register_client(self, client):
         self.all_clients.append(client)
-        print(f"[ENV]: Registered {client.client_id} ({client.persona['name']}) at ({client.x}, {client.y})")
+        print(
+            f"[ENV]: Registered {client.client_id} ({client.persona['name']}) at ({client.x}, {client.y})"
+        )
 
     def client_scan(self, scanning_client):
         """Physics engine: Client asks 'What can I see?'"""
         print(f"[ENV]: {scanning_client.client_id} is performing a scan...")
         scan_results = []
         for ap in self.all_aps:
-            if ap == scanning_client.connected_ap:
-                continue
+            # When scanning, a client can "hear" all APs
             rssi = calculate_rssi(scanning_client.x, scanning_client.y, ap.x, ap.y)
             if rssi > -85:
                 scan_results.append(
@@ -90,7 +84,7 @@ class Environment:
                         "bssid": ap.bssid,
                         "channel": ap.channel,
                         "rssi": round(rssi, 2),
-                        "ap_id": ap.ap_id,  # Helper for simulation
+                        "ap_id": ap.ap_id,
                     }
                 )
         return {"report": scan_results}
@@ -109,22 +103,26 @@ class Environment:
 
         old_ap = client.connected_ap
 
-        # 1. Disconnect from old AP
         if old_ap:
             old_ap.disconnect_client(client)
-            self.ap_load_stats[old_ap.ap_id]["client_count"] -= 1
+            if self.ap_load_stats[old_ap.ap_id]["client_count"] > 0:
+                self.ap_load_stats[old_ap.ap_id]["client_count"] -= 1
 
-        # 2. Connect to new AP
         new_ap.connect_client(client)
         self.ap_load_stats[new_ap.ap_id]["client_count"] += 1
-        print(
-            f"[ENV]: Client {client.client_id} successfully roamed from {old_ap.ap_id} to {new_ap.ap_id}"
-        )
+
+        # Only print roam message if there was an old AP
+        if old_ap:
+            print(
+                f"[ENV]: Client {client.client_id} successfully roamed from {old_ap.ap_id} to {new_ap.ap_id}"
+            )
         return True
 
 
 class AccessPoint:
     """Represents a virtual Access Point with RRM logic."""
+
+    POOR_QOE_THRESHOLD = 2.0  # AP will take action if estimated QoE is below this
 
     def __init__(self, environment, ap_id, x, y, channel):
         self.env = environment
@@ -135,12 +133,9 @@ class AccessPoint:
         self.channel = channel
         self.connected_clients = []
         self.rm_capable = True
-
-        # NEW: Metrics for logging (as per the PDF)
         self.steer_attempts = 0
         self.steer_successes = 0
         self.qoe_deltas = []
-
         self.env.register_ap(self)
 
     def connect_client(self, client):
@@ -152,62 +147,64 @@ class AccessPoint:
     def disconnect_client(self, client):
         if client in self.connected_clients:
             self.connected_clients.remove(client)
+            client.connected_ap = None  # Clear client's connection state
             print(f"[{self.ap_id}]: Client {client.client_id} has disassociated.")
 
-    def request_beacon_report(self, client_to_ask):
-        """Simulates the 802.11k request."""
-        if client_to_ask not in self.connected_clients:
-            print(f"[{self.ap_id}]: Cannot send 802.11k (client not connected).")
-            return
-        
-        # --- 3. UPDATED: Check client's persona capability ---
-        if not client_to_ask.rm_capable:
-            print(
-                f"[{self.ap_id}]: RRM: Cannot send 802.11k request to {client_to_ask.client_id} (device does not support it)."
-            )
+    def rrm_check_client(self, client):
+        """
+        Main RRM entry point.
+        Checks client capabilities and decides which RRM path to take.
+        """
+        print(f"\n--- RRM Check for {client.client_id} on {self.ap_id} ---")
+        if client not in self.connected_clients:
+            print(f"[{self.ap_id}]: RRM: Client {client.client_id} not connected.")
             return
 
+        if client.persona["supports_80211v"]:
+            # --- 1. ACTIVE PATH (802.11k/v) ---
+            print(
+                f"[{self.ap_id}]: RRM: Client {client.client_id} supports 802.11k/v. Using ACTIVE probe."
+            )
+            self.request_active_beacon_report(client)
+        else:
+            # --- 2. PASSIVE PATH (Inference) ---
+            print(
+                f"[{self.ap_id}]: RRM: Client {client.client_id} is a legacy device. Using PASSIVE inference."
+            )
+            self.run_passive_inference_and_steer(client)
+
+    def request_active_beacon_report(self, client_to_ask):
+        """Simulates the 802.11k request."""
         print(
-            f"\n[{self.ap_id}]: Sending 'Beacon Request' to {client_to_ask.client_id}..."
+            f"[{self.ap_id}]: Sending 'Beacon Request' to {client_to_ask.client_id}..."
         )
         client_report = client_to_ask.receive_beacon_request_and_scan()
+        self.analyze_active_report_and_steer(client_to_ask, client_report)
 
-        # ** NEW: Instead of just printing, send to the RRM "brain" **
-        self.analyze_report_and_steer(client_to_ask, client_report)
-
-    # ------------------------------------------------------------------
-    # --- THIS IS THE FUNCTION YOU REQUESTED ---
-    # ------------------------------------------------------------------
-    def analyze_report_and_steer(self, client, client_report):
+    def analyze_active_report_and_steer(self, client, client_report):
         """
         Uses client-view + AP load to craft ranked neighbor lists
         and simulates an 802.11v BSS-TM request.
         """
-        print(f"[{self.ap_id}]: RRM: Analyzing client-view for {client.client_id}...")
-
-        # 1. Get Pre-RoAM QoE
+        print(
+            f"[{self.ap_id}]: RRM: Analyzing (Active) client-view for {client.client_id}..."
+        )
         pre_roam_qoe = client.calculate_current_qoe()
         print(f"[{self.ap_id}]: RRM: Client's pre-roam QoE is {pre_roam_qoe:.2f}/5.0")
 
-        # 2. Get "Client-View" (the report) and "AP Load" (from env)
         candidates = []
         for ap_entry in client_report["report"]:
+            if ap_entry["ap_id"] == self.ap_id:
+                continue  # Skip self
+
             ap_id = ap_entry["ap_id"]
             client_view_rssi = ap_entry["rssi"]
-
-            # --- Fusing Data Sources ---
-            # Get the "AP Load" from the central controller (our env)
             global_load = self.env.get_ap_load(ap_id)
             airtime = global_load["airtime_util_pct"]
-
-            # --- Crafting the Score ---
-            # We score based 70% on signal strength (client-view)
-            # and 30% on AP load (controller-view).
             rssi_score = max(
                 0, min(100, (client_view_rssi - (-85)) / ((-60) - (-85)) * 100)
             )
-            load_score = max(0, 100 - airtime)  # 100 is best (0% load)
-
+            load_score = max(0, 100 - airtime)
             final_score = (0.7 * rssi_score) + (0.3 * load_score)
 
             candidates.append(
@@ -219,7 +216,6 @@ class AccessPoint:
                 }
             )
 
-        # 3. --- Craft Ranked Neighbor List ---
         if not candidates:
             print(
                 f"[{self.ap_id}]: RRM: No viable roaming candidates found for {client.client_id}."
@@ -227,35 +223,87 @@ class AccessPoint:
             return
 
         ranked_list = sorted(candidates, key=lambda x: x["score"], reverse=True)
-
-        print(f"[{self.ap_id}]: RRM: Crafted ranked neighbor list:")
+        print(f"[{self.ap_id}]: RRM: Crafted ranked neighbor list (Active):")
         for i, c in enumerate(ranked_list):
             print(
                 f"  {i + 1}. {c['ap_id']} (Score: {c['score']:.1f}, RSSI: {c['client_view_rssi']}, Load: {c['ap_load_airtime']}%)"
             )
 
-        # 4. --- Simulate 802.11v BSS-TM Request ---
         print(
             f"[{self.ap_id}]: RRM: Sending 802.11v BSS-TM suggestion to {client.client_id}..."
         )
         self.steer_attempts += 1
-
-        # The client makes its own decision and returns True (Accepted) or False (Rejected)
         acceptance = client.receive_bss_tm_request(ranked_list)
 
-        # 5. --- Log Client Acceptance Rate & Post-Roam QoE Deltas ---
         if acceptance:
             self.steer_successes += 1
             post_roam_qoe = client.calculate_current_qoe()
             qoe_delta = post_roam_qoe - pre_roam_qoe
             self.qoe_deltas.append(qoe_delta)
-
             print(f"[{self.ap_id}]: RRM: Client ACCEPTED roam.")
             print(
                 f"[{self.ap_id}]: RRM: Post-roam QoE is {post_roam_qoe:.2f}. Delta: {qoe_delta:+.2f}"
             )
         else:
             print(f"[{self.ap_id}]: RRM: Client REJECTED roam.")
+
+    def run_passive_inference_and_steer(self, client):
+        """
+        Passively "observes" a client's metrics, estimates its QoE,
+        and takes legacy steering action if QoE is poor.
+        """
+        # 1. AP "passively observes" the client's uplink traffic
+        metrics = client.generate_passive_metrics()
+        print(f"[{self.ap_id}]: RRM: Passively observed client metrics:")
+        print(f"    Uplink MCS Index: {metrics['uplink_mcs_index']} (0=slow, 9=fast)")
+        print(f"    Uplink Retry Pct: {metrics['uplink_retry_pct']:.1f}% (High=bad)")
+        print(f"    ACK Variance (ms): {metrics['ack_variance_ms']:.2f}ms (High=bad)")
+
+        # 2. AP RRM "brain" makes an inference (educated guess) of the client's QoE
+        #    This is the *AP's* logic, trying to reverse-engineer the QoE.
+        mcs_score = metrics["uplink_mcs_index"] / 9.0  # 0.0-1.0
+        retry_score = 1.0 - (metrics["uplink_retry_pct"] / 30.0)  # 0.0-1.0 (clamped)
+        ack_score = 1.0 - (metrics["ack_variance_ms"] / 2.0)  # 0.0-1.0 (clamped)
+
+        # Weighted average to get a 0-1 score, then scale to 0-5
+        estimated_qoe = (mcs_score * 0.5 + retry_score * 0.25 + ack_score * 0.25) * 5.0
+
+        print(
+            f"[{self.ap_id}]: RRM: Client's *actual* QoE is {client.calculate_current_qoe():.2f}/5.0"
+        )
+        print(f"[{self.ap_id}]: RRM: AP's *inferred* QoE is {estimated_qoe:.2f}/5.0")
+
+        # 3. AP takes action based on its inference
+        if estimated_qoe < self.POOR_QOE_THRESHOLD:
+            print(
+                f"[{self.ap_id}]: RRM: Inferred QoE is below threshold ({self.POOR_QOE_THRESHOLD})."
+            )
+            print(
+                f"[{self.ap_id}]: RRM: Forcing disassociation (legacy steer) to {client.client_id}..."
+            )
+            self.steer_attempts += 1  # This counts as a steer attempt
+
+            # This "kick" is the only option for a non-802.11v client
+            self.disconnect_client(client)
+
+            pre_roam_qoe = client.calculate_current_qoe()
+
+            # The client will now (hopefully) find a better AP
+            new_ap = client.find_best_ap_and_associate()
+
+            if new_ap and new_ap != self:
+                print(
+                    f"[{self.ap_id}]: RRM: Client {client.client_id} successfully moved to {new_ap.ap_id}."
+                )
+                self.steer_successes += 1  # We count this as a success
+                post_roam_qoe = client.calculate_current_qoe()
+                self.qoe_deltas.append(post_roam_qoe - pre_roam_qoe)
+            else:
+                print(
+                    f"[{self.ap_id}]: RRM: Client {client.client_id} rejoined this AP."
+                )
+        else:
+            print(f"[{self.ap_id}]: RRM: Inferred QoE is acceptable. No action taken.")
 
     def print_steering_stats(self):
         print(f"\n--- RRM Steering Stats for {self.ap_id} ---")
@@ -264,10 +312,13 @@ class AccessPoint:
             avg_qoe_delta = (
                 sum(self.qoe_deltas) / len(self.qoe_deltas) if self.qoe_deltas else 0
             )
+            print(f"  Total Steer Attempts (Active + Passive): {self.steer_attempts}")
             print(
-                f"  Acceptance Rate: {acceptance_rate:.1f}% ({self.steer_successes}/{self.steer_attempts})"
+                f"  Success/Acceptance Rate: {acceptance_rate:.1f}% ({self.steer_successes}/{self.steer_attempts})"
             )
-            print(f"  Avg. QoE Delta: {avg_qoe_delta:+.2f}")
+            print(
+                f"  Avg. QoE Delta (from Active + Passive steers): {avg_qoe_delta:+.2f}"
+            )
         else:
             print("  No steering attempts made.")
 
@@ -275,18 +326,14 @@ class AccessPoint:
 class ClientDevice:
     """Represents a virtual Wi-Fi Client with roaming logic."""
 
-    # --- 2. UPDATED: __init__ now accepts a persona ---
     def __init__(self, environment, client_id, x, y, persona_key="default"):
         self.env = environment
         self.client_id = client_id
         self.x = x
         self.y = y
         self.connected_ap = None
-        
-        # Set persona
         self.persona = CLIENT_PERSONAS.get(persona_key, CLIENT_PERSONAS["default"])
-        self.rm_capable = self.persona["supports_80211v"] # 11k/v capable
-        
+        self.rm_capable = self.persona["supports_80211v"]
         self.env.register_client(self)
 
     def receive_beacon_request_and_scan(self):
@@ -300,58 +347,114 @@ class ClientDevice:
         """Calculates this client's current QoE based on its connection."""
         if not self.connected_ap:
             return 0.0
-
-        # Get current signal
         rssi = calculate_rssi(self.x, self.y, self.connected_ap.x, self.connected_ap.y)
-        # Get current AP load
         load_stats = self.env.get_ap_load(self.connected_ap.ap_id)
         airtime = load_stats["airtime_util_pct"]
-
         return calculate_qoe(rssi, airtime)
 
-    # --- 3. UPDATED: Decision logic is now driven by persona ---
     def receive_bss_tm_request(self, ranked_list):
         """
         Simulates the client's decision logic for an 802.11v request.
         """
         print(f"[{self.client_id}]: Received 802.11v BSS-TM request.")
-        
-        if not self.rm_capable:
-            print(f"[{self.client_id}]: Decision: REJECT. Persona '{self.persona['name']}' does not support 802.11v.")
-            return False
 
+        if not self.rm_capable:
+            print(
+                f"[{self.client_id}]: Decision: REJECT. Persona '{self.persona['name']}' does not support 802.11v."
+            )
+            return False
         if not ranked_list:
-            return False  # Reject if list is empty
+            return False
 
         best_candidate = ranked_list[0]
         current_qoe = self.calculate_current_qoe()
-
-        # Calculate the *potential* QoE with the new AP
         potential_rssi = best_candidate["client_view_rssi"]
         potential_load = best_candidate["ap_load_airtime"]
         potential_qoe = calculate_qoe(potential_rssi, potential_load)
-
-        # --- Client's Roaming Logic (Hysteresis) ---
-        # Get the required QoE improvement from the persona
         qoe_threshold = self.persona["qoe_hysteresis"]
-        
-        print(f"[{self.client_id}]: Persona '{self.persona['name']}' checking: Potential QoE ({potential_qoe:.2f}) > Current QoE ({current_qoe:.2f}) + Threshold ({qoe_threshold:.2f})")
+
+        print(
+            f"[{self.client_id}]: Persona '{self.persona['name']}' checking: Potential QoE ({potential_qoe:.2f}) > Current QoE ({current_qoe:.2f}) + Threshold ({qoe_threshold:.2f})"
+        )
 
         if potential_qoe > (current_qoe + qoe_threshold):
             print(
-                f"[{self.client_id}]: Decision: ACCEPT. New QoE {potential_qoe:.2f} > Old QoE {current_qoe:.2f} + {qoe_threshold}"
+                f"[{self.client_id}]: Decision: ACCEPT. Roaming to {best_candidate['ap_id']}."
             )
             self.env.handle_roam(self, best_candidate["ap_id"])
             return True
         else:
             print(
-                f"[{self.client_id}]: Decision: REJECT. New QoE {potential_qoe:.2f} is not significantly better than Old QoE {current_qoe:.2f}."
+                f"[{self.client_id}]: Decision: REJECT. New QoE {potential_qoe:.2f} is not significantly better."
             )
             return False
 
+    def generate_passive_metrics(self):
+        """
+        Models the client's uplink transmission stats based on its current QoE.
+        This simulates what the AP would "passively infer."
+        """
+        current_qoe = self.calculate_current_qoe()
+        qoe_pct = max(0, min(1, current_qoe / 5.0))  # 0.0 = worst, 1.0 = best
+
+        # 1. Uplink MCS (0-9): High QoE = High MCS
+        base_mcs = qoe_pct * 9.0
+        mcs = int(max(0, min(9, base_mcs + random.uniform(-1, 1))))
+
+        # 2. Uplink Retry % (1%-30%): High QoE = Low Retries
+        base_retry = 1.0
+        max_retry = 30.0
+        retry = max_retry - (qoe_pct * (max_retry - base_retry))
+        retry = max(0, min(100, retry + random.uniform(-3, 3)))
+
+        # 3. ACK Variance (0.1ms - 2.0ms): High QoE = Low Variance
+        base_var = 0.1
+        max_var = 2.0
+        variance = max_var - (qoe_pct * (max_var - base_var))
+        variance = max(0.05, variance + random.uniform(-0.1, 0.1))
+
+        return {
+            "uplink_mcs_index": mcs,
+            "uplink_retry_pct": retry,
+            "ack_variance_ms": variance,
+        }
+
+    def find_best_ap_and_associate(self):
+        """
+        Simulates a legacy client's logic after being disconnected.
+        It scans all APs and joins the one with the best *potential* QoE.
+        """
+        print(f"[{self.client_id}]: Disconnected. Scanning for new AP...")
+        best_ap = None
+        best_qoe = -1.0
+
+        # Client does its own scan of all APs in the environment
+        scan_results = self.env.client_scan(self)
+
+        for ap_entry in scan_results["report"]:
+            potential_rssi = ap_entry["rssi"]
+            potential_load = self.env.get_ap_load(ap_entry["ap_id"])["airtime_util_pct"]
+            potential_qoe = calculate_qoe(potential_rssi, potential_load)
+
+            print(
+                f"[{self.client_id}]: ...sees {ap_entry['ap_id']} (Potential QoE: {potential_qoe:.2f})"
+            )
+
+            if potential_qoe > best_qoe:
+                best_qoe = potential_qoe
+                best_ap = ap_entry["ap_id"]
+
+        if best_ap:
+            print(f"[{self.client_id}]: Found best AP: {best_ap}. Associating...")
+            self.env.handle_roam(self, best_ap)  # Use handle_roam to connect
+            return next((ap for ap in self.env.all_aps if ap.ap_id == best_ap), None)
+        else:
+            print(f"[{self.client_id}]: No APs found in scan!")
+            return None
+
 
 print("==========================================================")
-print("== RRM 802.11k/v Simulation with Personas & AP Load ==")
+print("== RRM 802.11k/v + Passive Fallback Simulation ==")
 print("==========================================================\n")
 
 # 1. Create the World
@@ -363,26 +466,28 @@ ap2 = AccessPoint(sim_environment, "AP-2 (Office)", x=20, y=10, channel=6)
 ap3 = AccessPoint(sim_environment, "AP-3 (Cafe)", x=40, y=10, channel=11)
 
 # 3. Create Clients with different personas
-#    All clients are at (x=15, y=10), physically closer to AP-2.
-#    BUT, we will make AP-2 very busy, so AP-3 becomes a better choice.
-client_eager = ClientDevice(sim_environment, "Client-Eager", x=15, y=10, persona_key="eager_phone")
-client_sticky = ClientDevice(sim_environment, "Client-Sticky", x=15, y=10, persona_key="sticky_laptop")
-client_legacy = ClientDevice(sim_environment, "Client-Legacy", x=15, y=10, persona_key="legacy_device")
+client_eager = ClientDevice(
+    sim_environment, "Client-Eager", x=15, y=10, persona_key="eager_phone"
+)
+client_sticky = ClientDevice(
+    sim_environment, "Client-Sticky", x=15, y=10, persona_key="sticky_laptop"
+)
+client_legacy = ClientDevice(
+    sim_environment, "Client-Legacy", x=15, y=10, persona_key="legacy_device"
+)
 
 
 # 4. Set up the Scenario
-#    All clients associate with AP-2 (the closest)
 ap2.connect_client(client_eager)
 ap2.connect_client(client_sticky)
 ap2.connect_client(client_legacy)
 
-#    NOW, set the "Global AP Load"
 sim_environment.ap_load_stats["AP-1 (Hall)"] = {
     "client_count": 5,
     "airtime_util_pct": 20.0,
 }
 sim_environment.ap_load_stats["AP-2 (Office)"] = {
-    "client_count": 35, # High client count
+    "client_count": 35,
     "airtime_util_pct": 90.0,
 }  # <-- VERY BUSY!
 sim_environment.ap_load_stats["AP-3 (Cafe)"] = {
@@ -392,16 +497,27 @@ sim_environment.ap_load_stats["AP-3 (Cafe)"] = {
 
 print("\n--- Setup Complete (3 Clients on busy AP-2) ---\n")
 
-# 5. --- RUN THE SIMULATION ---
-#    AP-2's RRM engine triggers 802.11k for all its clients
-#    to see if it can steer them.
-ap2.request_beacon_report(client_eager)
-ap2.request_beacon_report(client_sticky)
-ap2.request_beacon_report(client_legacy)
+# This top-level function will now automatically use the
+# correct RRM path (Active or Passive) for each client.
+
+ap2.rrm_check_client(client_eager)  # Will use 802.11k/v
+ap2.rrm_check_client(client_sticky)  # Will use 802.11k/v
+ap2.rrm_check_client(client_legacy)  # Will use Passive Inference & Forced Kick
 
 
 print("\n\n==========================================================")
 print("== Simulation Finished ==")
-# Print the final metrics as per the PDF
+# Print the final metrics
 ap2.print_steering_stats()
+print("================================D==========================")
+print("Final Client Locations:")
+print(
+    f"  {client_eager.client_id}:  {client_eager.connected_ap.ap_id if client_eager.connected_ap else 'None'}"
+)
+print(
+    f"  {client_sticky.client_id}: {client_sticky.connected_ap.ap_id if client_sticky.connected_ap else 'None'}"
+)
+print(
+    f"  {client_legacy.client_id}: {client_legacy.connected_ap.ap_id if client_legacy.connected_ap else 'None'}"
+)
 print("==========================================================")
