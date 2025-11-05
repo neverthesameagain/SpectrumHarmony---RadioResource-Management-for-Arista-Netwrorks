@@ -26,7 +26,7 @@ class ChannelInfo:
         self.channel_width = 0
         self.inteferenceWeight = 1
         self.DFS = 1 if self.channel in BAND_5_DFS_CHANNELS else 0
-        self.DFSState = DFSState.AVAILABLE if self.DFS else DFSState.NOT_AVAILABLE
+        self.DFSState = DFSState.AVAILABLE
         self.DFSClients = set()
         self.alpha = self.getAlpha()
         self.threshold = 0.2
@@ -34,7 +34,7 @@ class ChannelInfo:
         self.cusum_pos = {}
         self.cusum_neg = {}
         self.cusum_threshold = 5.0
-        self.cusum_k = 0.2
+        self.cusum_k = 0.7
         print("Creating band:", band, "channel:", channel)
 
     # Define reward function based on channel parameters
@@ -108,9 +108,13 @@ class ChannelInfo:
         self.cusum_update("QoE", qoe, self.qoe)
 
     def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_type):
-        if (self.DFS and nwifi_type == "radar"):
+        if (self.DFSState == DFSState.NOT_AVAILABLE):
+            return
+        if (self.DFS and nwifi_type == "Radar"):
             self.DFSClients.add(client)
+            self.DFSState = DFSState.NOT_AVAILABLE
             print("DFS Radar detected...")
+            return
         self.avgCount += 1
         self.clients.add(client)
         self.alpha = self.getAlpha()
@@ -125,13 +129,17 @@ class ChannelInfo:
         self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
         self.detect_change("QoE", qoe, self.qoe)
 
-        self.cusum_update("SNR", snr, self.avgClientSNR)
-        self.cusum_update("Throughput", throughput, self.avgThroughput)
-        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.cusum_update("QoE", qoe, self.qoe)
+        # self.cusum_update("SNR", snr, self.avgClientSNR)
+        # self.cusum_update("Throughput", throughput, self.avgThroughput)
+        # self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
+        # self.cusum_update("QoE", qoe, self.qoe)
 
     def clearDFSClients(self):
         self.DFSClients = set()
+        self.DFSState = DFSState.AVAILABLE
+
+    def getDFSState(self):
+        return self.DFSState.value # 1 means no dfs radar present
 
     def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1

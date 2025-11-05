@@ -7,5 +7,5 @@ class WiFiBand(Enum):
     BAND_6_GHz = "6GHz"
 
 class DFSState(Enum):
-    AVAILABLE = 1
-    NOT_AVAILABLE = 0
+    AVAILABLE = 1 # the channel is available for use
+    NOT_AVAILABLE = 0 # the channel is not available for use
