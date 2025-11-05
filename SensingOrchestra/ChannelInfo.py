@@ -28,6 +28,13 @@ class ChannelInfo:
         self.DFS = 1 if self.channel in BAND_5_DFS_CHANNELS else 0
         self.DFSState = DFSState.AVAILABLE if self.DFS else DFSState.NOT_AVAILABLE
         self.DFSClients = set()
+        self.alpha = self.getAlpha()
+        self.threshold = 0.2
+
+        self.cusum_pos = {}
+        self.cusum_neg = {}
+        self.cusum_threshold = 5.0
+        self.cusum_k = 0.2
         print("Creating band:", band, "channel:", channel)
 
     # Define reward function based on channel parameters
@@ -41,58 +48,119 @@ class ChannelInfo:
         qoe_score = self.qoe / 5.0
         noise_score = max(0, min((-self.noiseFloor - 80) / 20, 1))
         client_penalty = 1 / (1 + len(self.clients))
-        estReward = (0.25 * throughput_score +
-                     0.2 * snr_score +
-                     0.15 * qoe_score +
+        estReward = (0.25 * (1 - throughput_score) +
+                     0.2 * (1 - snr_score) +
+                     0.15 * (1 - qoe_score) +
                      0.15 * utilization_penalty +
                      0.1 * interference_penalty +
-                     0.1 * noise_score +
-                     0.05 * client_penalty)
+                     0.1 * (1 - noise_score) +
+                     0.05 * (1 - client_penalty))
         return estReward
+
+    def updateEWMA(self, prev_value, new_value, alpha):
+        return alpha * new_value + (1 - alpha) * prev_value
+
+    def getAlpha(self):
+        N = self.avgCount
+        return min(0.3, 2 / (N + 1))
+
+    def detect_change(self, name, new_value, avg_value, threshold=0.2):
+        if avg_value != 0 and abs(new_value - avg_value) / abs(avg_value) > threshold:
+            print(f"[ALERT] Sudden change detected in {name}: {new_value:.2f} (avg={avg_value:.2f})")
+
+    def cusum_update(self, name, new_value, mean):
+        if name not in self.cusum_pos:
+            self.cusum_pos[name] = 0
+            self.cusum_neg[name] = 0
+
+        deviation = new_value - mean
+
+        self.cusum_pos[name] = max(0, self.cusum_pos[name] + deviation - self.cusum_k)
+        self.cusum_neg[name] = max(0, self.cusum_neg[name] - deviation - self.cusum_k)
+
+        if self.cusum_pos[name] > self.cusum_threshold:
+            print(f"[CUSUM ALERT] {name} increasing shift detected! deviation={deviation:.2f}")
+            self.cusum_pos[name] = 0
+        elif self.cusum_neg[name] > self.cusum_threshold:
+            print(f"[CUSUM ALERT] {name} decreasing shift detected! deviation={deviation:.2f}")
+            self.cusum_neg[name] = 0
 
     def updateChannel_2_4_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected):
         self.avgCount += 1
-        self.noiseFloor = noiseFloor
-        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+snr)/self.avgCount
-        self.avgThroughput = ((self.avgCount-1)*self.avgThroughput+throughput)/self.avgCount
         self.clients.add(client)
-        self.qoe = ((self.avgCount-1)*self.qoe+qoe)/self.avgCount
-        self.channelUtilization = ((self.avgCount-1)*self.channelUtilization+(busy_time/total_time))/self.avgCount
+        self.alpha = self.getAlpha()
+        self.noiseFloor = self.updateEWMA(self.noiseFloor, noiseFloor, self.alpha)
+        self.avgClientSNR = self.updateEWMA(self.avgClientSNR, snr, self.alpha)
+        self.avgThroughput = self.updateEWMA(self.avgThroughput, throughput, self.alpha)
+        self.qoe = self.updateEWMA(self.qoe, qoe, self.alpha)
+        self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
         if nwifi_detected:
             self.interference += self.inteferenceWeight  # add a value for this
 
+        self.detect_change("SNR", snr, self.avgClientSNR)
+        self.detect_change("Throughput", throughput, self.avgThroughput)
+        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.detect_change("QoE", qoe, self.qoe)
+
+        self.cusum_update("SNR", snr, self.avgClientSNR)
+        self.cusum_update("Throughput", throughput, self.avgThroughput)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.cusum_update("QoE", qoe, self.qoe)
+
     def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1
-        self.noiseFloor = noiseFloor
-        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+snr)/self.avgCount
-        self.avgThroughput = ((self.avgCount-1)*self.avgThroughput+throughput)/self.avgCount
         self.clients.add(client)
-        self.qoe = ((self.avgCount-1)*self.qoe+qoe)/self.avgCount
-        self.channelUtilization = ((self.avgCount-1)*self.channelUtilization+(busy_time/total_time))/self.avgCount
+        self.alpha = self.getAlpha()
+        self.noiseFloor = self.updateEWMA(self.noiseFloor, noiseFloor, self.alpha)
+        self.avgClientSNR = self.updateEWMA(self.avgClientSNR, snr, self.alpha)
+        self.avgThroughput = self.updateEWMA(self.avgThroughput, throughput, self.alpha)
+        self.qoe = self.updateEWMA(self.qoe, qoe, self.alpha)
+        self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
+
+        self.detect_change("SNR", snr, self.avgClientSNR)
+        self.detect_change("Throughput", throughput, self.avgThroughput)
+        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.detect_change("QoE", qoe, self.qoe)
+
+        self.cusum_update("SNR", snr, self.avgClientSNR)
+        self.cusum_update("Throughput", throughput, self.avgThroughput)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.cusum_update("QoE", qoe, self.qoe)
 
     def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1
-        self.noiseFloor = noiseFloor
-        self.avgClientSNR = ((self.avgCount-1)*self.avgClientSNR+snr)/self.avgCount
-        self.avgThroughput = ((self.avgCount-1)*self.avgThroughput+throughput)/self.avgCount
         self.clients.add(client)
-        self.qoe = ((self.avgCount-1)*self.qoe+qoe)/self.avgCount
-        self.channelUtilization = ((self.avgCount-1)*self.channelUtilization+(busy_time/total_time))/self.avgCount
+        self.alpha = self.getAlpha()
+        self.noiseFloor = self.updateEWMA(self.noiseFloor, noiseFloor, self.alpha)
+        self.avgClientSNR = self.updateEWMA(self.avgClientSNR, snr, self.alpha)
+        self.avgThroughput = self.updateEWMA(self.avgThroughput, throughput, self.alpha)
+        self.qoe = self.updateEWMA(self.qoe, qoe, self.alpha)
+        self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
+
+        self.detect_change("SNR", snr, self.avgClientSNR)
+        self.detect_change("Throughput", throughput, self.avgThroughput)
+        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.detect_change("QoE", qoe, self.qoe)
+
+        self.cusum_update("SNR", snr, self.avgClientSNR)
+        self.cusum_update("Throughput", throughput, self.avgThroughput)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.cusum_update("QoE", qoe, self.qoe)
 
     def printChannel(self):
         print("--------------------------------\n")
-        print(f"{'BAND:':25} {self.band}")
-        print(f"{'CHANNEL:':25} {self.channel}")
-        print(f"{'NOISE FLOOR (dBm):':25} {self.noiseFloor}")
-        print(f"{'AVG CLIENT SNR (dB):':25} {self.avgClientSNR}")
-        print(f"{'AVG COUNT:':25} {self.avgCount}")
-        print(f"{'AVG THROUGHPUT (Mbps):':25} {self.avgThroughput}")
-        print(f"{'CHANNEL UTILIZATION:':25} {self.channelUtilization}")
-        print(f"{'INTERFERENCE:':25} {self.interference}")
-        print(f"{'CLIENTS:':25} {self.clients}")
-        print(f"{'QOE:':25} {self.qoe}")
-        print(f"{'TX POWER (dBm):':25} {self.tx_power}")
-        print(f"{'CHANNEL WIDTH (MHz):':25} {self.channel_width}")
-        print(f"{'INTERFERENCE WEIGHT:':25} {self.inteferenceWeight}")
-        print(f"{'DFS:':25} {self.DFS}")
+        print(f"{self.band}  {'BAND:':25} {self.band}")
+        print(f"{self.band}  {'CHANNEL:':25} {self.channel}")
+        print(f"{self.band}  {'NOISE FLOOR (dBm):':25} {self.noiseFloor}")
+        print(f"{self.band}  {'AVG CLIENT SNR (dB):':25} {self.avgClientSNR}")
+        print(f"{self.band}  {'AVG COUNT:':25} {self.avgCount}")
+        print(f"{self.band}  {'AVG THROUGHPUT (Mbps):':25} {self.avgThroughput}")
+        print(f"{self.band}  {'CHANNEL UTILIZATION:':25} {self.channelUtilization}")
+        print(f"{self.band}  {'INTERFERENCE:':25} {self.interference}")
+        print(f"{self.band}  {'CLIENTS:':25} {self.clients}")
+        print(f"{self.band}  {'QOE:':25} {self.qoe}")
+        print(f"{self.band}  {'TX POWER (dBm):':25} {self.tx_power}")
+        print(f"{self.band}  {'CHANNEL WIDTH (MHz):':25} {self.channel_width}")
+        print(f"{self.band}  {'INTERFERENCE WEIGHT:':25} {self.inteferenceWeight}")
+        print(f"{self.band}  {'DFS:':25} {self.DFS}")
         print()

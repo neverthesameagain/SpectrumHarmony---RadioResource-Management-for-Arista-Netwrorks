@@ -1,9 +1,11 @@
+import threading
 from ChannelInfo import *
 import utils.APLogsColumns as APLog
 from utils.WiFiBandEnum import WiFiBand
 from utils.CSVParser import CSVParser
 from MAB import MAB
 import os
+import time
 
 base_dir = os.path.dirname(__file__)
 
@@ -15,7 +17,55 @@ class SensingOrchestra:
         self.channelParameters_2_4_GHz = []
         self.numChannels_5s_GHz = 0
         self.channelParameters_5_GHz = []
+        self.channel_2_4_GHz = 0
+        self.channelReward_2_4_GHz = 1
+        self.channel_5_GHz = 0
+        self.channelReward_5_GHz = 1
+        self.scanTime = 0.2  # 1 second
+        self.serveTime = 5.9  # 59 seconds
+        self.startTime = time.time()
         print("Initiating Sensing Orchestra...")
+
+    def start(self):
+        self.initiateChannels()
+        # file_path = os.path.join(base_dir, "data", "apLogs.csv")  # TODO: should be initialising channels beacons
+        # self.simulateRadioInput(file_path)
+        self.initializeMAB()
+        while (True):
+            self.startTime = time.time()
+            while (time.time() - self.startTime < self.serveTime):
+                print("Serving Client Request...")
+                time.sleep(self.serveTime)
+
+            channelTime_2_4_Ghz = self.scanTime * self.channelReward_2_4_GHz
+            channelTime_5_Ghz = self.scanTime * self.channelReward_5_GHz
+            self.scan_thread_2_4_GHz = threading.Thread(target=self.scan_2_4_GHz)
+            self.scan_thread_5_GHz = threading.Thread(target=self.scan_5_GHz)
+            self.scan_thread_2_4_GHz.start()
+            self.scan_thread_5_GHz.start()
+            self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
+            self.scan_thread_5_GHz.join(timeout=channelTime_5_Ghz)
+            time.sleep(self.scanTime)
+
+    def scan_5_GHz(self):
+        print("Scanning channels...")
+        print("For 5GHz...")
+        self.channel_5_GHz = self.chooseChannel_5_GHz()
+        print("Noisiest 5GHz channel...", self.channel_5_GHz)
+        idx = self.convertbandToIdx(WiFiBand.BAND_5_GHz, self.channel_5_GHz)
+        self.channelParameters_5_GHz[idx].printChannel()
+        file_path = os.path.join(base_dir, "data", f"Aplog_5_GHz_{self.channel_5_GHz}.csv")
+        self.simulateRadioInput(file_path)  # read the respective channel detail
+
+    def scan_2_4_GHz(self):
+        print("Scanning channels...")
+        print("For 2_4GHz...")
+        self.channel_2_4_GHz = self.chooseChannel_2_4_GHz()
+        print("Noisiest 2_4GHz channel...", self.channel_2_4_GHz)
+        idx = self.convertbandToIdx(WiFiBand.BAND_2_4_GHz, self.channel_2_4_GHz)
+        self.channelParameters_2_4_GHz[idx].printChannel()
+        file_path = os.path.join(base_dir, "data", f"Aplog_2_4_GHz_{self.channel_2_4_GHz}.csv")
+        self.simulateRadioInput(file_path)  # read the respective channel detail
 
     def initiateChannels(self):
         self.numChannels_2_4_GHz = 14
@@ -45,16 +95,16 @@ class SensingOrchestra:
 
     def chooseChannel_2_4_GHz(self):
         bestChannel = self.MAB_2_4_GHz.selectArm()
-        channelReward = self.channelParameters_2_4_GHz[bestChannel].reward()
-        self.MAB_2_4_GHz.updateArm(bestChannel, channelReward)
+        self.channelReward_2_4_GHz = self.channelParameters_2_4_GHz[bestChannel].reward()
+        self.MAB_2_4_GHz.updateArm(bestChannel, self.channelReward_2_4_GHz)
         channel = self.convertIdxToBand(WiFiBand.BAND_2_4_GHz, bestChannel)
         # Might have to call BO and decide the width and send it together
         return channel
 
     def chooseChannel_5_GHz(self):
         bestChannel = self.MAB_5_GHz.selectArm()
-        channelReward = self.channelParameters_5_GHz[bestChannel].reward()
-        self.MAB_5_GHz.updateArm(bestChannel, channelReward)
+        self.channelReward_5_GHz = self.channelParameters_5_GHz[bestChannel].reward()
+        self.MAB_5_GHz.updateArm(bestChannel, self.channelReward_5_GHz)
         channel = self.convertIdxToBand(WiFiBand.BAND_5_GHz, bestChannel)
         # Might have to call BO and decide the width and send it together
         return channel
@@ -123,17 +173,13 @@ class SensingOrchestra:
 
 if __name__ == "__main__":
     rrm = SensingOrchestra(WiFiBand.BAND_5_GHz)
-    rrm.initiateChannels()
-    file_path = os.path.join(base_dir, "data", "apLogs.csv")
-    rrm.simulateRadioInput(file_path)
-    rrm.initializeMAB()
+    rrm.start()
+    # rrm.initiateChannels()
+    # file_path = os.path.join(base_dir, "data", "apLogs.csv")  # TODO: should be initialising channels beacons
     # rrm.simulateRadioInput(file_path)
-    print("For 5GHz...")
-    rrm.printChannelParameters_5_GHz()
-    channel_5GHz = rrm.chooseChannel_5_GHz()
-
-    print("For 2.4GHz...")
-    rrm.printChannelParameters_2_4_GHz()
-    channel_2_4_GHz = rrm.chooseChannel_2_4_GHz()
-    print("Best 5GHz channel...", channel_5GHz)
-    print("Best 2.4GHz channel...", channel_2_4_GHz)
+    # rrm.initializeMAB()
+    # print("Scanning channels...")
+    # print("For 5GHz...")
+    # channel_5GHz = rrm.chooseChannel_5_GHz()
+    # print("Noisiest 5GHz channel...", channel_5GHz)
+    # rrm.printChannelParameters_5_GHz()
