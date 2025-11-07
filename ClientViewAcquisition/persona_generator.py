@@ -225,8 +225,16 @@ CLIENT_PERSONAS = {
 def generate_ap_layout(n_aps=12, grid_spacing=15):
     aps = []
     bands = ["2.4GHz", "5GHz"]
-    channels_24 = [1, 6, 11]
-    channels_5 = [36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161]
+    channels_24 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+    channels_5 = [
+    36, 40, 44, 48,          # UNII-1
+    52, 56, 60, 64,          # UNII-2 (DFS)
+    100, 104, 108, 112, 116, 120, 124, 128,
+    132, 136, 140, 144,      # UNII-2e (DFS)
+    149, 153, 157, 161, 165  # UNII-3
+]
+
     for i in range(n_aps):
         x = (i % 4) * grid_spacing
         y = (i // 4) * grid_spacing
