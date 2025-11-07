@@ -1,0 +1,75 @@
+# api_definitions.yaml
+/sensing:
+  method: POST
+  description: "Push additional-radio sensing snapshot to controller"
+  request:
+    type: object
+    properties:
+      ap_id: string
+      band: float
+      channel: integer
+      fft_data: array<float>
+      timestamp: string
+  response:
+    type: object
+    properties:
+      ack: boolean
+      next_channel: integer
+      dwell_time: float
+
+/client_view:
+  method: POST
+  description: "Report client telemetry and 802.11k/v feedback"
+  request:
+    type: object
+    properties:
+      client_id: string
+      rssi: float
+      snr: float
+      neighbor_list: array<string>
+      bss_tm_result: string
+  response:
+    type: object
+    properties:
+      ack: boolean
+      accepted: boolean
+
+/planner/propose:
+  method: POST
+  description: "Planner proposes configuration change based on sensing and client data"
+  request:
+    type: object
+    properties:
+      ap_id: string
+      current_config: object
+      candidate_config: object
+      predicted_delta_qoe: float
+  response:
+    type: object
+    properties:
+      decision: string   # "accept" or "reject"
+      rollback_token: string
+
+/planner/commit:
+  method: POST
+  description: "Commit or rollback configuration change"
+  request:
+    type: object
+    properties:
+      rollback_token: string
+      commit: boolean
+  response:
+    type: object
+    properties:
+      status: string
+
+/metrics:
+  method: GET
+  description: "Fetch latest KPIs and guardrail status"
+  response:
+    type: object
+    properties:
+      throughput_avg_mbps: float
+      retry_rate_p95: float
+      qoe_mean: float
+      churn_per_day: float

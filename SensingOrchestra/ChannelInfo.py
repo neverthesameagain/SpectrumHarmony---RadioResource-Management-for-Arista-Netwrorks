@@ -129,10 +129,10 @@ class ChannelInfo:
         self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
         self.detect_change("QoE", qoe, self.qoe)
 
-        # self.cusum_update("SNR", snr, self.avgClientSNR)
-        # self.cusum_update("Throughput", throughput, self.avgThroughput)
-        # self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
-        # self.cusum_update("QoE", qoe, self.qoe)
+        self.cusum_update("SNR", snr, self.avgClientSNR)
+        self.cusum_update("Throughput", throughput, self.avgThroughput)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
+        self.cusum_update("QoE", qoe, self.qoe)
 
     def clearDFSClients(self):
         self.DFSClients = set()
