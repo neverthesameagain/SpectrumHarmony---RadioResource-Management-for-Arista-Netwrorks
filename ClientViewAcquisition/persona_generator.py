@@ -8,8 +8,9 @@ with detailed client personas (OUI, OS, band support, capabilities, behavior).
 """
 
 import random
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 
 # ===========================================================
 # 1. EXTENDED CLIENT PERSONAS
@@ -54,7 +55,6 @@ CLIENT_PERSONAS = {
         "supports_80211v": True,
         "qoe_hysteresis": 0.4,
     },
-
     # -------------------------
     # --- Laptops / Workstations ---
     # -------------------------
@@ -100,7 +100,6 @@ CLIENT_PERSONAS = {
         "supports_80211v": True,
         "qoe_hysteresis": 0.3,
     },
-
     # -------------------------
     # --- Tablets / Wearables ---
     # -------------------------
@@ -125,7 +124,6 @@ CLIENT_PERSONAS = {
         "supports_80211v": False,
         "qoe_hysteresis": 2.0,
     },
-
     # -------------------------
     # --- IoT / Smart Home Devices ---
     # -------------------------
@@ -185,7 +183,6 @@ CLIENT_PERSONAS = {
         "supports_80211v": True,
         "qoe_hysteresis": 0.5,
     },
-
     # -------------------------
     # --- Legacy Devices ---
     # -------------------------
@@ -224,6 +221,7 @@ CLIENT_PERSONAS = {
 # 2. AP TOPOLOGY GENERATOR
 # ===========================================================
 
+
 def generate_ap_layout(n_aps=12, grid_spacing=15):
     aps = []
     bands = ["2.4GHz", "5GHz"]
@@ -234,59 +232,59 @@ def generate_ap_layout(n_aps=12, grid_spacing=15):
         y = (i // 4) * grid_spacing
         band = random.choice(bands)
         ch = random.choice(channels_24 if band == "2.4GHz" else channels_5)
-        aps.append({
-            "ap_id": f"AP-{i+1}",
-            "x": x,
-            "y": y,
-            "band": band,
-            "channel": ch,
-            "tx_power_dbm": random.choice([17, 20, 23]),
-            "max_clients": random.randint(20, 40),
-        })
+        aps.append(
+            {
+                "ap_id": f"AP-{i + 1}",
+                "x": x,
+                "y": y,
+                "band": band,
+                "channel": ch,
+                "tx_power_dbm": random.choice([17, 20, 23]),
+                "max_clients": random.randint(20, 40),
+            }
+        )
     return aps
+
 
 # ===========================================================
 # 3. CLIENT POPULATION GENERATOR
 # ===========================================================
 
+
 def generate_clients(personas, n_clients=80, area_size=60):
     clients = []
     persona_keys = list(personas.keys())
-    weights = [5,5,4,4,3,3,2,2,2]  # bias toward mobile/laptop
+    weights = [5, 5, 4, 4, 3, 3, 2, 2, 2]  # bias toward mobile/laptop
     for i in range(n_clients):
         persona_key = random.choices(persona_keys, weights=weights, k=1)[0]
         p = personas[persona_key]
-        x = np.clip(random.gauss(area_size/2, area_size/3), 0, area_size)
-        y = np.clip(random.gauss(area_size/2, area_size/3), 0, area_size)
-        clients.append({
-            "client_id": f"Client-{i+1:03d}",
-            "x": round(x,2),
-            "y": round(y,2),
-            "persona_key": persona_key,
-            "oui": p["oui"],
-            "vendor": p["vendor"],
-            "device_type": p["device_type"],
-            "os_class": p["os_class"],
-            "supports_80211k": p["supports_80211k"],
-            "supports_80211v": p["supports_80211v"],
-            "supports_80211r": p["supports_80211r"],
-            "supports_6ghz": p["supports_6ghz"],
-            "band_pref": p["band_pref"],
-            "roam_aggressiveness": p["roam_aggressiveness"],
-            "qoe_hysteresis": p["qoe_hysteresis"],
-            "avg_throughput": p["avg_throughput"],
-            "battery_saver": p["battery_saver"]
-        })
+        x = np.clip(random.gauss(area_size / 2, area_size / 3), 0, area_size)
+        y = np.clip(random.gauss(area_size / 2, area_size / 3), 0, area_size)
+        clients.append(
+            {
+                "client_id": f"Client-{i + 1:03d}",
+                "x": round(x, 2),
+                "y": round(y, 2),
+                "persona_key": persona_key,
+                "oui": p["oui"],
+                "os_class": p["os_class"],
+                "supports_80211v": p["supports_80211v"],
+                "qoe_hysteresis": p["qoe_hysteresis"],
+            }
+        )
     return clients
+
 
 # ===========================================================
 # 4. EXPORT TO CSV
 # ===========================================================
 
+
 def export_topology(aps, clients):
     pd.DataFrame(aps).to_csv("synthetic_ap_layout.csv", index=False)
     pd.DataFrame(clients).to_csv("synthetic_client_population.csv", index=False)
     print(f"✅ Exported {len(aps)} APs and {len(clients)} clients.")
+
 
 aps = generate_ap_layout()
 clients = generate_clients(CLIENT_PERSONAS)
