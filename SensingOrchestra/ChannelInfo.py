@@ -1,3 +1,4 @@
+import time
 from utils.WiFiBandEnum import DFSState
 
 BAND_2_4_CHANNELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -35,6 +36,8 @@ class ChannelInfo:
         self.cusum_neg = {}
         self.cusum_threshold = 5.0
         self.cusum_k = 0.7
+        self.alert_cooldown = 5.0
+        self.last_alert_time = {}
         print("Creating band:", band, "channel:", channel)
 
     # Define reward function based on channel parameters
@@ -65,24 +68,41 @@ class ChannelInfo:
         return min(0.3, 2 / (N + 1))
 
     def detect_change(self, name, new_value, avg_value, threshold=0.2):
-        if avg_value != 0 and abs(new_value - avg_value) / abs(avg_value) > threshold:
-            print(f"[ALERT] Sudden change detected in {name}: {new_value:.2f} (avg={avg_value:.2f})")
+        if avg_value == 0:
+            return
+
+        deviation_ratio = abs(new_value - avg_value) / abs(avg_value)
+
+        if deviation_ratio > threshold:
+            now = time.time()
+            last_time = self.last_alert_time.get(name, 0)
+
+            if now - last_time > self.alert_cooldown:
+                print(f"[ALERT] Sudden change in {name}: {new_value:.2f} (avg={avg_value:.2f}, dev={deviation_ratio*100:.1f}%)")
+                self.last_alert_time[name] = now
 
     def cusum_update(self, name, new_value, mean):
         if name not in self.cusum_pos:
             self.cusum_pos[name] = 0
             self.cusum_neg[name] = 0
+            self.last_alert_time[name] = 0
 
         deviation = new_value - mean
 
         self.cusum_pos[name] = max(0, self.cusum_pos[name] + deviation - self.cusum_k)
         self.cusum_neg[name] = max(0, self.cusum_neg[name] - deviation - self.cusum_k)
 
+        now = time.time()
         if self.cusum_pos[name] > self.cusum_threshold:
-            print(f"[CUSUM ALERT] {name} increasing shift detected! deviation={deviation:.2f}")
+            if now - self.last_alert_time[name] > self.alert_cooldown:
+                print(f"[CUSUM ALERT] {name} ↑ shift detected! deviation={deviation:.2f}")
+                self.last_alert_time[name] = now
             self.cusum_pos[name] = 0
+
         elif self.cusum_neg[name] > self.cusum_threshold:
-            print(f"[CUSUM ALERT] {name} decreasing shift detected! deviation={deviation:.2f}")
+            if now - self.last_alert_time[name] > self.alert_cooldown:
+                print(f"[CUSUM ALERT] {name} ↓ shift detected! deviation={deviation:.2f}")
+                self.last_alert_time[name] = now
             self.cusum_neg[name] = 0
 
     def updateChannel_2_4_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected):
@@ -139,7 +159,7 @@ class ChannelInfo:
         self.DFSState = DFSState.AVAILABLE
 
     def getDFSState(self):
-        return self.DFSState.value # 1 means no dfs radar present
+        return self.DFSState.value  # 1 means no dfs radar present
 
     def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time):
         self.avgCount += 1

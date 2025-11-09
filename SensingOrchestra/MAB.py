@@ -17,13 +17,14 @@ class MAB:
 
     def updateArm(self, arm, reward):
         self.count[arm] += 1
-        self.rewards[arm] += (self.rewards[arm] - reward)/self.count[arm]
+        self.rewards[arm] += (reward - self.rewards[arm])/self.count[arm]
 
     def selectArm(self):
         self.totalCount += 1
         ucb_values = np.zeros(self.num)
         for i in range(self.num):
-            bonus = math.sqrt((2 * math.log(self.totalCount)) / self.count[i])
+            count = max(1, self.count[i])
+            bonus = math.sqrt((2 * math.log(self.totalCount)) / count)
             ucb_values[i] = self.rewards[i] + bonus
         best_index = int(np.argmax(ucb_values))
         return best_index

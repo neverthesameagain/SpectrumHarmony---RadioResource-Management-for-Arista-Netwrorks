@@ -44,9 +44,9 @@ class SensingOrchestra:
             channelTime_5_Ghz = self.scanTime * self.channelReward_5_GHz
             self.scan_thread_2_4_GHz = threading.Thread(target=self.scan_2_4_GHz)
             self.scan_thread_5_GHz = threading.Thread(target=self.scan_5_GHz)
-            # self.scan_thread_2_4_GHz.start()
+            self.scan_thread_2_4_GHz.start()
             self.scan_thread_5_GHz.start()
-            # self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
+            self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
             self.scan_thread_5_GHz.join(timeout=channelTime_5_Ghz)
             time.sleep(self.scanTime)
 
