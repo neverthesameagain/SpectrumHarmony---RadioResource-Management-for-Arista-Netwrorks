@@ -1,6 +1,8 @@
 import numpy as np
 import math
+import logging
 
+logging.basicConfig(filename="output.log", level=logging.DEBUG)
 
 class MAB:
     def __init__(self, num):
@@ -8,7 +10,7 @@ class MAB:
         self.totalCount = 0
         self.rewards = [0 for _ in range(num)]
         self.count = [0 for _ in range(num)]
-        print("Initiating MAB...")
+        logging.info("Initiating MAB...")
 
     def initializeArms(self, reward: list):
         self.totalCount += self.num

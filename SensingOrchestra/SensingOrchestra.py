@@ -1,3 +1,5 @@
+from datetime import datetime
+import json
 import threading
 from ChannelInfo import *
 from DFSTimer import DFSTimerManager
@@ -8,6 +10,7 @@ from MAB import MAB
 import os
 import time
 
+logging.basicConfig(filename="output.log", level=logging.DEBUG)
 base_dir = os.path.dirname(__file__)
 
 
@@ -25,19 +28,20 @@ class SensingOrchestra:
         self.scanTime = 0.2  # 1 second
         self.serveTime = 5.9  # 59 seconds
         self.startTime = time.time()
+        self.isRunning = True
         # not use DFS channel for 30 minutes after a DFS radar encounter
         self.DFStimer = DFSTimerManager(30 * 60, self.clearDFSClients_5_GHz)
-        print("Initiating Sensing Orchestra...")
+        logging.info("Initiating Sensing Orchestra...")
 
     def start(self):
         self.initiateChannels()
         # file_path = os.path.join(base_dir, "data", "apLogs.csv")  # TODO: should be initialising channels beacons
         # self.simulateRadioInput(file_path)
         self.initializeMAB()
-        while (True):
+        while (self.isRunning):
             self.startTime = time.time()
             while (time.time() - self.startTime < self.serveTime):
-                print("Serving Client Request...")
+                logging.info("Serving Client Request...")
                 time.sleep(self.serveTime)
 
             channelTime_2_4_Ghz = self.scanTime * self.channelReward_2_4_GHz
@@ -45,26 +49,26 @@ class SensingOrchestra:
             self.scan_thread_2_4_GHz = threading.Thread(target=self.scan_2_4_GHz)
             self.scan_thread_5_GHz = threading.Thread(target=self.scan_5_GHz)
             self.scan_thread_2_4_GHz.start()
-            self.scan_thread_5_GHz.start()
             self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
+            self.scan_thread_5_GHz.start()
             self.scan_thread_5_GHz.join(timeout=channelTime_5_Ghz)
             time.sleep(self.scanTime)
 
     def scan_5_GHz(self):
-        print("Scanning channels...")
-        print("For 5GHz...")
+        logging.info("Scanning channels...")
+        logging.info("For 5GHz...")
         self.channel_5_GHz = self.chooseChannel_5_GHz()
-        print("Noisiest 5GHz channel...", self.channel_5_GHz)
+        logging.info(f"Noisiest 5GHz channel... {self.channel_5_GHz}")
         idx = self.convertbandToIdx(WiFiBand.BAND_5_GHz, self.channel_5_GHz)
         self.channelParameters_5_GHz[idx].printChannel()
         file_path = os.path.join(base_dir, "data", f"Aplog_5_GHz_{self.channel_5_GHz}.csv")
         self.simulateRadioInput(file_path)  # read the respective channel detail
 
     def scan_2_4_GHz(self):
-        print("Scanning channels...")
-        print("For 2_4GHz...")
+        logging.info("Scanning channels...")
+        logging.info("For 2_4GHz...")
         self.channel_2_4_GHz = self.chooseChannel_2_4_GHz()
-        print("Noisiest 2_4GHz channel...", self.channel_2_4_GHz)
+        logging.info(f"Noisiest 2_4GHz channel... {self.channel_2_4_GHz}")
         idx = self.convertbandToIdx(WiFiBand.BAND_2_4_GHz, self.channel_2_4_GHz)
         self.channelParameters_2_4_GHz[idx].printChannel()
         file_path = os.path.join(base_dir, "data", f"Aplog_2_4_GHz_{self.channel_2_4_GHz}.csv")
@@ -77,7 +81,7 @@ class SensingOrchestra:
         self.channels_5_GHz = BAND_5_CHANNELS
         self.chanToIdx_5_GHz = {ch: idx for idx, ch in enumerate(BAND_5_CHANNELS)}
         self.idxToChan_5_GHz = {idx: ch for idx, ch in enumerate(BAND_5_CHANNELS)}
-        print("Might implement 6GHz in future...")
+        logging.warning("Might implement 6GHz in future...")
         for i in range(self.numChannels_2_4_GHz):
             self.channelParameters_2_4_GHz.append(ChannelInfo(WiFiBand.BAND_2_4_GHz, self.channels_2_4_GHz[i]))
         for i in range(self.numChannels_5_GHz):
@@ -118,10 +122,10 @@ class SensingOrchestra:
         elif (band == WiFiBand.BAND_5_GHz):
             return self.chanToIdx_5_GHz[channel]
         elif (band == WiFiBand.BAND_6_GHz):
-            print("Not yet implemented...")
+            logging.error("Not yet implemented...")
             return 0
         else:
-            print("Not a recognised band...")
+            logging.error("Not a recognised band...")
         return 0
 
     def convertIdxToBand(self, band, idx):
@@ -130,10 +134,10 @@ class SensingOrchestra:
         elif (band == WiFiBand.BAND_5_GHz):
             return self.idxToChan_5_GHz[idx]
         elif (band == WiFiBand.BAND_6_GHz):
-            print("Not yet implemented...")
+            logging.error("Not yet implemented...")
             return 0
         else:
-            print("Not a recognised index...")
+            logging.error("Not a recognised index...")
         return 0
 
     def simulateRadioInput(self, file: str):
@@ -149,25 +153,27 @@ class SensingOrchestra:
             nwifi_detected = beacon[APLog.NWIFI_DETECTED].lower() == 'true'
             throughput = float(beacon[APLog.THROUGHPUT_AVG_Mbps])
             qoe = float(beacon[APLog.MEAN_QOE])
+            retry = float(beacon[APLog.P95_RETRY_PCT])
+            PER = float(beacon[APLog.UL_PER])
             tx_power = float(beacon[APLog.TX_POWER_DBM])
             busy_time = float(beacon[APLog.BUSY_TIME])
             total_time = float(beacon[APLog.TOTAL_TIME])
             nwifi_type = beacon[APLog.NWIFI_TYPE]
             if (band == WiFiBand.BAND_2_4_GHz):
                 self.channelParameters_2_4_GHz[channel].updateChannel_2_4_GHz(
-                    snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_detected)
+                    snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected)
             elif (band == WiFiBand.BAND_5_GHz):
                 self.channelParameters_5_GHz[channel].updateChannel_5_GHz(
-                    snr, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time, nwifi_type)
+                    snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type)
             elif (band == WiFiBand.BAND_6_GHz):
                 # self.channelParameters[channel].updateChannel_6_GHz(
                 #     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
-                print("Might implement 6GHz in future...")
+                logging.error("Might implement 6GHz in future...")
             else:
-                print("Not a recognised band...")
+                logging.error("Not a recognised band...")
             isDFSPresent = not self.channelParameters_5_GHz[channel].getDFSState()  # 1 DFS radar is not present
             if (isDFSPresent):
-                print(f"DFS detected on channel {channel}...")
+                logging.warning(f"DFS detected on channel {channel}...")
                 self.DFStimer.start_or_reset(beacon[APLog.CHANNEL])
                 break
 
@@ -184,16 +190,89 @@ class SensingOrchestra:
         for channel in self.channelParameters_5_GHz:
             channel.printChannel()
 
+    def saveJSONMetrics(self):
+        file = "metrics.json"
+        all_metrics = {}
+
+        qoe_sum = avg_retry_sum = per_sum = util_sum = 0.0
+        count = 0
+
+        # === 2.4 GHz Channels ===
+        if hasattr(self, "channels_2_4_GHz"):
+            all_metrics["2.4_GHz"] = {}
+            for ch in self.channelParameters_2_4_GHz:
+                qoe, avg_retry, PER, utilization = ch.getChannelMetrics()
+                all_metrics["2.4_GHz"][f"Channel_{ch.getChannel()}"] = {
+                    "QoE": qoe,
+                    "Average_Retry": avg_retry,
+                    "PER": PER,
+                    "Channel_Utilization": utilization
+                }
+                qoe_sum += qoe
+                avg_retry_sum += avg_retry
+                per_sum += PER
+                util_sum += utilization
+                if (qoe != 0):
+                    count += 1
+
+        if count > 0:
+            all_metrics["2.4_GHz"]["Average"] = {
+                "QoE": qoe_sum / count,
+                "Average_Retry": avg_retry_sum / count,
+                "PER": per_sum / count,
+                "Channel_Utilization": util_sum / count
+            }
+
+        qoe_sum = avg_retry_sum = per_sum = util_sum = 0.0
+        count = 0
+
+        # === 5 GHz Channels ===
+        if hasattr(self, "channels_5_GHz"):
+            all_metrics["5_GHz"] = {}
+            for ch in self.channelParameters_5_GHz:
+                qoe, avg_retry, PER, utilization = ch.getChannelMetrics()
+                all_metrics["5_GHz"][f"Channel_{ch.getChannel()}"] = {
+                    "QoE": qoe,
+                    "Average_Retry": avg_retry,
+                    "PER": PER,
+                    "Channel_Utilization": utilization
+                }
+
+                qoe_sum += qoe
+                avg_retry_sum += avg_retry
+                per_sum += PER
+                util_sum += utilization
+                if (qoe != 0):
+                    count += 1
+
+        if count > 0:
+            all_metrics["5_GHz"]["Average"] = {
+                "QoE": qoe_sum / count,
+                "Average_Retry": avg_retry_sum / count,
+                "PER": per_sum / count,
+                "Channel_Utilization": util_sum / count
+            }
+
+        all_metrics["timestamp"] = datetime.now().isoformat()
+        with open(file, "w") as f:
+            json.dump(all_metrics, f, indent=4)
+
+        logging.info(f"[INFO] All channel metrics saved to {file}")
+
+    def closeOrchestra(self):
+        self.printChannelParameters_2_4_GHz()
+        self.printChannelParameters_5_GHz()
+        self.saveJSONMetrics()
+        self.DFStimer.cancel_all()
+        self.isRunning = False
+
 
 if __name__ == "__main__":
     rrm = SensingOrchestra(WiFiBand.BAND_5_GHz)
-    rrm.start()
-    # rrm.initiateChannels()
-    # file_path = os.path.join(base_dir, "data", "apLogs.csv")  # TODO: should be initialising channels beacons
-    # rrm.simulateRadioInput(file_path)
-    # rrm.initializeMAB()
-    # print("Scanning channels...")
-    # print("For 5GHz...")
-    # channel_5GHz = rrm.chooseChannel_5_GHz()
-    # print("Noisiest 5GHz channel...", channel_5GHz)
-    # rrm.printChannelParameters_5_GHz()
+    thread = threading.Thread(target=rrm.start)
+    try:
+        thread.start()
+        time.sleep(100)
+        raise Exception
+    except Exception as ex:
+        rrm.closeOrchestra()
