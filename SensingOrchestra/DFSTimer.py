@@ -27,6 +27,7 @@ class DFSTimerManager:
                 logging.info(f"[Timer Started] Channel {channel}")
 
             t = threading.Timer(self.interval, self._timeout, args=[channel])
+            t.daemon = True
             t.start()
             self.timers[channel] = t
 
