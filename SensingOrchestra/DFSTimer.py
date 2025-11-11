@@ -1,5 +1,8 @@
 import threading
 import time
+import logging
+
+logging.basicConfig(filename="output.log", level=logging.DEBUG)
 
 class DFSTimerManager:
     def __init__(self, interval, callback):
@@ -7,22 +10,24 @@ class DFSTimerManager:
         self.callback = callback
         self.timers = {}
         self.lock = threading.Lock()
+        self.isRunning = True
 
     def _timeout(self, channel):
         with self.lock:
             self.timers.pop(channel, None)
-        print(f"[Timer Expired] Channel {channel}")
+        logging.info(f"[Timer Expired] Channel {channel}")
         self.callback(channel)
 
     def start_or_reset(self, channel):
         with self.lock:
             if channel in self.timers:
                 self.timers[channel].cancel()
-                print(f"[Timer Reset] Channel {channel}")
+                logging.info(f"[Timer Reset] Channel {channel}")
             else:
-                print(f"[Timer Started] Channel {channel}")
+                logging.info(f"[Timer Started] Channel {channel}")
 
             t = threading.Timer(self.interval, self._timeout, args=[channel])
+            t.daemon = True
             t.start()
             self.timers[channel] = t
 
@@ -31,11 +36,11 @@ class DFSTimerManager:
             if channel in self.timers:
                 self.timers[channel].cancel()
                 del self.timers[channel]
-                print(f"[Timer Cancelled] Channel {channel}")
+                logging.info(f"[Timer Cancelled] Channel {channel}")
 
     def cancel_all(self):
         with self.lock:
             for ch, t in self.timers.items():
                 t.cancel()
             self.timers.clear()
-            print("[All DFS Timers Cancelled]")
+            logging.info("[All DFS Timers Cancelled]")

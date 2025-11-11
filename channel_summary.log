@@ -1,0 +1,1313 @@
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:05:41][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:05:41][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:05:41][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:06:48][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:06:48][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:06:48][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in SNR: 49.82 (avg=14.95, dev=233.3%)
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in Throughput: 61.97 (avg=18.59, dev=233.3%)
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in QoE: 4.64 (avg=1.39, dev=233.3%)
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in P95_retry: 15.36 (avg=4.61, dev=233.3%)
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:06:54][Channel 2] SNR ↑ shift detected! deviation=34.87
+[CUSUM ALERT][2025-11-10 05:06:54][Channel 2] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:06:54][Channel 2] Throughput ↑ shift detected! deviation=43.38
+[CUSUM ALERT][2025-11-10 05:06:54][Channel 2] P95_retry ↑ shift detected! deviation=10.76
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in QoE: 4.91 (avg=2.45, dev=100.5%)
+[ALERT][2025-11-10 05:06:54][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=72.3%)
+[CUSUM ALERT][2025-11-10 05:06:54][Channel 2] NoiseFloor ↑ shift detected! deviation=3.04
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in SNR: 45.49 (avg=13.65, dev=233.3%)
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in Throughput: 360.81 (avg=108.24, dev=233.3%)
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in QoE: 4.52 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in P95_retry: 17.82 (avg=5.34, dev=233.3%)
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in P95_PER: 0.05 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:06:55][Channel 40] SNR ↑ shift detected! deviation=31.84
+[CUSUM ALERT][2025-11-10 05:06:55][Channel 40] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:06:55][Channel 40] Throughput ↑ shift detected! deviation=252.56
+[CUSUM ALERT][2025-11-10 05:06:55][Channel 40] P95_retry ↑ shift detected! deviation=12.47
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in QoE: 4.18 (avg=2.20, dev=89.6%)
+[ALERT][2025-11-10 05:06:55][Channel 40] Sudden change in P95_PER: 0.03 (avg=0.02, dev=61.0%)
+[CUSUM ALERT][2025-11-10 05:06:55][Channel 40] NoiseFloor ↓ shift detected! deviation=-4.07
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:12:23][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:12:23][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:12:23][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in SNR: 49.82 (avg=14.95, dev=233.3%)
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in Throughput: 61.97 (avg=18.59, dev=233.3%)
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in QoE: 4.64 (avg=1.39, dev=233.3%)
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in P95_retry: 15.36 (avg=4.61, dev=233.3%)
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:29][Channel 2] SNR ↑ shift detected! deviation=34.87
+[CUSUM ALERT][2025-11-10 05:12:29][Channel 2] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:12:29][Channel 2] Throughput ↑ shift detected! deviation=43.38
+[CUSUM ALERT][2025-11-10 05:12:29][Channel 2] P95_retry ↑ shift detected! deviation=10.76
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in QoE: 4.91 (avg=2.45, dev=100.5%)
+[ALERT][2025-11-10 05:12:29][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=72.3%)
+[CUSUM ALERT][2025-11-10 05:12:29][Channel 2] NoiseFloor ↑ shift detected! deviation=3.04
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in SNR: 45.49 (avg=13.65, dev=233.3%)
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in Throughput: 360.81 (avg=108.24, dev=233.3%)
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in QoE: 4.52 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in P95_retry: 17.82 (avg=5.34, dev=233.3%)
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in P95_PER: 0.05 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:30][Channel 40] SNR ↑ shift detected! deviation=31.84
+[CUSUM ALERT][2025-11-10 05:12:30][Channel 40] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:12:30][Channel 40] Throughput ↑ shift detected! deviation=252.56
+[CUSUM ALERT][2025-11-10 05:12:30][Channel 40] P95_retry ↑ shift detected! deviation=12.47
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in QoE: 4.18 (avg=2.20, dev=89.6%)
+[ALERT][2025-11-10 05:12:30][Channel 40] Sudden change in P95_PER: 0.03 (avg=0.02, dev=61.0%)
+[CUSUM ALERT][2025-11-10 05:12:30][Channel 40] NoiseFloor ↓ shift detected! deviation=-4.07
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in SNR: 49.50 (avg=14.85, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in Throughput: 50.67 (avg=15.20, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in QoE: 4.07 (avg=1.22, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in P95_retry: 34.15 (avg=10.25, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 3] SNR ↑ shift detected! deviation=34.65
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 3] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 3] Throughput ↑ shift detected! deviation=35.47
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 3] P95_retry ↑ shift detected! deviation=23.91
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in QoE: 4.70 (avg=2.26, dev=107.6%)
+[ALERT][2025-11-10 05:12:36][Channel 3] Sudden change in P95_PER: 0.00 (avg=0.00, dev=25.7%)
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 3] NoiseFloor ↓ shift detected! deviation=-3.50
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in SNR: 42.36 (avg=12.71, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in Throughput: 1017.38 (avg=305.21, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in QoE: 4.33 (avg=1.30, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in P95_retry: 24.10 (avg=7.23, dev=233.3%)
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in P95_PER: 0.16 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 44] SNR ↑ shift detected! deviation=29.65
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 44] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 44] Throughput ↑ shift detected! deviation=712.16
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 44] P95_retry ↑ shift detected! deviation=16.87
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in QoE: 4.33 (avg=2.21, dev=96.2%)
+[ALERT][2025-11-10 05:12:36][Channel 44] Sudden change in P95_PER: 0.13 (avg=0.07, dev=76.4%)
+[CUSUM ALERT][2025-11-10 05:12:36][Channel 44] NoiseFloor ↑ shift detected! deviation=2.87
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in SNR: 52.72 (avg=15.82, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in Throughput: 65.66 (avg=19.70, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in QoE: 4.81 (avg=1.44, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in P95_retry: 10.10 (avg=3.03, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 4] SNR ↑ shift detected! deviation=36.91
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 4] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 4] Throughput ↑ shift detected! deviation=45.96
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 4] P95_retry ↑ shift detected! deviation=7.07
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in QoE: 4.68 (avg=2.41, dev=93.8%)
+[ALERT][2025-11-10 05:12:42][Channel 4] Sudden change in P95_PER: 0.00 (avg=0.00, dev=79.4%)
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 4] NoiseFloor ↓ shift detected! deviation=-2.57
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in SNR: 41.91 (avg=12.57, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in Throughput: 349.70 (avg=104.91, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in QoE: 4.43 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in P95_retry: 21.64 (avg=6.49, dev=233.3%)
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in P95_PER: 0.05 (avg=0.02, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 48] SNR ↑ shift detected! deviation=29.34
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 48] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 48] Throughput ↑ shift detected! deviation=244.79
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 48] P95_retry ↑ shift detected! deviation=15.15
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in QoE: 4.48 (avg=2.28, dev=97.0%)
+[ALERT][2025-11-10 05:12:42][Channel 48] Sudden change in P95_PER: 0.05 (avg=0.03, dev=85.5%)
+[CUSUM ALERT][2025-11-10 05:12:42][Channel 48] NoiseFloor ↓ shift detected! deviation=-1.91
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in SNR: 48.81 (avg=14.64, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in Throughput: 60.70 (avg=18.21, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in QoE: 4.55 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in P95_retry: 16.75 (avg=5.03, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 5] SNR ↑ shift detected! deviation=34.16
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 5] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 5] Throughput ↑ shift detected! deviation=42.49
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 5] P95_retry ↑ shift detected! deviation=11.73
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in QoE: 4.58 (avg=2.33, dev=96.6%)
+[ALERT][2025-11-10 05:12:49][Channel 5] Sudden change in P95_PER: 0.01 (avg=0.00, dev=80.1%)
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 5] NoiseFloor ↑ shift detected! deviation=3.02
+[ALERT][2025-11-10 05:12:49][Channel 52] Sudden change in SNR: 49.26 (avg=14.78, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 52] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 52] Sudden change in Throughput: 329.16 (avg=98.75, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 52] Sudden change in QoE: 4.27 (avg=1.28, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 52] Sudden change in P95_retry: 26.55 (avg=7.97, dev=233.3%)
+[ALERT][2025-11-10 05:12:49][Channel 52] Sudden change in P95_PER: 0.02 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 52] SNR ↑ shift detected! deviation=34.48
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 52] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 52] Throughput ↑ shift detected! deviation=230.41
+[CUSUM ALERT][2025-11-10 05:12:49][Channel 52] P95_retry ↑ shift detected! deviation=18.59
+DFS Radar detected...
+DFS detected on channel 4...
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in SNR: 52.73 (avg=15.82, dev=233.3%)
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in Throughput: 58.17 (avg=17.45, dev=233.3%)
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in QoE: 4.44 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in P95_retry: 22.34 (avg=6.70, dev=233.3%)
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:12:55][Channel 6] SNR ↑ shift detected! deviation=36.91
+[CUSUM ALERT][2025-11-10 05:12:55][Channel 6] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:12:55][Channel 6] Throughput ↑ shift detected! deviation=40.72
+[CUSUM ALERT][2025-11-10 05:12:55][Channel 6] P95_retry ↑ shift detected! deviation=15.64
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in QoE: 4.18 (avg=2.19, dev=91.2%)
+[ALERT][2025-11-10 05:12:55][Channel 6] Sudden change in P95_PER: 0.01 (avg=0.00, dev=133.2%)
+[CUSUM ALERT][2025-11-10 05:12:55][Channel 6] NoiseFloor ↓ shift detected! deviation=-1.85
+DFS Radar detected...
+DFS detected on channel 5...
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in SNR: 51.33 (avg=15.40, dev=233.3%)
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in Throughput: 60.22 (avg=18.07, dev=233.3%)
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in QoE: 4.54 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in P95_retry: 17.64 (avg=5.29, dev=233.3%)
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:01][Channel 7] SNR ↑ shift detected! deviation=35.93
+[CUSUM ALERT][2025-11-10 05:13:01][Channel 7] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:13:01][Channel 7] Throughput ↑ shift detected! deviation=42.16
+[CUSUM ALERT][2025-11-10 05:13:01][Channel 7] P95_retry ↑ shift detected! deviation=12.34
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in QoE: 4.25 (avg=2.23, dev=90.7%)
+[ALERT][2025-11-10 05:13:01][Channel 7] Sudden change in P95_PER: 0.00 (avg=0.00, dev=107.2%)
+[CUSUM ALERT][2025-11-10 05:13:01][Channel 7] NoiseFloor ↓ shift detected! deviation=-3.49
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in SNR: 46.21 (avg=13.86, dev=233.3%)
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in Throughput: 378.23 (avg=113.47, dev=233.3%)
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in QoE: 4.69 (avg=1.41, dev=233.3%)
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in P95_retry: 13.98 (avg=4.19, dev=233.3%)
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in P95_PER: 0.04 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:02][Channel 60] SNR ↑ shift detected! deviation=32.35
+[CUSUM ALERT][2025-11-10 05:13:02][Channel 60] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:13:02][Channel 60] Throughput ↑ shift detected! deviation=264.76
+[CUSUM ALERT][2025-11-10 05:13:02][Channel 60] P95_retry ↑ shift detected! deviation=9.79
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in QoE: 4.70 (avg=2.40, dev=96.2%)
+[ALERT][2025-11-10 05:13:02][Channel 60] Sudden change in P95_PER: 0.06 (avg=0.03, dev=117.1%)
+DFS Radar detected...
+DFS detected on channel 6...
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in SNR: 53.98 (avg=16.19, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in Throughput: 62.30 (avg=18.69, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in QoE: 4.67 (avg=1.40, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in P95_retry: 14.55 (avg=4.37, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 8] SNR ↑ shift detected! deviation=37.78
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 8] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 8] Throughput ↑ shift detected! deviation=43.61
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 8] P95_retry ↑ shift detected! deviation=10.19
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in QoE: 4.44 (avg=2.31, dev=92.1%)
+[ALERT][2025-11-10 05:13:08][Channel 8] Sudden change in P95_PER: 0.00 (avg=0.00, dev=37.9%)
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 8] NoiseFloor ↓ shift detected! deviation=-1.80
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in SNR: 44.82 (avg=13.45, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in Throughput: 321.16 (avg=96.35, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in QoE: 4.19 (avg=1.26, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in P95_retry: 29.50 (avg=8.85, dev=233.3%)
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 64] SNR ↑ shift detected! deviation=31.38
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 64] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 64] Throughput ↑ shift detected! deviation=224.81
+[CUSUM ALERT][2025-11-10 05:13:08][Channel 64] P95_retry ↑ shift detected! deviation=20.65
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in QoE: 4.26 (avg=2.16, dev=97.4%)
+[ALERT][2025-11-10 05:13:08][Channel 64] Sudden change in P95_PER: 0.06 (avg=0.02, dev=148.5%)
+DFS Radar detected...
+DFS detected on channel 7...
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in SNR: 52.30 (avg=15.69, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in TX_power: 15.00 (avg=4.50, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in Throughput: 54.54 (avg=16.36, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in QoE: 4.21 (avg=1.26, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in P95_retry: 29.40 (avg=8.82, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in P95_PER: 0.02 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 9] SNR ↑ shift detected! deviation=36.61
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 9] TX_power ↑ shift detected! deviation=10.50
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 9] Throughput ↑ shift detected! deviation=38.18
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 9] P95_retry ↑ shift detected! deviation=20.58
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in QoE: 4.32 (avg=2.18, dev=98.2%)
+[ALERT][2025-11-10 05:13:14][Channel 9] Sudden change in P95_PER: 0.00 (avg=0.00, dev=28.9%)
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 9] NoiseFloor ↓ shift detected! deviation=-1.66
+[ALERT][2025-11-10 05:13:14][Channel 100] Sudden change in SNR: 41.82 (avg=12.55, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 100] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 100] Sudden change in Throughput: 360.69 (avg=108.21, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 100] Sudden change in QoE: 4.51 (avg=1.35, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 100] Sudden change in P95_retry: 17.88 (avg=5.37, dev=233.3%)
+[ALERT][2025-11-10 05:13:14][Channel 100] Sudden change in P95_PER: 0.17 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 100] SNR ↑ shift detected! deviation=29.27
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 100] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 100] Throughput ↑ shift detected! deviation=252.48
+[CUSUM ALERT][2025-11-10 05:13:14][Channel 100] P95_retry ↑ shift detected! deviation=12.52
+DFS Radar detected...
+DFS detected on channel 8...
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in SNR: 51.84 (avg=15.55, dev=233.3%)
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in Throughput: 64.73 (avg=19.42, dev=233.3%)
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in QoE: 4.77 (avg=1.43, dev=233.3%)
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in P95_retry: 10.54 (avg=3.16, dev=233.3%)
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:21][Channel 10] SNR ↑ shift detected! deviation=36.29
+[CUSUM ALERT][2025-11-10 05:13:21][Channel 10] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:13:21][Channel 10] Throughput ↑ shift detected! deviation=45.31
+[CUSUM ALERT][2025-11-10 05:13:21][Channel 10] P95_retry ↑ shift detected! deviation=7.38
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in QoE: 4.83 (avg=2.45, dev=97.1%)
+[ALERT][2025-11-10 05:13:21][Channel 10] Sudden change in P95_PER: 0.00 (avg=0.00, dev=74.1%)
+[CUSUM ALERT][2025-11-10 05:13:21][Channel 10] NoiseFloor ↑ shift detected! deviation=4.10
+DFS Radar detected...
+DFS detected on channel 9...
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in SNR: 52.49 (avg=15.75, dev=233.3%)
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in Throughput: 54.61 (avg=16.38, dev=233.3%)
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in QoE: 4.25 (avg=1.28, dev=233.3%)
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in P95_retry: 27.83 (avg=8.35, dev=233.3%)
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:27][Channel 11] SNR ↑ shift detected! deviation=36.75
+[CUSUM ALERT][2025-11-10 05:13:27][Channel 11] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:13:27][Channel 11] Throughput ↑ shift detected! deviation=38.23
+[CUSUM ALERT][2025-11-10 05:13:27][Channel 11] P95_retry ↑ shift detected! deviation=19.48
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in QoE: 4.10 (avg=2.12, dev=93.2%)
+[ALERT][2025-11-10 05:13:27][Channel 11] Sudden change in P95_PER: 0.01 (avg=0.00, dev=85.7%)
+[CUSUM ALERT][2025-11-10 05:13:27][Channel 11] NoiseFloor ↓ shift detected! deviation=-1.75
+DFS Radar detected...
+DFS detected on channel 10...
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in SNR: 50.75 (avg=15.22, dev=233.3%)
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in Throughput: 62.63 (avg=18.79, dev=233.3%)
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in QoE: 4.66 (avg=1.40, dev=233.3%)
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in P95_retry: 14.46 (avg=4.34, dev=233.3%)
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:33][Channel 12] SNR ↑ shift detected! deviation=35.52
+[CUSUM ALERT][2025-11-10 05:13:33][Channel 12] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:13:33][Channel 12] Throughput ↑ shift detected! deviation=43.84
+[CUSUM ALERT][2025-11-10 05:13:33][Channel 12] P95_retry ↑ shift detected! deviation=10.12
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in QoE: 4.62 (avg=2.36, dev=95.2%)
+[ALERT][2025-11-10 05:13:33][Channel 12] Sudden change in P95_PER: 0.01 (avg=0.00, dev=115.7%)
+[CUSUM ALERT][2025-11-10 05:13:33][Channel 12] NoiseFloor ↓ shift detected! deviation=-3.89
+[ALERT][2025-11-10 05:13:34][Channel 112] Sudden change in SNR: 48.02 (avg=14.41, dev=233.3%)
+[ALERT][2025-11-10 05:13:34][Channel 112] Sudden change in TX_power: 22.00 (avg=6.60, dev=233.3%)
+[ALERT][2025-11-10 05:13:34][Channel 112] Sudden change in Throughput: 410.67 (avg=123.20, dev=233.3%)
+[ALERT][2025-11-10 05:13:34][Channel 112] Sudden change in QoE: 4.93 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:13:34][Channel 112] Sudden change in P95_retry: 4.76 (avg=1.43, dev=233.3%)
+[ALERT][2025-11-10 05:13:34][Channel 112] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:34][Channel 112] SNR ↑ shift detected! deviation=33.62
+[CUSUM ALERT][2025-11-10 05:13:34][Channel 112] TX_power ↑ shift detected! deviation=15.40
+[CUSUM ALERT][2025-11-10 05:13:34][Channel 112] Throughput ↑ shift detected! deviation=287.47
+DFS Radar detected...
+DFS detected on channel 11...
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in SNR: 50.57 (avg=15.17, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in Throughput: 67.54 (avg=20.26, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in QoE: 4.94 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in P95_retry: 3.76 (avg=1.13, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 13] SNR ↑ shift detected! deviation=35.40
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 13] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 13] Throughput ↑ shift detected! deviation=47.27
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in QoE: 4.37 (avg=2.35, dev=86.1%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in P95_retry: 22.67 (avg=7.59, dev=198.6%)
+[ALERT][2025-11-10 05:13:40][Channel 13] Sudden change in P95_PER: 0.01 (avg=0.01, dev=39.9%)
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 13] NoiseFloor ↑ shift detected! deviation=3.29
+[ALERT][2025-11-10 05:13:40][Channel 116] Sudden change in SNR: 43.64 (avg=13.09, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 116] Sudden change in TX_power: 22.00 (avg=6.60, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 116] Sudden change in Throughput: 500.99 (avg=150.30, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 116] Sudden change in QoE: 3.94 (avg=1.18, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 116] Sudden change in P95_retry: 39.84 (avg=11.95, dev=233.3%)
+[ALERT][2025-11-10 05:13:40][Channel 116] Sudden change in P95_PER: 0.08 (avg=0.02, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 116] SNR ↑ shift detected! deviation=30.55
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 116] TX_power ↑ shift detected! deviation=15.40
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 116] Throughput ↑ shift detected! deviation=350.69
+[CUSUM ALERT][2025-11-10 05:13:40][Channel 116] P95_retry ↑ shift detected! deviation=27.89
+DFS Radar detected...
+DFS detected on channel 12...
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in SNR: 53.19 (avg=15.96, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in Throughput: 68.84 (avg=20.65, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in QoE: 4.97 (avg=1.49, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in P95_retry: 3.06 (avg=0.92, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 14] SNR ↑ shift detected! deviation=37.23
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 14] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 14] Throughput ↑ shift detected! deviation=48.19
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in QoE: 4.44 (avg=2.37, dev=86.8%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in P95_retry: 21.12 (avg=6.98, dev=202.7%)
+[ALERT][2025-11-10 05:13:46][Channel 14] Sudden change in P95_PER: 0.00 (avg=0.00, dev=54.3%)
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 14] NoiseFloor ↑ shift detected! deviation=3.08
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in SNR: 41.09 (avg=12.33, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in TX_power: 15.00 (avg=4.50, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in Throughput: 411.29 (avg=123.39, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in QoE: 4.95 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in P95_retry: 2.42 (avg=0.73, dev=233.3%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in P95_PER: 0.13 (avg=0.04, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 120] SNR ↑ shift detected! deviation=28.76
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 120] TX_power ↑ shift detected! deviation=10.50
+[CUSUM ALERT][2025-11-10 05:13:46][Channel 120] Throughput ↑ shift detected! deviation=287.91
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in QoE: 4.83 (avg=2.49, dev=94.0%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in P95_retry: 7.87 (avg=2.87, dev=174.2%)
+[ALERT][2025-11-10 05:13:46][Channel 120] Sudden change in P95_PER: 0.14 (avg=0.07, dev=104.1%)
+DFS Radar detected...
+DFS detected on channel 13...
+[ALERT][2025-11-10 05:13:52][Channel 1] Sudden change in P95_retry: 32.25 (avg=20.24, dev=59.4%)
+[CUSUM ALERT][2025-11-10 05:13:52][Channel 1] Throughput ↓ shift detected! deviation=-7.35
+[ALERT][2025-11-10 05:13:52][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=24.7%)
+[CUSUM ALERT][2025-11-10 05:13:52][Channel 1] SNR ↑ shift detected! deviation=1.84
+[CUSUM ALERT][2025-11-10 05:13:52][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.49
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in SNR: 45.45 (avg=13.63, dev=233.3%)
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in Throughput: 348.59 (avg=104.58, dev=233.3%)
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in QoE: 4.39 (avg=1.32, dev=233.3%)
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in P95_retry: 22.83 (avg=6.85, dev=233.3%)
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:53][Channel 124] SNR ↑ shift detected! deviation=31.81
+[CUSUM ALERT][2025-11-10 05:13:53][Channel 124] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:13:53][Channel 124] Throughput ↑ shift detected! deviation=244.02
+[CUSUM ALERT][2025-11-10 05:13:53][Channel 124] P95_retry ↑ shift detected! deviation=15.98
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in QoE: 4.18 (avg=2.18, dev=92.0%)
+[ALERT][2025-11-10 05:13:53][Channel 124] Sudden change in P95_PER: 0.03 (avg=0.01, dev=97.3%)
+DFS Radar detected...
+DFS detected on channel 14...
+[ALERT][2025-11-10 05:13:59][Channel 2] Sudden change in P95_retry: 15.36 (avg=20.32, dev=24.4%)
+[ALERT][2025-11-10 05:13:59][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.01, dev=42.2%)
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 2] Throughput ↑ shift detected! deviation=2.77
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 2] SNR ↑ shift detected! deviation=2.54
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 2] NoiseFloor ↑ shift detected! deviation=3.10
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in SNR: 45.84 (avg=13.75, dev=233.3%)
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in Throughput: 345.57 (avg=103.67, dev=233.3%)
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in QoE: 4.42 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in P95_retry: 21.33 (avg=6.40, dev=233.3%)
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 128] SNR ↑ shift detected! deviation=32.09
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 128] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 128] Throughput ↑ shift detected! deviation=241.90
+[CUSUM ALERT][2025-11-10 05:13:59][Channel 128] P95_retry ↑ shift detected! deviation=14.93
+[ALERT][2025-11-10 05:13:59][Channel 128] Sudden change in QoE: 4.58 (avg=2.30, dev=98.9%)
+DFS Radar detected...
+DFS detected on channel 15...
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:17:03][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:17:03][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:17:03][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in SNR: 49.82 (avg=14.95, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in Throughput: 61.97 (avg=18.59, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in QoE: 4.64 (avg=1.39, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in P95_retry: 15.36 (avg=4.61, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 2] SNR ↑ shift detected! deviation=34.87
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 2] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 2] Throughput ↑ shift detected! deviation=43.38
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 2] P95_retry ↑ shift detected! deviation=10.76
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in QoE: 4.91 (avg=2.45, dev=100.5%)
+[ALERT][2025-11-10 05:17:10][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=72.3%)
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 2] NoiseFloor ↑ shift detected! deviation=3.04
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in SNR: 45.49 (avg=13.65, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in Throughput: 360.81 (avg=108.24, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in QoE: 4.52 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in P95_retry: 17.82 (avg=5.34, dev=233.3%)
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in P95_PER: 0.05 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 40] SNR ↑ shift detected! deviation=31.84
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 40] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 40] Throughput ↑ shift detected! deviation=252.56
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 40] P95_retry ↑ shift detected! deviation=12.47
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in QoE: 4.18 (avg=2.20, dev=89.6%)
+[ALERT][2025-11-10 05:17:10][Channel 40] Sudden change in P95_PER: 0.03 (avg=0.02, dev=61.0%)
+[CUSUM ALERT][2025-11-10 05:17:10][Channel 40] NoiseFloor ↓ shift detected! deviation=-4.07
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:17:26][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:17:26][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:17:26][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in SNR: 49.82 (avg=14.95, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in Throughput: 61.97 (avg=18.59, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in QoE: 4.64 (avg=1.39, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in P95_retry: 15.36 (avg=4.61, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 2] SNR ↑ shift detected! deviation=34.87
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 2] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 2] Throughput ↑ shift detected! deviation=43.38
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 2] P95_retry ↑ shift detected! deviation=10.76
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in QoE: 4.91 (avg=2.45, dev=100.5%)
+[ALERT][2025-11-10 05:17:32][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=72.3%)
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 2] NoiseFloor ↑ shift detected! deviation=3.04
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in SNR: 45.49 (avg=13.65, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in Throughput: 360.81 (avg=108.24, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in QoE: 4.52 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in P95_retry: 17.82 (avg=5.34, dev=233.3%)
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in P95_PER: 0.05 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 40] SNR ↑ shift detected! deviation=31.84
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 40] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 40] Throughput ↑ shift detected! deviation=252.56
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 40] P95_retry ↑ shift detected! deviation=12.47
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in QoE: 4.18 (avg=2.20, dev=89.6%)
+[ALERT][2025-11-10 05:17:32][Channel 40] Sudden change in P95_PER: 0.03 (avg=0.02, dev=61.0%)
+[CUSUM ALERT][2025-11-10 05:17:32][Channel 40] NoiseFloor ↓ shift detected! deviation=-4.07
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in SNR: 49.50 (avg=14.85, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in Throughput: 50.67 (avg=15.20, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in QoE: 4.07 (avg=1.22, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in P95_retry: 34.15 (avg=10.25, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 3] SNR ↑ shift detected! deviation=34.65
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 3] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 3] Throughput ↑ shift detected! deviation=35.47
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 3] P95_retry ↑ shift detected! deviation=23.91
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in QoE: 4.70 (avg=2.26, dev=107.6%)
+[ALERT][2025-11-10 05:17:39][Channel 3] Sudden change in P95_PER: 0.00 (avg=0.00, dev=25.7%)
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 3] NoiseFloor ↓ shift detected! deviation=-3.50
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in SNR: 42.36 (avg=12.71, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in Throughput: 1017.38 (avg=305.21, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in QoE: 4.33 (avg=1.30, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in P95_retry: 24.10 (avg=7.23, dev=233.3%)
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in P95_PER: 0.16 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 44] SNR ↑ shift detected! deviation=29.65
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 44] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 44] Throughput ↑ shift detected! deviation=712.16
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 44] P95_retry ↑ shift detected! deviation=16.87
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in QoE: 4.33 (avg=2.21, dev=96.2%)
+[ALERT][2025-11-10 05:17:39][Channel 44] Sudden change in P95_PER: 0.13 (avg=0.07, dev=76.4%)
+[CUSUM ALERT][2025-11-10 05:17:39][Channel 44] NoiseFloor ↑ shift detected! deviation=2.87
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in SNR: 52.72 (avg=15.82, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in Throughput: 65.66 (avg=19.70, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in QoE: 4.81 (avg=1.44, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in P95_retry: 10.10 (avg=3.03, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 4] SNR ↑ shift detected! deviation=36.91
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 4] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 4] Throughput ↑ shift detected! deviation=45.96
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 4] P95_retry ↑ shift detected! deviation=7.07
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in QoE: 4.68 (avg=2.41, dev=93.8%)
+[ALERT][2025-11-10 05:17:45][Channel 4] Sudden change in P95_PER: 0.00 (avg=0.00, dev=79.4%)
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 4] NoiseFloor ↓ shift detected! deviation=-2.57
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in SNR: 41.91 (avg=12.57, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in Throughput: 349.70 (avg=104.91, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in QoE: 4.43 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in P95_retry: 21.64 (avg=6.49, dev=233.3%)
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in P95_PER: 0.05 (avg=0.02, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 48] SNR ↑ shift detected! deviation=29.34
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 48] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 48] Throughput ↑ shift detected! deviation=244.79
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 48] P95_retry ↑ shift detected! deviation=15.15
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in QoE: 4.48 (avg=2.28, dev=97.0%)
+[ALERT][2025-11-10 05:17:45][Channel 48] Sudden change in P95_PER: 0.05 (avg=0.03, dev=85.5%)
+[CUSUM ALERT][2025-11-10 05:17:45][Channel 48] NoiseFloor ↓ shift detected! deviation=-1.91
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in SNR: 48.81 (avg=14.64, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in Throughput: 60.70 (avg=18.21, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in QoE: 4.55 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in P95_retry: 16.75 (avg=5.03, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 5] SNR ↑ shift detected! deviation=34.16
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 5] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 5] Throughput ↑ shift detected! deviation=42.49
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 5] P95_retry ↑ shift detected! deviation=11.73
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in QoE: 4.58 (avg=2.33, dev=96.6%)
+[ALERT][2025-11-10 05:17:52][Channel 5] Sudden change in P95_PER: 0.01 (avg=0.00, dev=80.1%)
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 5] NoiseFloor ↑ shift detected! deviation=3.02
+[ALERT][2025-11-10 05:17:52][Channel 52] Sudden change in SNR: 49.26 (avg=14.78, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 52] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 52] Sudden change in Throughput: 329.16 (avg=98.75, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 52] Sudden change in QoE: 4.27 (avg=1.28, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 52] Sudden change in P95_retry: 26.55 (avg=7.97, dev=233.3%)
+[ALERT][2025-11-10 05:17:52][Channel 52] Sudden change in P95_PER: 0.02 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 52] SNR ↑ shift detected! deviation=34.48
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 52] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 52] Throughput ↑ shift detected! deviation=230.41
+[CUSUM ALERT][2025-11-10 05:17:52][Channel 52] P95_retry ↑ shift detected! deviation=18.59
+DFS Radar detected...
+DFS detected on channel 4...
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in SNR: 52.73 (avg=15.82, dev=233.3%)
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in Throughput: 58.17 (avg=17.45, dev=233.3%)
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in QoE: 4.44 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in P95_retry: 22.34 (avg=6.70, dev=233.3%)
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:17:58][Channel 6] SNR ↑ shift detected! deviation=36.91
+[CUSUM ALERT][2025-11-10 05:17:58][Channel 6] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:17:58][Channel 6] Throughput ↑ shift detected! deviation=40.72
+[CUSUM ALERT][2025-11-10 05:17:58][Channel 6] P95_retry ↑ shift detected! deviation=15.64
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in QoE: 4.18 (avg=2.19, dev=91.2%)
+[ALERT][2025-11-10 05:17:58][Channel 6] Sudden change in P95_PER: 0.01 (avg=0.00, dev=133.2%)
+[CUSUM ALERT][2025-11-10 05:17:58][Channel 6] NoiseFloor ↓ shift detected! deviation=-1.85
+DFS Radar detected...
+DFS detected on channel 5...
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in SNR: 51.33 (avg=15.40, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in Throughput: 60.22 (avg=18.07, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in QoE: 4.54 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in P95_retry: 17.64 (avg=5.29, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 7] SNR ↑ shift detected! deviation=35.93
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 7] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 7] Throughput ↑ shift detected! deviation=42.16
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 7] P95_retry ↑ shift detected! deviation=12.34
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in QoE: 4.25 (avg=2.23, dev=90.7%)
+[ALERT][2025-11-10 05:18:04][Channel 7] Sudden change in P95_PER: 0.00 (avg=0.00, dev=107.2%)
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 7] NoiseFloor ↓ shift detected! deviation=-3.49
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in SNR: 46.21 (avg=13.86, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in Throughput: 378.23 (avg=113.47, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in QoE: 4.69 (avg=1.41, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in P95_retry: 13.98 (avg=4.19, dev=233.3%)
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in P95_PER: 0.04 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 60] SNR ↑ shift detected! deviation=32.35
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 60] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 60] Throughput ↑ shift detected! deviation=264.76
+[CUSUM ALERT][2025-11-10 05:18:04][Channel 60] P95_retry ↑ shift detected! deviation=9.79
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in QoE: 4.70 (avg=2.40, dev=96.2%)
+[ALERT][2025-11-10 05:18:04][Channel 60] Sudden change in P95_PER: 0.06 (avg=0.03, dev=117.1%)
+DFS Radar detected...
+DFS detected on channel 6...
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in SNR: 53.98 (avg=16.19, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in Throughput: 62.30 (avg=18.69, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in QoE: 4.67 (avg=1.40, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in P95_retry: 14.55 (avg=4.37, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 8] SNR ↑ shift detected! deviation=37.78
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 8] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 8] Throughput ↑ shift detected! deviation=43.61
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 8] P95_retry ↑ shift detected! deviation=10.19
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in QoE: 4.44 (avg=2.31, dev=92.1%)
+[ALERT][2025-11-10 05:18:11][Channel 8] Sudden change in P95_PER: 0.00 (avg=0.00, dev=37.9%)
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 8] NoiseFloor ↓ shift detected! deviation=-1.80
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in SNR: 44.82 (avg=13.45, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in Throughput: 321.16 (avg=96.35, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in QoE: 4.19 (avg=1.26, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in P95_retry: 29.50 (avg=8.85, dev=233.3%)
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 64] SNR ↑ shift detected! deviation=31.38
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 64] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 64] Throughput ↑ shift detected! deviation=224.81
+[CUSUM ALERT][2025-11-10 05:18:11][Channel 64] P95_retry ↑ shift detected! deviation=20.65
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in QoE: 4.26 (avg=2.16, dev=97.4%)
+[ALERT][2025-11-10 05:18:11][Channel 64] Sudden change in P95_PER: 0.06 (avg=0.02, dev=148.5%)
+DFS Radar detected...
+DFS detected on channel 7...
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in SNR: 52.30 (avg=15.69, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in TX_power: 15.00 (avg=4.50, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in Throughput: 54.54 (avg=16.36, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in QoE: 4.21 (avg=1.26, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in P95_retry: 29.40 (avg=8.82, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in P95_PER: 0.02 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 9] SNR ↑ shift detected! deviation=36.61
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 9] TX_power ↑ shift detected! deviation=10.50
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 9] Throughput ↑ shift detected! deviation=38.18
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 9] P95_retry ↑ shift detected! deviation=20.58
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in QoE: 4.32 (avg=2.18, dev=98.2%)
+[ALERT][2025-11-10 05:18:17][Channel 9] Sudden change in P95_PER: 0.00 (avg=0.00, dev=28.9%)
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 9] NoiseFloor ↓ shift detected! deviation=-1.66
+[ALERT][2025-11-10 05:18:17][Channel 100] Sudden change in SNR: 41.82 (avg=12.55, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 100] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 100] Sudden change in Throughput: 360.69 (avg=108.21, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 100] Sudden change in QoE: 4.51 (avg=1.35, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 100] Sudden change in P95_retry: 17.88 (avg=5.37, dev=233.3%)
+[ALERT][2025-11-10 05:18:17][Channel 100] Sudden change in P95_PER: 0.17 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 100] SNR ↑ shift detected! deviation=29.27
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 100] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 100] Throughput ↑ shift detected! deviation=252.48
+[CUSUM ALERT][2025-11-10 05:18:17][Channel 100] P95_retry ↑ shift detected! deviation=12.52
+DFS Radar detected...
+DFS detected on channel 8...
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in SNR: 51.84 (avg=15.55, dev=233.3%)
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in Throughput: 64.73 (avg=19.42, dev=233.3%)
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in QoE: 4.77 (avg=1.43, dev=233.3%)
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in P95_retry: 10.54 (avg=3.16, dev=233.3%)
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:23][Channel 10] SNR ↑ shift detected! deviation=36.29
+[CUSUM ALERT][2025-11-10 05:18:23][Channel 10] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:18:23][Channel 10] Throughput ↑ shift detected! deviation=45.31
+[CUSUM ALERT][2025-11-10 05:18:23][Channel 10] P95_retry ↑ shift detected! deviation=7.38
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in QoE: 4.83 (avg=2.45, dev=97.1%)
+[ALERT][2025-11-10 05:18:23][Channel 10] Sudden change in P95_PER: 0.00 (avg=0.00, dev=74.1%)
+[CUSUM ALERT][2025-11-10 05:18:23][Channel 10] NoiseFloor ↑ shift detected! deviation=4.10
+DFS Radar detected...
+DFS detected on channel 9...
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in SNR: 52.49 (avg=15.75, dev=233.3%)
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in Throughput: 54.61 (avg=16.38, dev=233.3%)
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in QoE: 4.25 (avg=1.28, dev=233.3%)
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in P95_retry: 27.83 (avg=8.35, dev=233.3%)
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:30][Channel 11] SNR ↑ shift detected! deviation=36.75
+[CUSUM ALERT][2025-11-10 05:18:30][Channel 11] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:18:30][Channel 11] Throughput ↑ shift detected! deviation=38.23
+[CUSUM ALERT][2025-11-10 05:18:30][Channel 11] P95_retry ↑ shift detected! deviation=19.48
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in QoE: 4.10 (avg=2.12, dev=93.2%)
+[ALERT][2025-11-10 05:18:30][Channel 11] Sudden change in P95_PER: 0.01 (avg=0.00, dev=85.7%)
+[CUSUM ALERT][2025-11-10 05:18:30][Channel 11] NoiseFloor ↓ shift detected! deviation=-1.75
+DFS Radar detected...
+DFS detected on channel 10...
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in SNR: 50.75 (avg=15.22, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in Throughput: 62.63 (avg=18.79, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in QoE: 4.66 (avg=1.40, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in P95_retry: 14.46 (avg=4.34, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 12] SNR ↑ shift detected! deviation=35.52
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 12] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 12] Throughput ↑ shift detected! deviation=43.84
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 12] P95_retry ↑ shift detected! deviation=10.12
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in QoE: 4.62 (avg=2.36, dev=95.2%)
+[ALERT][2025-11-10 05:18:36][Channel 12] Sudden change in P95_PER: 0.01 (avg=0.00, dev=115.7%)
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 12] NoiseFloor ↓ shift detected! deviation=-3.89
+[ALERT][2025-11-10 05:18:36][Channel 112] Sudden change in SNR: 48.02 (avg=14.41, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 112] Sudden change in TX_power: 22.00 (avg=6.60, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 112] Sudden change in Throughput: 410.67 (avg=123.20, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 112] Sudden change in QoE: 4.93 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 112] Sudden change in P95_retry: 4.76 (avg=1.43, dev=233.3%)
+[ALERT][2025-11-10 05:18:36][Channel 112] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 112] SNR ↑ shift detected! deviation=33.62
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 112] TX_power ↑ shift detected! deviation=15.40
+[CUSUM ALERT][2025-11-10 05:18:36][Channel 112] Throughput ↑ shift detected! deviation=287.47
+DFS Radar detected...
+DFS detected on channel 11...
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in SNR: 50.57 (avg=15.17, dev=233.3%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in Throughput: 67.54 (avg=20.26, dev=233.3%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in QoE: 4.94 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in P95_retry: 3.76 (avg=1.13, dev=233.3%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:42][Channel 13] SNR ↑ shift detected! deviation=35.40
+[CUSUM ALERT][2025-11-10 05:18:42][Channel 13] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:18:42][Channel 13] Throughput ↑ shift detected! deviation=47.27
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in QoE: 4.37 (avg=2.35, dev=86.1%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in P95_retry: 22.67 (avg=7.59, dev=198.6%)
+[ALERT][2025-11-10 05:18:42][Channel 13] Sudden change in P95_PER: 0.01 (avg=0.01, dev=39.9%)
+[CUSUM ALERT][2025-11-10 05:18:42][Channel 13] NoiseFloor ↑ shift detected! deviation=3.29
+[ALERT][2025-11-10 05:18:43][Channel 116] Sudden change in SNR: 43.64 (avg=13.09, dev=233.3%)
+[ALERT][2025-11-10 05:18:43][Channel 116] Sudden change in TX_power: 22.00 (avg=6.60, dev=233.3%)
+[ALERT][2025-11-10 05:18:43][Channel 116] Sudden change in Throughput: 500.99 (avg=150.30, dev=233.3%)
+[ALERT][2025-11-10 05:18:43][Channel 116] Sudden change in QoE: 3.94 (avg=1.18, dev=233.3%)
+[ALERT][2025-11-10 05:18:43][Channel 116] Sudden change in P95_retry: 39.84 (avg=11.95, dev=233.3%)
+[ALERT][2025-11-10 05:18:43][Channel 116] Sudden change in P95_PER: 0.08 (avg=0.02, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:43][Channel 116] SNR ↑ shift detected! deviation=30.55
+[CUSUM ALERT][2025-11-10 05:18:43][Channel 116] TX_power ↑ shift detected! deviation=15.40
+[CUSUM ALERT][2025-11-10 05:18:43][Channel 116] Throughput ↑ shift detected! deviation=350.69
+[CUSUM ALERT][2025-11-10 05:18:43][Channel 116] P95_retry ↑ shift detected! deviation=27.89
+DFS Radar detected...
+DFS detected on channel 12...
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in SNR: 53.19 (avg=15.96, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in Throughput: 68.84 (avg=20.65, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in QoE: 4.97 (avg=1.49, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in P95_retry: 3.06 (avg=0.92, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 14] SNR ↑ shift detected! deviation=37.23
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 14] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 14] Throughput ↑ shift detected! deviation=48.19
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in QoE: 4.44 (avg=2.37, dev=86.8%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in P95_retry: 21.12 (avg=6.98, dev=202.7%)
+[ALERT][2025-11-10 05:18:49][Channel 14] Sudden change in P95_PER: 0.00 (avg=0.00, dev=54.3%)
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 14] NoiseFloor ↑ shift detected! deviation=3.08
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in SNR: 41.09 (avg=12.33, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in TX_power: 15.00 (avg=4.50, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in Throughput: 411.29 (avg=123.39, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in QoE: 4.95 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in P95_retry: 2.42 (avg=0.73, dev=233.3%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in P95_PER: 0.13 (avg=0.04, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 120] SNR ↑ shift detected! deviation=28.76
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 120] TX_power ↑ shift detected! deviation=10.50
+[CUSUM ALERT][2025-11-10 05:18:49][Channel 120] Throughput ↑ shift detected! deviation=287.91
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in QoE: 4.83 (avg=2.49, dev=94.0%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in P95_retry: 7.87 (avg=2.87, dev=174.2%)
+[ALERT][2025-11-10 05:18:49][Channel 120] Sudden change in P95_PER: 0.14 (avg=0.07, dev=104.1%)
+DFS Radar detected...
+DFS detected on channel 13...
+[ALERT][2025-11-10 05:18:55][Channel 1] Sudden change in P95_retry: 32.25 (avg=20.24, dev=59.4%)
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 1] Throughput ↓ shift detected! deviation=-7.35
+[ALERT][2025-11-10 05:18:55][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=24.7%)
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 1] SNR ↑ shift detected! deviation=1.84
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.49
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in SNR: 45.45 (avg=13.63, dev=233.3%)
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in Throughput: 348.59 (avg=104.58, dev=233.3%)
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in QoE: 4.39 (avg=1.32, dev=233.3%)
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in P95_retry: 22.83 (avg=6.85, dev=233.3%)
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 124] SNR ↑ shift detected! deviation=31.81
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 124] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 124] Throughput ↑ shift detected! deviation=244.02
+[CUSUM ALERT][2025-11-10 05:18:55][Channel 124] P95_retry ↑ shift detected! deviation=15.98
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in QoE: 4.18 (avg=2.18, dev=92.0%)
+[ALERT][2025-11-10 05:18:55][Channel 124] Sudden change in P95_PER: 0.03 (avg=0.01, dev=97.3%)
+DFS Radar detected...
+DFS detected on channel 14...
+[ALERT][2025-11-10 05:19:02][Channel 2] Sudden change in P95_retry: 15.36 (avg=20.32, dev=24.4%)
+[ALERT][2025-11-10 05:19:02][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.01, dev=42.2%)
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 2] Throughput ↑ shift detected! deviation=2.77
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 2] SNR ↑ shift detected! deviation=2.54
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 2] NoiseFloor ↑ shift detected! deviation=3.10
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in SNR: 45.84 (avg=13.75, dev=233.3%)
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in Throughput: 345.57 (avg=103.67, dev=233.3%)
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in QoE: 4.42 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in P95_retry: 21.33 (avg=6.40, dev=233.3%)
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 128] SNR ↑ shift detected! deviation=32.09
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 128] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 128] Throughput ↑ shift detected! deviation=241.90
+[CUSUM ALERT][2025-11-10 05:19:02][Channel 128] P95_retry ↑ shift detected! deviation=14.93
+[ALERT][2025-11-10 05:19:02][Channel 128] Sudden change in QoE: 4.58 (avg=2.30, dev=98.9%)
+DFS Radar detected...
+DFS detected on channel 15...
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:30:22][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:30:22][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:30:22][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:30:22][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:30:22][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:30:22][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:30:23][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:30:23][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:30:23][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:30:23][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:30:23][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:30:23][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in SNR: 49.82 (avg=14.95, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in Throughput: 61.97 (avg=18.59, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in QoE: 4.64 (avg=1.39, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in P95_retry: 15.36 (avg=4.61, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 2] SNR ↑ shift detected! deviation=34.87
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 2] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 2] Throughput ↑ shift detected! deviation=43.38
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 2] P95_retry ↑ shift detected! deviation=10.76
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in QoE: 4.91 (avg=2.45, dev=100.5%)
+[ALERT][2025-11-10 05:30:29][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=72.3%)
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 2] NoiseFloor ↑ shift detected! deviation=3.04
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in SNR: 45.49 (avg=13.65, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in Throughput: 360.81 (avg=108.24, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in QoE: 4.52 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in P95_retry: 17.82 (avg=5.34, dev=233.3%)
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in P95_PER: 0.05 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 40] SNR ↑ shift detected! deviation=31.84
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 40] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 40] Throughput ↑ shift detected! deviation=252.56
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 40] P95_retry ↑ shift detected! deviation=12.47
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in QoE: 4.18 (avg=2.20, dev=89.6%)
+[ALERT][2025-11-10 05:30:29][Channel 40] Sudden change in P95_PER: 0.03 (avg=0.02, dev=61.0%)
+[CUSUM ALERT][2025-11-10 05:30:29][Channel 40] NoiseFloor ↓ shift detected! deviation=-4.07
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in SNR: 49.50 (avg=14.85, dev=233.3%)
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in Throughput: 50.67 (avg=15.20, dev=233.3%)
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in QoE: 4.07 (avg=1.22, dev=233.3%)
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in P95_retry: 34.15 (avg=10.25, dev=233.3%)
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:30:35][Channel 3] SNR ↑ shift detected! deviation=34.65
+[CUSUM ALERT][2025-11-10 05:30:35][Channel 3] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:30:35][Channel 3] Throughput ↑ shift detected! deviation=35.47
+[CUSUM ALERT][2025-11-10 05:30:35][Channel 3] P95_retry ↑ shift detected! deviation=23.91
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in QoE: 4.70 (avg=2.26, dev=107.6%)
+[ALERT][2025-11-10 05:30:35][Channel 3] Sudden change in P95_PER: 0.00 (avg=0.00, dev=25.7%)
+[CUSUM ALERT][2025-11-10 05:30:35][Channel 3] NoiseFloor ↓ shift detected! deviation=-3.50
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in SNR: 42.36 (avg=12.71, dev=233.3%)
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in Throughput: 1017.38 (avg=305.21, dev=233.3%)
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in QoE: 4.33 (avg=1.30, dev=233.3%)
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in P95_retry: 24.10 (avg=7.23, dev=233.3%)
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in P95_PER: 0.16 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:30:36][Channel 44] SNR ↑ shift detected! deviation=29.65
+[CUSUM ALERT][2025-11-10 05:30:36][Channel 44] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:30:36][Channel 44] Throughput ↑ shift detected! deviation=712.16
+[CUSUM ALERT][2025-11-10 05:30:36][Channel 44] P95_retry ↑ shift detected! deviation=16.87
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in QoE: 4.33 (avg=2.21, dev=96.2%)
+[ALERT][2025-11-10 05:30:36][Channel 44] Sudden change in P95_PER: 0.13 (avg=0.07, dev=76.4%)
+[CUSUM ALERT][2025-11-10 05:30:36][Channel 44] NoiseFloor ↑ shift detected! deviation=2.87
+Might implement 6GHz in future...
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in SNR: 54.82 (avg=16.45, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in Throughput: 51.89 (avg=15.57, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in QoE: 4.11 (avg=1.23, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in P95_retry: 32.25 (avg=9.67, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 1] SNR ↑ shift detected! deviation=38.38
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 1] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 1] Throughput ↑ shift detected! deviation=36.33
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 1] P95_retry ↑ shift detected! deviation=22.57
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in QoE: 4.58 (avg=2.23, dev=104.8%)
+[ALERT][2025-11-10 05:32:27][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=119.4%)
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.04
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in SNR: 46.81 (avg=14.04, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in Throughput: 298.10 (avg=89.43, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in QoE: 4.00 (avg=1.20, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in P95_retry: 36.35 (avg=10.91, dev=233.3%)
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 36] SNR ↑ shift detected! deviation=32.77
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 36] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 36] Throughput ↑ shift detected! deviation=208.67
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 36] P95_retry ↑ shift detected! deviation=25.45
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in QoE: 4.62 (avg=2.23, dev=107.7%)
+[ALERT][2025-11-10 05:32:27][Channel 36] Sudden change in P95_PER: 0.02 (avg=0.01, dev=140.4%)
+[CUSUM ALERT][2025-11-10 05:32:27][Channel 36] NoiseFloor ↑ shift detected! deviation=3.01
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in SNR: 49.82 (avg=14.95, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in Throughput: 61.97 (avg=18.59, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in QoE: 4.64 (avg=1.39, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in P95_retry: 15.36 (avg=4.61, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 2] SNR ↑ shift detected! deviation=34.87
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 2] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 2] Throughput ↑ shift detected! deviation=43.38
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 2] P95_retry ↑ shift detected! deviation=10.76
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in QoE: 4.91 (avg=2.45, dev=100.5%)
+[ALERT][2025-11-10 05:32:34][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.00, dev=72.3%)
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 2] NoiseFloor ↑ shift detected! deviation=3.04
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in SNR: 45.49 (avg=13.65, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in Throughput: 360.81 (avg=108.24, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in QoE: 4.52 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in P95_retry: 17.82 (avg=5.34, dev=233.3%)
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in P95_PER: 0.05 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 40] SNR ↑ shift detected! deviation=31.84
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 40] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 40] Throughput ↑ shift detected! deviation=252.56
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 40] P95_retry ↑ shift detected! deviation=12.47
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in QoE: 4.18 (avg=2.20, dev=89.6%)
+[ALERT][2025-11-10 05:32:34][Channel 40] Sudden change in P95_PER: 0.03 (avg=0.02, dev=61.0%)
+[CUSUM ALERT][2025-11-10 05:32:34][Channel 40] NoiseFloor ↓ shift detected! deviation=-4.07
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in SNR: 49.50 (avg=14.85, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in Throughput: 50.67 (avg=15.20, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in QoE: 4.07 (avg=1.22, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in P95_retry: 34.15 (avg=10.25, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 3] SNR ↑ shift detected! deviation=34.65
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 3] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 3] Throughput ↑ shift detected! deviation=35.47
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 3] P95_retry ↑ shift detected! deviation=23.91
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in QoE: 4.70 (avg=2.26, dev=107.6%)
+[ALERT][2025-11-10 05:32:40][Channel 3] Sudden change in P95_PER: 0.00 (avg=0.00, dev=25.7%)
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 3] NoiseFloor ↓ shift detected! deviation=-3.50
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in SNR: 42.36 (avg=12.71, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in Throughput: 1017.38 (avg=305.21, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in QoE: 4.33 (avg=1.30, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in P95_retry: 24.10 (avg=7.23, dev=233.3%)
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in P95_PER: 0.16 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 44] SNR ↑ shift detected! deviation=29.65
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 44] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 44] Throughput ↑ shift detected! deviation=712.16
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 44] P95_retry ↑ shift detected! deviation=16.87
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in QoE: 4.33 (avg=2.21, dev=96.2%)
+[ALERT][2025-11-10 05:32:40][Channel 44] Sudden change in P95_PER: 0.13 (avg=0.07, dev=76.4%)
+[CUSUM ALERT][2025-11-10 05:32:40][Channel 44] NoiseFloor ↑ shift detected! deviation=2.87
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in SNR: 52.72 (avg=15.82, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in Throughput: 65.66 (avg=19.70, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in QoE: 4.81 (avg=1.44, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in P95_retry: 10.10 (avg=3.03, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 4] SNR ↑ shift detected! deviation=36.91
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 4] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 4] Throughput ↑ shift detected! deviation=45.96
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 4] P95_retry ↑ shift detected! deviation=7.07
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in QoE: 4.68 (avg=2.41, dev=93.8%)
+[ALERT][2025-11-10 05:32:47][Channel 4] Sudden change in P95_PER: 0.00 (avg=0.00, dev=79.4%)
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 4] NoiseFloor ↓ shift detected! deviation=-2.57
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in SNR: 41.91 (avg=12.57, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in Throughput: 349.70 (avg=104.91, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in QoE: 4.43 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in P95_retry: 21.64 (avg=6.49, dev=233.3%)
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in P95_PER: 0.05 (avg=0.02, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 48] SNR ↑ shift detected! deviation=29.34
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 48] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 48] Throughput ↑ shift detected! deviation=244.79
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 48] P95_retry ↑ shift detected! deviation=15.15
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in QoE: 4.48 (avg=2.28, dev=97.0%)
+[ALERT][2025-11-10 05:32:47][Channel 48] Sudden change in P95_PER: 0.05 (avg=0.03, dev=85.5%)
+[CUSUM ALERT][2025-11-10 05:32:47][Channel 48] NoiseFloor ↓ shift detected! deviation=-1.91
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in SNR: 48.81 (avg=14.64, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in Throughput: 60.70 (avg=18.21, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in QoE: 4.55 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in P95_retry: 16.75 (avg=5.03, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 5] SNR ↑ shift detected! deviation=34.16
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 5] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 5] Throughput ↑ shift detected! deviation=42.49
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 5] P95_retry ↑ shift detected! deviation=11.73
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in QoE: 4.58 (avg=2.33, dev=96.6%)
+[ALERT][2025-11-10 05:32:53][Channel 5] Sudden change in P95_PER: 0.01 (avg=0.00, dev=80.1%)
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 5] NoiseFloor ↑ shift detected! deviation=3.02
+[ALERT][2025-11-10 05:32:53][Channel 52] Sudden change in SNR: 49.26 (avg=14.78, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 52] Sudden change in TX_power: 19.00 (avg=5.70, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 52] Sudden change in Throughput: 329.16 (avg=98.75, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 52] Sudden change in QoE: 4.27 (avg=1.28, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 52] Sudden change in P95_retry: 26.55 (avg=7.97, dev=233.3%)
+[ALERT][2025-11-10 05:32:53][Channel 52] Sudden change in P95_PER: 0.02 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 52] SNR ↑ shift detected! deviation=34.48
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 52] TX_power ↑ shift detected! deviation=13.30
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 52] Throughput ↑ shift detected! deviation=230.41
+[CUSUM ALERT][2025-11-10 05:32:53][Channel 52] P95_retry ↑ shift detected! deviation=18.59
+DFS Radar detected...
+DFS detected on channel 4...
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in SNR: 52.73 (avg=15.82, dev=233.3%)
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in Throughput: 58.17 (avg=17.45, dev=233.3%)
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in QoE: 4.44 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in P95_retry: 22.34 (avg=6.70, dev=233.3%)
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:32:59][Channel 6] SNR ↑ shift detected! deviation=36.91
+[CUSUM ALERT][2025-11-10 05:32:59][Channel 6] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:32:59][Channel 6] Throughput ↑ shift detected! deviation=40.72
+[CUSUM ALERT][2025-11-10 05:32:59][Channel 6] P95_retry ↑ shift detected! deviation=15.64
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in QoE: 4.18 (avg=2.19, dev=91.2%)
+[ALERT][2025-11-10 05:32:59][Channel 6] Sudden change in P95_PER: 0.01 (avg=0.00, dev=133.2%)
+[CUSUM ALERT][2025-11-10 05:32:59][Channel 6] NoiseFloor ↓ shift detected! deviation=-1.85
+DFS Radar detected...
+DFS detected on channel 5...
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in SNR: 51.33 (avg=15.40, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in Throughput: 60.22 (avg=18.07, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in QoE: 4.54 (avg=1.36, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in P95_retry: 17.64 (avg=5.29, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 7] SNR ↑ shift detected! deviation=35.93
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 7] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 7] Throughput ↑ shift detected! deviation=42.16
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 7] P95_retry ↑ shift detected! deviation=12.34
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in QoE: 4.25 (avg=2.23, dev=90.7%)
+[ALERT][2025-11-10 05:33:06][Channel 7] Sudden change in P95_PER: 0.00 (avg=0.00, dev=107.2%)
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 7] NoiseFloor ↓ shift detected! deviation=-3.49
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in SNR: 46.21 (avg=13.86, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in Throughput: 378.23 (avg=113.47, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in QoE: 4.69 (avg=1.41, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in P95_retry: 13.98 (avg=4.19, dev=233.3%)
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in P95_PER: 0.04 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 60] SNR ↑ shift detected! deviation=32.35
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 60] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 60] Throughput ↑ shift detected! deviation=264.76
+[CUSUM ALERT][2025-11-10 05:33:06][Channel 60] P95_retry ↑ shift detected! deviation=9.79
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in QoE: 4.70 (avg=2.40, dev=96.2%)
+[ALERT][2025-11-10 05:33:06][Channel 60] Sudden change in P95_PER: 0.06 (avg=0.03, dev=117.1%)
+DFS Radar detected...
+DFS detected on channel 6...
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in SNR: 53.98 (avg=16.19, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in Throughput: 62.30 (avg=18.69, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in QoE: 4.67 (avg=1.40, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in P95_retry: 14.55 (avg=4.37, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 8] SNR ↑ shift detected! deviation=37.78
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 8] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 8] Throughput ↑ shift detected! deviation=43.61
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 8] P95_retry ↑ shift detected! deviation=10.19
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in QoE: 4.44 (avg=2.31, dev=92.1%)
+[ALERT][2025-11-10 05:33:12][Channel 8] Sudden change in P95_PER: 0.00 (avg=0.00, dev=37.9%)
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 8] NoiseFloor ↓ shift detected! deviation=-1.80
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in SNR: 44.82 (avg=13.45, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in TX_power: 17.00 (avg=5.10, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in Throughput: 321.16 (avg=96.35, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in QoE: 4.19 (avg=1.26, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in P95_retry: 29.50 (avg=8.85, dev=233.3%)
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 64] SNR ↑ shift detected! deviation=31.38
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 64] TX_power ↑ shift detected! deviation=11.90
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 64] Throughput ↑ shift detected! deviation=224.81
+[CUSUM ALERT][2025-11-10 05:33:12][Channel 64] P95_retry ↑ shift detected! deviation=20.65
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in QoE: 4.26 (avg=2.16, dev=97.4%)
+[ALERT][2025-11-10 05:33:12][Channel 64] Sudden change in P95_PER: 0.06 (avg=0.02, dev=148.5%)
+DFS Radar detected...
+DFS detected on channel 7...
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in SNR: 52.30 (avg=15.69, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in TX_power: 15.00 (avg=4.50, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in Throughput: 54.54 (avg=16.36, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in QoE: 4.21 (avg=1.26, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in P95_retry: 29.40 (avg=8.82, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in P95_PER: 0.02 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 9] SNR ↑ shift detected! deviation=36.61
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 9] TX_power ↑ shift detected! deviation=10.50
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 9] Throughput ↑ shift detected! deviation=38.18
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 9] P95_retry ↑ shift detected! deviation=20.58
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in QoE: 4.32 (avg=2.18, dev=98.2%)
+[ALERT][2025-11-10 05:33:19][Channel 9] Sudden change in P95_PER: 0.00 (avg=0.00, dev=28.9%)
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 9] NoiseFloor ↓ shift detected! deviation=-1.66
+[ALERT][2025-11-10 05:33:19][Channel 100] Sudden change in SNR: 41.82 (avg=12.55, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 100] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 100] Sudden change in Throughput: 360.69 (avg=108.21, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 100] Sudden change in QoE: 4.51 (avg=1.35, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 100] Sudden change in P95_retry: 17.88 (avg=5.37, dev=233.3%)
+[ALERT][2025-11-10 05:33:19][Channel 100] Sudden change in P95_PER: 0.17 (avg=0.05, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 100] SNR ↑ shift detected! deviation=29.27
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 100] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 100] Throughput ↑ shift detected! deviation=252.48
+[CUSUM ALERT][2025-11-10 05:33:19][Channel 100] P95_retry ↑ shift detected! deviation=12.52
+DFS Radar detected...
+DFS detected on channel 8...
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in SNR: 51.84 (avg=15.55, dev=233.3%)
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in Throughput: 64.73 (avg=19.42, dev=233.3%)
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in QoE: 4.77 (avg=1.43, dev=233.3%)
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in P95_retry: 10.54 (avg=3.16, dev=233.3%)
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:25][Channel 10] SNR ↑ shift detected! deviation=36.29
+[CUSUM ALERT][2025-11-10 05:33:25][Channel 10] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:33:25][Channel 10] Throughput ↑ shift detected! deviation=45.31
+[CUSUM ALERT][2025-11-10 05:33:25][Channel 10] P95_retry ↑ shift detected! deviation=7.38
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in QoE: 4.83 (avg=2.45, dev=97.1%)
+[ALERT][2025-11-10 05:33:25][Channel 10] Sudden change in P95_PER: 0.00 (avg=0.00, dev=74.1%)
+[CUSUM ALERT][2025-11-10 05:33:25][Channel 10] NoiseFloor ↑ shift detected! deviation=4.10
+DFS Radar detected...
+DFS detected on channel 9...
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in SNR: 52.49 (avg=15.75, dev=233.3%)
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in Throughput: 54.61 (avg=16.38, dev=233.3%)
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in QoE: 4.25 (avg=1.28, dev=233.3%)
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in P95_retry: 27.83 (avg=8.35, dev=233.3%)
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:31][Channel 11] SNR ↑ shift detected! deviation=36.75
+[CUSUM ALERT][2025-11-10 05:33:31][Channel 11] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:33:31][Channel 11] Throughput ↑ shift detected! deviation=38.23
+[CUSUM ALERT][2025-11-10 05:33:31][Channel 11] P95_retry ↑ shift detected! deviation=19.48
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in QoE: 4.10 (avg=2.12, dev=93.2%)
+[ALERT][2025-11-10 05:33:31][Channel 11] Sudden change in P95_PER: 0.01 (avg=0.00, dev=85.7%)
+[CUSUM ALERT][2025-11-10 05:33:31][Channel 11] NoiseFloor ↓ shift detected! deviation=-1.75
+DFS Radar detected...
+DFS detected on channel 10...
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in SNR: 50.75 (avg=15.22, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in Throughput: 62.63 (avg=18.79, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in QoE: 4.66 (avg=1.40, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in P95_retry: 14.46 (avg=4.34, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in P95_PER: 0.00 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 12] SNR ↑ shift detected! deviation=35.52
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 12] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 12] Throughput ↑ shift detected! deviation=43.84
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 12] P95_retry ↑ shift detected! deviation=10.12
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in QoE: 4.62 (avg=2.36, dev=95.2%)
+[ALERT][2025-11-10 05:33:38][Channel 12] Sudden change in P95_PER: 0.01 (avg=0.00, dev=115.7%)
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 12] NoiseFloor ↓ shift detected! deviation=-3.89
+[ALERT][2025-11-10 05:33:38][Channel 112] Sudden change in SNR: 48.02 (avg=14.41, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 112] Sudden change in TX_power: 22.00 (avg=6.60, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 112] Sudden change in Throughput: 410.67 (avg=123.20, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 112] Sudden change in QoE: 4.93 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 112] Sudden change in P95_retry: 4.76 (avg=1.43, dev=233.3%)
+[ALERT][2025-11-10 05:33:38][Channel 112] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 112] SNR ↑ shift detected! deviation=33.62
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 112] TX_power ↑ shift detected! deviation=15.40
+[CUSUM ALERT][2025-11-10 05:33:38][Channel 112] Throughput ↑ shift detected! deviation=287.47
+DFS Radar detected...
+DFS detected on channel 11...
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in SNR: 50.57 (avg=15.17, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in TX_power: 16.00 (avg=4.80, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in Throughput: 67.54 (avg=20.26, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in QoE: 4.94 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in P95_retry: 3.76 (avg=1.13, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 13] SNR ↑ shift detected! deviation=35.40
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 13] TX_power ↑ shift detected! deviation=11.20
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 13] Throughput ↑ shift detected! deviation=47.27
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in QoE: 4.37 (avg=2.35, dev=86.1%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in P95_retry: 22.67 (avg=7.59, dev=198.6%)
+[ALERT][2025-11-10 05:33:44][Channel 13] Sudden change in P95_PER: 0.01 (avg=0.01, dev=39.9%)
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 13] NoiseFloor ↑ shift detected! deviation=3.29
+[ALERT][2025-11-10 05:33:44][Channel 116] Sudden change in SNR: 43.64 (avg=13.09, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 116] Sudden change in TX_power: 22.00 (avg=6.60, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 116] Sudden change in Throughput: 500.99 (avg=150.30, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 116] Sudden change in QoE: 3.94 (avg=1.18, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 116] Sudden change in P95_retry: 39.84 (avg=11.95, dev=233.3%)
+[ALERT][2025-11-10 05:33:44][Channel 116] Sudden change in P95_PER: 0.08 (avg=0.02, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 116] SNR ↑ shift detected! deviation=30.55
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 116] TX_power ↑ shift detected! deviation=15.40
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 116] Throughput ↑ shift detected! deviation=350.69
+[CUSUM ALERT][2025-11-10 05:33:44][Channel 116] P95_retry ↑ shift detected! deviation=27.89
+DFS Radar detected...
+DFS detected on channel 12...
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in SNR: 53.19 (avg=15.96, dev=233.3%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in TX_power: 18.00 (avg=5.40, dev=233.3%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in Throughput: 68.84 (avg=20.65, dev=233.3%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in QoE: 4.97 (avg=1.49, dev=233.3%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in P95_retry: 3.06 (avg=0.92, dev=233.3%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in P95_PER: 0.01 (avg=0.00, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:50][Channel 14] SNR ↑ shift detected! deviation=37.23
+[CUSUM ALERT][2025-11-10 05:33:50][Channel 14] TX_power ↑ shift detected! deviation=12.60
+[CUSUM ALERT][2025-11-10 05:33:50][Channel 14] Throughput ↑ shift detected! deviation=48.19
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in QoE: 4.44 (avg=2.37, dev=86.8%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in P95_retry: 21.12 (avg=6.98, dev=202.7%)
+[ALERT][2025-11-10 05:33:50][Channel 14] Sudden change in P95_PER: 0.00 (avg=0.00, dev=54.3%)
+[CUSUM ALERT][2025-11-10 05:33:50][Channel 14] NoiseFloor ↑ shift detected! deviation=3.08
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in SNR: 41.09 (avg=12.33, dev=233.3%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in TX_power: 15.00 (avg=4.50, dev=233.3%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in Throughput: 411.29 (avg=123.39, dev=233.3%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in QoE: 4.95 (avg=1.48, dev=233.3%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in P95_retry: 2.42 (avg=0.73, dev=233.3%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in P95_PER: 0.13 (avg=0.04, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:51][Channel 120] SNR ↑ shift detected! deviation=28.76
+[CUSUM ALERT][2025-11-10 05:33:51][Channel 120] TX_power ↑ shift detected! deviation=10.50
+[CUSUM ALERT][2025-11-10 05:33:51][Channel 120] Throughput ↑ shift detected! deviation=287.91
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in QoE: 4.83 (avg=2.49, dev=94.0%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in P95_retry: 7.87 (avg=2.87, dev=174.2%)
+[ALERT][2025-11-10 05:33:51][Channel 120] Sudden change in P95_PER: 0.14 (avg=0.07, dev=104.1%)
+DFS Radar detected...
+DFS detected on channel 13...
+[ALERT][2025-11-10 05:33:57][Channel 1] Sudden change in P95_retry: 32.25 (avg=20.24, dev=59.4%)
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 1] Throughput ↓ shift detected! deviation=-7.35
+[ALERT][2025-11-10 05:33:57][Channel 1] Sudden change in P95_PER: 0.00 (avg=0.00, dev=24.7%)
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 1] SNR ↑ shift detected! deviation=1.84
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 1] NoiseFloor ↓ shift detected! deviation=-3.49
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in SNR: 45.45 (avg=13.63, dev=233.3%)
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in TX_power: 20.00 (avg=6.00, dev=233.3%)
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in Throughput: 348.59 (avg=104.58, dev=233.3%)
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in QoE: 4.39 (avg=1.32, dev=233.3%)
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in P95_retry: 22.83 (avg=6.85, dev=233.3%)
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 124] SNR ↑ shift detected! deviation=31.81
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 124] TX_power ↑ shift detected! deviation=14.00
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 124] Throughput ↑ shift detected! deviation=244.02
+[CUSUM ALERT][2025-11-10 05:33:57][Channel 124] P95_retry ↑ shift detected! deviation=15.98
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in QoE: 4.18 (avg=2.18, dev=92.0%)
+[ALERT][2025-11-10 05:33:57][Channel 124] Sudden change in P95_PER: 0.03 (avg=0.01, dev=97.3%)
+DFS Radar detected...
+DFS detected on channel 14...
+[ALERT][2025-11-10 05:34:03][Channel 2] Sudden change in P95_retry: 15.36 (avg=20.32, dev=24.4%)
+[ALERT][2025-11-10 05:34:03][Channel 2] Sudden change in P95_PER: 0.01 (avg=0.01, dev=42.2%)
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 2] Throughput ↑ shift detected! deviation=2.77
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 2] SNR ↑ shift detected! deviation=2.54
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 2] NoiseFloor ↑ shift detected! deviation=3.10
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in SNR: 45.84 (avg=13.75, dev=233.3%)
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in TX_power: 21.00 (avg=6.30, dev=233.3%)
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in Throughput: 345.57 (avg=103.67, dev=233.3%)
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in QoE: 4.42 (avg=1.33, dev=233.3%)
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in P95_retry: 21.33 (avg=6.40, dev=233.3%)
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in P95_PER: 0.03 (avg=0.01, dev=233.3%)
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 128] SNR ↑ shift detected! deviation=32.09
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 128] TX_power ↑ shift detected! deviation=14.70
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 128] Throughput ↑ shift detected! deviation=241.90
+[CUSUM ALERT][2025-11-10 05:34:03][Channel 128] P95_retry ↑ shift detected! deviation=14.93
+[ALERT][2025-11-10 05:34:03][Channel 128] Sudden change in QoE: 4.58 (avg=2.30, dev=98.9%)
+DFS Radar detected...
+DFS detected on channel 15...

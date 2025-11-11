@@ -6,7 +6,6 @@ from utils.WiFiBandEnum import WiFiBand
 class CSVParser:
     def __init__(self):
         self.floatToBand = {2.4: WiFiBand.BAND_2_4_GHz, 5.0: WiFiBand.BAND_5_GHz, 6.0: WiFiBand.BAND_6_GHz}
-        print("Initializing CSV parser...")
 
     def parseCSV(self, filepath: str):
         with open(filepath, 'r') as file:
@@ -27,9 +26,8 @@ class CSVParser:
                 row[APLog.THROUGHPUT_AVG_Mbps] = float(row[APLog.THROUGHPUT_AVG_Mbps])
                 row[APLog.P95_RETRY_PCT] = float(row[APLog.P95_RETRY_PCT])
                 row[APLog.MEAN_QOE] = float(row[APLog.MEAN_QOE])
-                # row[APLog.MEAN_DISTANCE_M] = float(row[APLog.MEAN_DISTANCE_M])
-                # row[APLog.P95_DISTANCE_M] = float(row[APLog.P95_DISTANCE_M])
-                # row[APLog.MAX_DISTANCE_M] = float(row[APLog.MAX_DISTANCE_M])
+                row[APLog.P95_RETRY_PCT] = float(row[APLog.P95_RETRY_PCT])
+                row[APLog.UL_PER] = float(row[APLog.UL_PER])
                 row[APLog.BUSY_TIME] = float(row[APLog.BUSY_TIME])
                 row[APLog.TOTAL_TIME] = float(row[APLog.TOTAL_TIME])
 
