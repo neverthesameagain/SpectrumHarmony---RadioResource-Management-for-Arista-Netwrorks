@@ -1,20 +1,30 @@
 """
-RRM+ Synthetic Environment & Persona Generator — v2.1
+RRM+ Synthetic Environment & Persona Generator — v2.1 (Refactored)
 ---------------------------------------------------
 Generates:
  • synthetic_ap_layout.csv
  • synthetic_client_population.csv
-with detailed client personas (OUI, OS, band support, capabilities, behavior).
+
+This script now IMPORTS the CLIENT_PERSONAS dictionary from
+client_personas.py
 """
 
 import random
 
 import numpy as np
 import pandas as pd
+
+# --- NEW: Import the single source of truth ---
 from client_personas import CLIENT_PERSONAS
 
 # ===========================================================
-# AP TOPOLOGY GENERATOR
+# 1. CLIENT PERSONAS
+#    (Removed from here, now imported)
+# ===========================================================
+
+
+# ===========================================================
+# 2. AP TOPOLOGY GENERATOR
 # ===========================================================
 
 
@@ -71,7 +81,7 @@ def generate_ap_layout(n_aps=12, grid_spacing=15):
 
 
 # ===========================================================
-# CLIENT POPULATION GENERATOR
+# 3. CLIENT POPULATION GENERATOR
 # ===========================================================
 
 
@@ -79,6 +89,7 @@ def generate_clients(personas, n_clients=80, area_size=60):
     clients = []
     persona_keys = list(personas.keys())
 
+    # --- FIX: The weights list now matches the 26 personas ---
     weights = [
         # Smartphones (5) - High
         5,
@@ -114,6 +125,7 @@ def generate_clients(personas, n_clients=80, area_size=60):
         1,
         1,
     ]
+    # --- End of FIX ---
 
     for i in range(n_clients):
         persona_key = random.choices(persona_keys, weights=weights, k=1)[0]
@@ -136,7 +148,7 @@ def generate_clients(personas, n_clients=80, area_size=60):
 
 
 # ===========================================================
-# EXPORT TO CSV
+# 4. EXPORT TO CSV
 # ===========================================================
 
 
@@ -146,6 +158,7 @@ def export_topology(aps, clients):
     print(f"✅ Exported {len(aps)} APs and {len(clients)} clients.")
 
 
+# --- Makes the script runnable from the command line ---
 if __name__ == "__main__":
     aps = generate_ap_layout()
     clients = generate_clients(CLIENT_PERSONAS)
