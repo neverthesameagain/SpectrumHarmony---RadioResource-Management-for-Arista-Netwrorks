@@ -1,9 +1,10 @@
 """
-RRM+ Client Personas (Single Source of Truth)
------------------------------------------------
-This file contains the master dictionary of all simulated client personas.
-It is imported by both the persona_generator.py and the
-full_scale_rrm_simulation.py scripts.
+This module defines the master dictionary of all simulated client personas for the RRM+ project.
+
+This file serves as a single source of truth for client device characteristics,
+which is used by both the persona generator and the main simulation script.
+Each persona includes details such as the device name, OUI, operating system,
+802.11v support, and QoE hysteresis.
 """
 
 CLIENT_PERSONAS = {

@@ -1,6 +1,17 @@
+"""
+This module contains the main simulation script for the Client-View Acquisition (CVA) phase
+of the RRM-plus project.
+
+This script simulates a wireless network environment with Access Points (APs) and
+Client Devices, and runs a full-scale simulation to evaluate the performance of the
+Radio Resource Management (RRM) scheduler. It generates an acceptance matrix report
+and a telemetry schema as its main outputs.
+"""
+
+
 import random
 from collections import defaultdict
-
+import os
 import pandas as pd
 from access_point import AccessPoint
 from client_device import ClientDevice
@@ -21,10 +32,12 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
     """
     total_stats = defaultdict(lambda: {"attempts": 0, "success": 0, "rejects": 0})
     all_qoe_deltas = []
+    ap_qoe_deltas = defaultdict(list)
 
     for ap in all_aps:
         ap_stats = ap.get_steering_stats()
         all_qoe_deltas.extend(ap_stats["qoe_deltas"])
+        ap_qoe_deltas[ap.ap_id].extend(ap_stats["qoe_deltas"])
         for persona_name, metrics in ap_stats["by_persona"].items():
             total_stats[persona_name]["attempts"] += metrics["attempts"]
             total_stats[persona_name]["success"] += metrics["success"]
@@ -52,6 +65,13 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
     report_lines.append(
         f"- **Average Post-Roam QoE Delta:** **{avg_qoe_delta:+.2f} points**"
     )
+
+    report_lines.append("\n## AP-Specific QoE Delta")
+    report_lines.append("| AP ID | Average QoE Delta |")
+    report_lines.append("| :--- | :---: |")
+    for ap_id, deltas in ap_qoe_deltas.items():
+        avg_delta = (sum(deltas) / len(deltas)) if deltas else 0
+        report_lines.append(f"| {ap_id} | {avg_delta:+.2f} |")
 
     report_lines.append("\n## Steering Success Matrix (by Device Class)\n")
     report_lines.append(
@@ -89,10 +109,9 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
 
 if __name__ == "__main__":
     print("==========================================================")
-    print("== Full-Scale RRM Simulation w/ Smart Scheduler ==")
+    print("== Full-Scale RRM Simulation w/ Smart Scheduler (v4) ==")
     print("==========================================================\n")
 
-    # --- NEW: Simulation time config ---
     SIM_DURATION_HOURS = 1
     STEP_DURATION_S = 10
     TOTAL_STEPS = int((SIM_DURATION_HOURS * 3600) / STEP_DURATION_S)
@@ -143,26 +162,28 @@ if __name__ == "__main__":
         stressed_aps.append(ap.ap_id)
     print(f"[ENV]: STRESS: Setting {', '.join(stressed_aps)} airtime to 90%")
 
-    # --- NEW: Main Simulation Tick Loop ---
+    # --- NEW: Activate a hidden node ---
+    # Place it near the 2nd busiest AP (index 1) to affect its clients
+    if len(ap_by_clients) > 1:
+        hn_x = ap_by_clients[1].x + (RADIUS_M / 2)  # Place it 5m away from the AP
+        hn_y = ap_by_clients[1].y
+        sim_environment.activate_hidden_node(x=hn_x, y=hn_y, radius=8.0)  # 8m radius
+    # --- End New ---
+
     print(f"\n--- Running Simulation for {TOTAL_STEPS} ticks... ---")
 
     for step in range(TOTAL_STEPS):
-        if step % (3600 // STEP_DURATION_S) == 0:  # Print status every hour
+        if step % (3600 // STEP_DURATION_S) == 0:
             print(f"  Simulating hour {step // (3600 // STEP_DURATION_S) + 1}...")
 
-        # 1. Clients move to create variance
         for client in all_clients:
             client.move()
 
-        # 2. Each AP runs its scheduler for all its clients
         for ap in all_aps:
-            # We must iterate over a *copy* of the list,
-            # because the list can change during iteration as clients roam.
             for client in list(ap.connected_clients):
                 ap.scheduler_tick(client, step)
 
     print("--- Simulation Ticks Complete ---")
-    # --- End of new main loop ---
 
     print("\n\n==========================================================")
     print("== Simulation Finished ==")
@@ -181,59 +202,5 @@ if __name__ == "__main__":
         f.write(acceptance_report_markdown)
     print("\n✅ Successfully generated 'acceptance_metrics_report.md'")
 
-    telemetry_schema_content = """
-# RRM+ Telemetry Schema (Mid-Term Deliverable)
+    os.system("python generate_telemetry_schema.py")
 
-This document defines the telemetry schema for the "Client-View Acquisition" phase, as required by the Arista RRM-Plus problem statement. The schema is divided into three main data tables/streams.
-
-## 1. `rrm_steering_events`
-
-This is the primary event log used to track all RRM steering actions (both active and passive) and their outcomes.
-
-| Field Name | Data Type | Units | Description |
-| :--- | :--- | :--- | :--- |
-| `timestamp` | `Timestamp` | `ISO 8601` | The UTC timestamp when the steering event was *initiated*. |
-| `client_id_hash` | `String` | `SHA-256` | Hashed client MAC address to ensure privacy. |
-| `client_oui` | `String` | `Hex` | The OUI (first 3 bytes) of the client MAC, for device classification. |
-| `client_os_class` | `String` | `Enum` | The inferred OS of the client (e.g., "iOS", "Windows", "IoT/Legacy"). |
-| `origin_ap_id` | `String` | - | The ID/BSSID of the AP *initiating* the steer (the "old" AP). |
-| `target_ap_id` | `String` | - | The ID/BSSID of the AP the client was *steered to*. |
-| `steer_type` | `String` | `Enum` | The method used: `ACTIVE_802_11V` or `PASSIVE_DISASSOC`. |
-| `steer_status` | `String` | `Enum` | The outcome: `SUCCESS` (roamed to target), `REJECT` (client refused 802.11v), `REJOIN` (client rejoined old AP). |
-| `pre_roam_qoe` | `Float` | `0.0-5.0` | The client's calculated QoE *before* the steering attempt. |
-| `post_roam_qoe` | `Float` | `0.0-5.0` | The client's QoE on the *new* AP, logged upon successful association. |
-| `qoe_delta` | `Float` | `+/- 5.0` | The calculated `post_roam_qoe - pre_roam_qoe`. |
-
-## 2. `client_view_reports` (Active 802.11k Data)
-
-This table stores the raw "client-view" data received from 802.11k-capable clients.
-
-| Field Name | Data Type | Units | Description |
-| :--- | :--- | :--- | :--- |
-| `timestamp` | `Timestamp` | `ISO 8601` | The UTC timestamp when the report was *received* by the AP. |
-| `reporting_client_hash` | `String` | `SHA-256` | The client that sent this 802.11k report. |
-| `reporting_ap_id` | `String` | - | The AP that *requested* and received this report. |
-| `neighbor_bssid` | `String` | `MAC` | The BSSID of the neighbor AP the client "saw". |
-| `neighbor_rssi` | `Float` | `dBm` | The signal strength (RSSI) *from the client's perspective*. |
-| `neighbor_snr` | `Float` | `dB` | The signal-to-noise ratio (SNR) *from the client's perspective*. |
-| `neighbor_channel` | `Integer` | - | The channel of the neighbor AP. |
-
-## 3. `passive_inference_logs` (Passive Data)
-
-This table stores the periodic, passively-observed metrics for all connected clients, used by the RRM for inference.
-
-| Field Name | Data Type | Units | Description |
-| :--- | :--- | :--- | :--- |
-| `timestamp` | `Timestamp` | `ISO 8601` | The UTC timestamp of the observation. |
-| `client_id_hash` | `String` | `SHA-256` | The client being observed. |
-| `connected_ap_id` | `String` | - | The AP the client is connected to. |
-| `uplink_mcs_index` | `Integer` | `0-11` | (Inferred) The uplink MCS index used by the client. |
-| `uplink_retry_pct` | `Float` | `%` | (Inferred) The percentage of uplink frames from this client with the retry bit set. |
-| `ack_variance_ms` | `Float` | `ms` | (Insferred) The calculated jitter/variance in the client's ACK frame responses. |
-| `inferred_qoe` | `Float` | `0.0-5.0` | The AP's *estimated* QoE for the client based on these metrics. |
-"""
-
-    with open("telemetry_schema.md", "w") as f:
-        f.write(telemetry_schema_content)
-
-    print("\n✅ Successfully generated 'telemetry_schema.md'")
