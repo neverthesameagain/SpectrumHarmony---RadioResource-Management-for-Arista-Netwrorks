@@ -71,7 +71,7 @@ class ChannelInfo:
                      0.15 * (1 - qoe_score) +
                      0.15 * utilization_penalty +
                      0.05 * interference_penalty +
-                     0.05 * (self.avg_tx_power / self.max_tx) +
+                     0.05 * (1-(self.avg_tx_power / self.max_tx)) +
                      0.1 * (1 - noise_score) +
                      0.05 * (1 - client_penalty))
         return estReward
