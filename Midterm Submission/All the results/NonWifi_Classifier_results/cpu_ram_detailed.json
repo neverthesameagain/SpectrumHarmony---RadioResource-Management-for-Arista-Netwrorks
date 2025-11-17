@@ -1,0 +1,16 @@
+{
+    "total_samples": 82080,
+    "batch_size": 256,
+    "latency_ms_per_sample_avg": 0.8311297228926571,
+    "latency_ms_min": 0.5131298676133156,
+    "latency_ms_max": 2.375965937972069,
+    "latency_ms_median": 0.7994277402758598,
+    "cpu_percent_min": 94.0,
+    "cpu_percent_max": 168.9,
+    "cpu_percent_avg": 141.3933823529412,
+    "ram_usage_min_mb": 7073.859375,
+    "ram_usage_max_mb": 10986.63671875,
+    "ram_usage_avg_mb": 9033.505112591913,
+    "ram_delta_mb": 3912.77734375,
+    "total_inference_time_sec": 68.2191276550293
+}
