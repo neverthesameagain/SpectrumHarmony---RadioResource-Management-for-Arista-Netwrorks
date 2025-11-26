@@ -1,0 +1,247 @@
+{
+    "2.4_GHz": {
+        "Channel_1": {
+            "QoE": 4.477610882009442,
+            "Average_Retry": 20.232605212677967,
+            "PER": 0.0029871108624557104,
+            "Channel_Utilization": 0.472401536708141
+        },
+        "Channel_2": {
+            "QoE": 4.47549742443073,
+            "Average_Retry": 20.31657572883203,
+            "PER": 0.00665040963061473,
+            "Channel_Utilization": 0.4718404678276779
+        },
+        "Channel_3": {
+            "QoE": 4.4754096357829045,
+            "Average_Retry": 20.316537525338433,
+            "PER": 0.004924874181055375,
+            "Channel_Utilization": 0.47120296240587434
+        },
+        "Channel_4": {
+            "QoE": 4.4819199893821295,
+            "Average_Retry": 20.088584455898257,
+            "PER": 0.0037274224448127927,
+            "Channel_Utilization": 0.4711320239631622
+        },
+        "Channel_5": {
+            "QoE": 4.47156583961879,
+            "Average_Retry": 20.44835024891696,
+            "PER": 0.009106162662234308,
+            "Channel_Utilization": 0.4738865192036302
+        },
+        "Channel_6": {
+            "QoE": 4.48425667312953,
+            "Average_Retry": 20.041783093404405,
+            "PER": 0.0038371015375900978,
+            "Channel_Utilization": 0.4729969635845919
+        },
+        "Channel_7": {
+            "QoE": 4.474531370261232,
+            "Average_Retry": 20.350930433645136,
+            "PER": 0.0059178481671938645,
+            "Channel_Utilization": 0.47305599694198214
+        },
+        "Channel_8": {
+            "QoE": 4.475348100909821,
+            "Average_Retry": 20.320052321898686,
+            "PER": 0.0022155379295718085,
+            "Channel_Utilization": 0.47184220941061966
+        },
+        "Channel_9": {
+            "QoE": 4.47177194169927,
+            "Average_Retry": 20.439549816728874,
+            "PER": 0.009702357343749125,
+            "Channel_Utilization": 0.47115272979977224
+        },
+        "Channel_10": {
+            "QoE": 4.4815455930285895,
+            "Average_Retry": 20.122902553620627,
+            "PER": 0.012146233963390185,
+            "Channel_Utilization": 0.472588620784972
+        },
+        "Channel_11": {
+            "QoE": 4.479069653095331,
+            "Average_Retry": 20.205584894816344,
+            "PER": 0.0037885670872981215,
+            "Channel_Utilization": 0.47174922402491154
+        },
+        "Channel_12": {
+            "QoE": 4.476256946985468,
+            "Average_Retry": 20.287893671504456,
+            "PER": 0.008429126114023433,
+            "Channel_Utilization": 0.4714117098235231
+        },
+        "Channel_13": {
+            "QoE": 4.476492085488707,
+            "Average_Retry": 20.273855888614232,
+            "PER": 0.006027499802605309,
+            "Channel_Utilization": 0.47353870422664324
+        },
+        "Channel_14": {
+            "QoE": 4.46882732265296,
+            "Average_Retry": 20.532981125632215,
+            "PER": 0.002554765235731587,
+            "Channel_Utilization": 0.47192220597354695
+        },
+        "Average": {
+            "QoE": 4.476435961319636,
+            "Average_Retry": 20.284156212252046,
+            "PER": 0.0058582154973090324,
+            "Channel_Utilization": 0.4721944196199321
+        }
+    },
+    "5_GHz": {
+        "Channel_36": {
+            "QoE": 4.475070368871634,
+            "Average_Retry": 20.33432987561029,
+            "PER": 0.015764096737110298,
+            "Channel_Utilization": 0.4420522256326203
+        },
+        "Channel_40": {
+            "QoE": 4.467712158022361,
+            "Average_Retry": 20.49980945513763,
+            "PER": 0.03108058128519228,
+            "Channel_Utilization": 0.44187878332042974
+        },
+        "Channel_44": {
+            "QoE": 4.437365911587407,
+            "Average_Retry": 20.495916323574008,
+            "PER": 0.1472739289524194,
+            "Channel_Utilization": 0.44741906739103887
+        },
+        "Channel_48": {
+            "QoE": 4.466320042132606,
+            "Average_Retry": 20.4864097490754,
+            "PER": 0.04754182585392548,
+            "Channel_Utilization": 0.44241626163764536
+        },
+        "Channel_52": {
+            "QoE": 1.2815830205627738,
+            "Average_Retry": 7.965384128507849,
+            "PER": 0.007196478152017991,
+            "Channel_Utilization": 0.06315107421669781
+        },
+        "Channel_56": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_60": {
+            "QoE": 2.3969970615201985,
+            "Average_Retry": 6.503748574949909,
+            "PER": 0.025881120251248495,
+            "Channel_Utilization": 0.11003335149878418
+        },
+        "Channel_64": {
+            "QoE": 2.15862984530256,
+            "Average_Retry": 14.464070842916211,
+            "PER": 0.024696276198138377,
+            "Channel_Utilization": 0.10885306820386363
+        },
+        "Channel_100": {
+            "QoE": 1.3527820089828122,
+            "Average_Retry": 5.3652358160684335,
+            "PER": 0.049837614808207045,
+            "Channel_Utilization": 0.08046600841408176
+        },
+        "Channel_104": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_108": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_112": {
+            "QoE": 1.4799710201018297,
+            "Average_Retry": 1.4294749701569336,
+            "PER": 0.002748698569209764,
+            "Channel_Utilization": 0.05748112044874627
+        },
+        "Channel_116": {
+            "QoE": 1.1818797182395537,
+            "Average_Retry": 11.951303800054184,
+            "PER": 0.023983374585400577,
+            "Channel_Utilization": 0.06960786388400139
+        },
+        "Channel_120": {
+            "QoE": 2.487522393958336,
+            "Average_Retry": 2.869807190161193,
+            "PER": 0.06864856553458361,
+            "Channel_Utilization": 0.11165025557118498
+        },
+        "Channel_124": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_128": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_132": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_136": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_140": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_144": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_149": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_153": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_157": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Channel_161": {
+            "QoE": 0,
+            "Average_Retry": 0,
+            "PER": 0,
+            "Channel_Utilization": 0
+        },
+        "Average": {
+            "QoE": 2.74416668629837,
+            "Average_Retry": 12.03322642965564,
+            "PER": 0.04042296008431393,
+            "Channel_Utilization": 0.21590991638355403
+        }
+    },
+    "timestamp": "2025-11-16T03:26:03.343896"
+}

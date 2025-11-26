@@ -1,0 +1,15 @@
+band
+channel
+tx_power_dbm
+noise_floor_dbm
+
+avg_client_snr_db
+throughput_avg_mbps
+channel_utilization
+interference
+
+// for 2.4GHz
+nwifi_detected
+nwifi_types
+nwifi_type_count
+//

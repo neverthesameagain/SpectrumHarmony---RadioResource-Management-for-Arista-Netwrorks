@@ -1,0 +1,12 @@
+              precision    recall  f1-score   support
+
+      ZigBee       1.00      0.30      0.47      7411
+        wifi       1.00      1.00      1.00     36696
+   Microwave       1.00      0.30      0.47      7307
+        FHSS       1.00      0.30      0.46      7334
+         BLE       1.00      0.30      0.46      7258
+       Radar       0.44      1.00      0.61     16074
+
+    accuracy                           0.75     82080
+   macro avg       0.91      0.53      0.58     82080
+weighted avg       0.89      0.75      0.73     82080
