@@ -2,21 +2,18 @@
 This module contains the main simulation script for the Client-View Acquisition (CVA) phase
 of the RRM-plus project.
 
-This script simulates a wireless network environment with Access Points (APs) and
-Client Devices, and runs a full-scale simulation to evaluate the performance of the
-Radio Resource Management (RRM) scheduler. It generates an acceptance matrix report
-and a telemetry schema as its main outputs.
+UPDATES (End-Term):
+- Added export logic for 'client_transport_qoe.csv' (AI Inference Data)
+- Added export logic for 'client_rtt_measurements.csv' (GNN/Location Data)
 """
 
-
+import os
 import random
 from collections import defaultdict
-import os
+
 import pandas as pd
 from access_point import AccessPoint
 from client_device import ClientDevice
-
-# --- NEW: Import the single source of truth ---
 from client_personas import CLIENT_PERSONAS
 from environment import Environment
 
@@ -109,7 +106,7 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
 
 if __name__ == "__main__":
     print("==========================================================")
-    print("== Full-Scale RRM Simulation w/ Smart Scheduler (v4) ==")
+    print("== Full-Scale RRM Simulation w/ End-Term Telemetry ==")
     print("==========================================================\n")
 
     SIM_DURATION_HOURS = 1
@@ -128,9 +125,7 @@ if __name__ == "__main__":
         client_df = pd.read_csv("synthetic_client_population.csv")
     except FileNotFoundError:
         print("ERROR: CSV files not found.")
-        print("Please run the `persona_generator.py` script first to generate:")
-        print("  - synthetic_ap_layout.csv")
-        print("  - synthetic_client_population.csv")
+        print("Please run the `persona_generator.py` script first.")
         exit()
 
     print(f"Loading {len(ap_df)} APs and {len(client_df)} clients from CSVs...")
@@ -150,11 +145,14 @@ if __name__ == "__main__":
     print("--- Phase 1 Complete ---")
 
     print("\n--- Phase 2: Simulating High-Load Stress & RRM Checks ---")
+    # Sort APs by client count to find the busiest ones
     ap_by_clients = sorted(
         all_aps,
         key=lambda ap: sim_environment.get_ap_load(ap.ap_id)["client_count"],
         reverse=True,
     )
+
+    # Stress the busiest APs to trigger RRM actions and congestion
     stressed_aps = []
     for i in range(min(3, len(ap_by_clients))):
         ap = ap_by_clients[i]
@@ -162,13 +160,12 @@ if __name__ == "__main__":
         stressed_aps.append(ap.ap_id)
     print(f"[ENV]: STRESS: Setting {', '.join(stressed_aps)} airtime to 90%")
 
-    # --- NEW: Activate a hidden node ---
-    # Place it near the 2nd busiest AP (index 1) to affect its clients
+    # Activate a hidden node near the 2nd busiest AP
     if len(ap_by_clients) > 1:
-        hn_x = ap_by_clients[1].x + (RADIUS_M / 2)  # Place it 5m away from the AP
+        hn_x = ap_by_clients[1].x + (RADIUS_M / 2)
         hn_y = ap_by_clients[1].y
-        sim_environment.activate_hidden_node(x=hn_x, y=hn_y, radius=8.0)  # 8m radius
-    # --- End New ---
+        sim_environment.activate_hidden_node(x=hn_x, y=hn_y, radius=8.0)
+        print(f"[ENV]: HIDDEN NODE: Activated at ({hn_x:.1f}, {hn_y:.1f})")
 
     print(f"\n--- Running Simulation for {TOTAL_STEPS} ticks... ---")
 
@@ -185,22 +182,55 @@ if __name__ == "__main__":
 
     print("--- Simulation Ticks Complete ---")
 
-    print("\n\n==========================================================")
-    print("== Simulation Finished ==")
-    print("==========================================================\n")
-    print("Final AP Load Distribution:")
-    for ap in all_aps:
-        load = sim_environment.get_ap_load(ap.ap_id)
-        print(
-            f"  {ap.ap_id}: {load['client_count']} clients (Airtime: {load['airtime_util_pct']:.1f}%)"
-        )
-    print("\n==========================================================")
-
     # --- GENERATE DELIVERABLES ---
+    print("\n--- Generating Reports & Datasets ---")
+
+    # 1. Acceptance Report (Human Readable)
     acceptance_report_markdown = generate_acceptance_matrix_report(all_aps, all_clients)
     with open("acceptance_metrics_report.md", "w") as f:
         f.write(acceptance_report_markdown)
-    print("\n✅ Successfully generated 'acceptance_metrics_report.md'")
+    print("✅ Generated 'acceptance_metrics_report.md'")
 
+    # 2. Telemetry Schema (Documentation)
     os.system("python generate_telemetry_schema.py")
 
+    # ------------------------------------------------------------------
+    # --- NEW: EXPORT AI TRAINING DATA ---
+    # ------------------------------------------------------------------
+    print("\n--- Exporting AI Training Data (End-Term) ---")
+
+    all_transport_logs = []
+    all_rtt_logs = []
+
+    for ap in all_aps:
+        telemetry = ap.get_advanced_telemetry()
+
+        # Add AP context to transport logs
+        for log in telemetry["transport_logs"]:
+            log["ap_id"] = ap.ap_id
+            all_transport_logs.append(log)
+
+        # RTT logs already have AP ID
+        all_rtt_logs.extend(telemetry["rtt_logs"])
+
+    # Export Transport QoE Data (for Inference Models)
+    if all_transport_logs:
+        df_transport = pd.DataFrame(all_transport_logs)
+        df_transport.to_csv("client_transport_qoe.csv", index=False)
+        print(
+            f"✅ Generated 'client_transport_qoe.csv' with {len(df_transport)} records."
+        )
+    else:
+        print("⚠️ No Transport logs collected.")
+
+    # Export RTT Data (for GNN/Location Models)
+    if all_rtt_logs:
+        df_rtt = pd.DataFrame(all_rtt_logs)
+        df_rtt.to_csv("client_rtt_measurements.csv", index=False)
+        print(f"✅ Generated 'client_rtt_measurements.csv' with {len(df_rtt)} records.")
+    else:
+        print("⚠️ No RTT logs collected (Check client 802.11mc support).")
+
+    print("\n==========================================================")
+    print("== Simulation Finished Successfully ==")
+    print("==========================================================")

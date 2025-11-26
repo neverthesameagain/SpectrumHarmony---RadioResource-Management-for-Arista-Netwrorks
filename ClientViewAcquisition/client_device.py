@@ -5,6 +5,10 @@ in the simulation environment.
 The ClientDevice class represents a mobile device with specific characteristics,
 such as its persona, capabilities, and roaming behavior. It interacts with the
 environment to scan for Access Points, connect to them, and move around.
+
+UPDATES (End-Term):
+- Added 802.11mc RTT simulation (measure_rtt_to_ap).
+- Added Transport Layer QoE simulation (generate_transport_metrics).
 """
 
 import math
@@ -42,6 +46,7 @@ def calculate_rssi(x1, y1, x2, y2):
 def calculate_qoe(snr, airtime_util):
     """
     Calculates the Quality of Experience (QoE) based on SNR and airtime utilization.
+    This is the "Link Layer" QoE.
 
     Args:
         snr (float): The Signal-to-Noise Ratio (SNR).
@@ -60,7 +65,8 @@ class ClientDevice:
     Represents a wireless client device in the simulation environment.
 
     This class models the behavior of a mobile device, including its movement,
-    scanning for APs, connecting to APs, and roaming decisions.
+    scanning for APs, connecting to APs, roaming decisions, and advanced
+    telemetry generation (802.11mc, TCP metrics).
     """
 
     def __init__(self, environment, client_row):
@@ -83,6 +89,10 @@ class ClientDevice:
         self.supports_80211v = client_row["supports_80211v"]
         self.qoe_hysteresis = client_row["qoe_hysteresis"]
         self.supports_80211r = self.persona.get("supports_80211r", False)
+
+        # Infer 802.11mc support based on OS/Persona (Modern devices only)
+        # Android 9+ and recent iOS usually support RTT.
+        self.supports_80211mc = self.supports_80211v and ("IoT" not in self.os_class)
 
         self.x = client_row["x"]
         self.y = client_row["y"]
@@ -109,7 +119,6 @@ class ClientDevice:
     def move(self):
         """
         Simulates the movement of the client.
-
         The client has a chance to move randomly or return to its home position.
         """
         if random.random() < 0.2:
@@ -119,18 +128,13 @@ class ClientDevice:
             self.x, self.y = self.home_x, self.home_y
 
     def clear_roam_memory(self):
-        """
-        Clears the client's memory of its last roam attempt.
-        """
+        """Clears the client's memory of its last roam attempt."""
         self.last_seen_ap_id = None
         self.last_seen_qoe = 0.0
 
     def receive_beacon_request_and_scan(self):
         """
-        Receives a beacon request from the AP and performs a scan.
-
-        Returns:
-            dict: A dictionary containing the scan report.
+        Receives a beacon request from the AP and performs a scan (802.11k).
         """
         scan_data = self.env.client_scan(self)
         report = []
@@ -142,35 +146,20 @@ class ClientDevice:
         return {"report": report}
 
     def calculate_current_rssi(self):
-        """
-        Calculates the current RSSI to the connected AP.
-
-        Returns:
-            float: The current RSSI in dBm, or -90.0 if not connected.
-        """
+        """Calculates the current RSSI to the connected AP."""
         if not self.connected_ap:
             return -90.0
         return calculate_rssi(self.x, self.y, self.connected_ap.x, self.connected_ap.y)
 
     def calculate_current_snr(self):
-        """
-        Calculates the current SNR to the connected AP.
-
-        Returns:
-            float: The current SNR, or 0.0 if not connected.
-        """
+        """Calculates the current SNR to the connected AP."""
         if not self.connected_ap:
             return 0.0
         rssi = self.calculate_current_rssi()
         return rssi - self.noise_floor_dbm
 
     def calculate_current_qoe(self):
-        """
-        Calculates the current QoE on the connected AP.
-
-        Returns:
-            float: The current QoE score, or 0.0 if not connected.
-        """
+        """Calculates the current Link-Layer QoE on the connected AP."""
         if not self.connected_ap:
             return 0.0
         snr = self.calculate_current_snr()
@@ -178,18 +167,119 @@ class ClientDevice:
         airtime = load_stats["airtime_util_pct"]
         return calculate_qoe(snr, airtime)
 
+    # ------------------------------------------------------------------
+    # --- NEW: END-TERM TELEMETRY METHODS ---
+    # ------------------------------------------------------------------
+
+    def measure_rtt_to_ap(self, target_ap_id):
+        """
+        Simulates an 802.11mc Fine Timing Measurement (FTM) RTT burst.
+
+        This satisfies the End-Term requirement for "location-aware interference hot-spots".
+        Instead of measuring time (nanoseconds), we calculate the true distance and
+        add realistic Gaussian noise to simulate multipath/clock jitter.
+
+        Args:
+            target_ap_id (str): The ID of the AP to measure RTT against.
+
+        Returns:
+            float: The estimated distance in meters. Returns -1.0 if AP unreachable or unsupported.
+        """
+        if not self.supports_80211mc:
+            return -1.0
+
+        # 1. Find the target AP in the environment
+        target_ap = next(
+            (ap for ap in self.env.all_aps if ap.ap_id == target_ap_id), None
+        )
+
+        if not target_ap:
+            return -1.0
+
+        # 2. Calculate "Ground Truth" (Perfect) Distance
+        true_distance = math.sqrt(
+            (self.x - target_ap.x) ** 2 + (self.y - target_ap.y) ** 2
+        )
+
+        # 3. Add "Realism" Noise (Simulating Multipath/Jitter)
+        # Real 802.11mc is typically accurate to within 1-2 meters.
+        # We use a Gaussian distribution: mean=0, std_dev=1.5m
+        measurement_error = random.gauss(0, 1.5)
+
+        estimated_distance = abs(true_distance + measurement_error)
+
+        return round(estimated_distance, 2)
+
+    def generate_transport_metrics(self):
+        """
+        Simulates Layer 4 (Transport) metrics: TCP/QUIC RTT and Retransmissions.
+
+        This satisfies the End-Term requirement to "detect client-side problems
+        when MAC counters look clean".
+
+        Logic:
+        - Base Internet Latency: Fixed (e.g., 25ms).
+        - Congestion (Bufferbloat): Exponential penalty based on AP Airtime.
+        - Loss/Retransmission: Correlated with low SNR or Hidden Node interference.
+
+        Returns:
+            dict: {tcp_rtt_ms, tcp_retransmits_pct, jitter_ms}
+        """
+        if not self.connected_ap:
+            return {"tcp_rtt_ms": 0.0, "tcp_retransmits_pct": 0.0, "jitter_ms": 0.0}
+
+        # 1. Get Environment Variables
+        ap_load = self.env.get_ap_load(self.connected_ap.ap_id)["airtime_util_pct"]
+        snr = self.calculate_current_snr()
+        is_hidden_node_victim = self.env.check_for_hidden_node_interference(
+            self.x, self.y
+        )
+
+        # 2. Base Latency (Internet path to server)
+        base_rtt = 25.0  # ms
+
+        # 3. Calculate Congestion Delay (Bufferbloat simulation)
+        # If airtime > 70%, queues fill up, causing latency to spike exponentially.
+        congestion_delay = 0.0
+        if ap_load > 70:
+            excess_load = ap_load - 70
+            # e.g., at 90% load, delay adds ~100ms-200ms
+            congestion_delay = (excess_load**1.5) * random.uniform(0.8, 1.2)
+        else:
+            congestion_delay = random.uniform(1, 5)
+
+        # 4. Calculate Retransmissions (Packet Loss)
+        # Starts low, increases with poor SNR or Hidden Nodes
+        retransmit_rate = 0.1  # Baseline 0.1%
+
+        if snr < 15:
+            retransmit_rate += (15 - snr) * 0.5  # Poor signal penalty
+
+        if is_hidden_node_victim:
+            # Hidden nodes cause collisions, forcing TCP to resend frequently (timeouts)
+            retransmit_rate += random.uniform(2.0, 8.0)
+
+        # 5. Final RTT Calculation
+        # TCP RTT increases significantly if there are retransmissions (waiting for timeout)
+        rtt_penalty_from_loss = retransmit_rate * 15.0
+
+        final_rtt = base_rtt + congestion_delay + rtt_penalty_from_loss
+
+        # Add random jitter (variance)
+        jitter = random.uniform(0, final_rtt * 0.2)
+        final_rtt += jitter
+
+        return {
+            "tcp_rtt_ms": round(final_rtt, 2),  # The primary latency metric
+            "tcp_retransmits_pct": round(retransmit_rate, 2),  # "Loss" metric
+            "jitter_ms": round(jitter, 2),  # Stability metric
+        }
+
+    # ------------------------------------------------------------------
+
     def receive_bss_tm_request(self, ranked_list):
         """
         Receives a BSS Transition Management (BSS-TM) request from the AP.
-
-        The client decides whether to accept the roam based on the predicted QoE
-        of the candidate APs and its own hysteresis.
-
-        Args:
-            ranked_list (list): A list of candidate APs ranked by predicted QoE.
-
-        Returns:
-            bool: True if the client accepts the roam, False otherwise.
         """
         if not self.supports_80211v:
             return False
@@ -208,13 +298,7 @@ class ClientDevice:
 
     def generate_passive_metrics(self):
         """
-        Calculates Ground Truth link metrics for both Uplink and Downlink.
-
-        In the simulation, the Client object acts as the physics engine to
-        generate these metrics.
-
-        Returns:
-            dict: A dictionary containing the simulated passive metrics.
+        Calculates Ground Truth link metrics (Layer 2) for both Uplink and Downlink.
         """
         # 1. Calculate Base Quality (Physics)
         downlink_snr = self.calculate_current_snr()
@@ -227,12 +311,10 @@ class ClientDevice:
         )
 
         # 3. Model Downlink (AP -> Client)
-        # AP TX Power is high, so the downlink is usually cleaner.
         downlink_mcs = int(max(0, min(9, base_qoe_pct * 9.0 + random.uniform(-1, 1))))
         downlink_retry_pct = max(1, min(15, 15 - (base_qoe_pct * 14)))
 
         # 4. Model Uplink (Client -> AP)
-        # Starts the same as downlink...
         uplink_qoe_pct = base_qoe_pct
         ack_variance_ms = 0.5 - (base_qoe_pct * 0.4)
 
@@ -255,9 +337,6 @@ class ClientDevice:
     def find_best_ap_and_associate(self):
         """
         Finds the best AP based on a scan and associates with it.
-
-        This method is called when the client needs to find a new AP to connect to,
-        for example, after being disconnected.
         """
         best_ap_id = None
         best_qoe = -1.0
