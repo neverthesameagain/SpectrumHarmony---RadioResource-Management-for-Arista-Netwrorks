@@ -1,22 +1,25 @@
 from datetime import datetime
 import json
 import threading
-from ChannelInfo import *
-from DFSTimer import DFSTimerManager
-import utils.APLogsColumns as APLog
-from utils.WiFiBandEnum import WiFiBand
-from utils.CSVParser import CSVParser
-from MAB import MAB
+from .ChannelInfo import *
+from .DFSTimer import DFSTimerManager
+from .utilsSO import APLogsColumns as APLog
+from .utilsSO.WiFiBandEnum import WiFiBand
+from .utilsSO.CSVParserSO import CSVParserSO
+from .MAB import MAB
+from ControlLoops.InterferenceGraph import InterferenceGraph
 import os
 import time
+import psutil
+import os
+import logging
 
 logging.basicConfig(filename="output.log", level=logging.DEBUG)
 base_dir = os.path.dirname(__file__)
 
 
 class SensingOrchestra:
-    def __init__(self, band):
-        self.band = band
+    def __init__(self, name):
         self.numChannels_2_4_GHz = 0
         self.channelParameters_2_4_GHz = []
         self.numChannels_5s_GHz = 0
@@ -29,6 +32,8 @@ class SensingOrchestra:
         self.serveTime = 5.9  # 59 seconds
         self.startTime = time.time()
         self.isRunning = True
+        self.graph = InterferenceGraph()
+        self.APname = name
         # not use DFS channel for 30 minutes after a DFS radar encounter
         self.DFStimer = DFSTimerManager(30 * 60, self.clearDFSClients_5_GHz)
         logging.info("Initiating Sensing Orchestra...")
@@ -42,22 +47,23 @@ class SensingOrchestra:
             self.startTime = time.time()
             while (time.time() - self.startTime < self.serveTime):
                 logging.info("Serving Client Request...")
-                time.sleep(self.serveTime)
+                # time.sleep(self.serveTime)
 
             channelTime_2_4_Ghz = self.scanTime * self.channelReward_2_4_GHz
             channelTime_5_Ghz = self.scanTime * self.channelReward_5_GHz
             self.scan_thread_2_4_GHz = threading.Thread(target=self.scan_2_4_GHz)
             self.scan_thread_5_GHz = threading.Thread(target=self.scan_5_GHz)
             self.scan_thread_2_4_GHz.start()
-            self.scan_thread_2_4_GHz.join(timeout=channelTime_2_4_Ghz)
             self.scan_thread_5_GHz.start()
-            self.scan_thread_5_GHz.join(timeout=channelTime_5_Ghz)
-            time.sleep(self.scanTime)
+            self.scan_thread_2_4_GHz.join()
+            self.scan_thread_5_GHz.join()
+            # time.sleep(self.scanTime)
 
     def scan_5_GHz(self):
         logging.info("Scanning channels...")
         logging.info("For 5GHz...")
         self.channel_5_GHz = self.chooseChannel_5_GHz()
+        # self.graph.updateChannel_5_Ghz(self.channel_5_GHz)
         logging.info(f"Noisiest 5GHz channel... {self.channel_5_GHz}")
         idx = self.convertbandToIdx(WiFiBand.BAND_5_GHz, self.channel_5_GHz)
         self.channelParameters_5_GHz[idx].printChannel()
@@ -68,6 +74,7 @@ class SensingOrchestra:
         logging.info("Scanning channels...")
         logging.info("For 2_4GHz...")
         self.channel_2_4_GHz = self.chooseChannel_2_4_GHz()
+        # self.graph.updateChannel_2_4_Ghz(self.channel_2_4_GHz)
         logging.info(f"Noisiest 2_4GHz channel... {self.channel_2_4_GHz}")
         idx = self.convertbandToIdx(WiFiBand.BAND_2_4_GHz, self.channel_2_4_GHz)
         self.channelParameters_2_4_GHz[idx].printChannel()
@@ -141,13 +148,15 @@ class SensingOrchestra:
         return 0
 
     def simulateRadioInput(self, file: str):
-        parser = CSVParser()
+        parser = CSVParserSO()
         beacons = parser.parseCSV(file)
+        print("Sensing Orchestra ", file)
         for beacon in beacons:
             band = beacon[APLog.BAND]
             channel = self.convertbandToIdx(band, beacon[APLog.CHANNEL])
             client = beacon[APLog.AP_ID]
             # rssi = beacon[APLog.AVG_RSSI_DBM]
+            timestamp = str(beacon[APLog.TIMESTAMP])
             snr = float(beacon[APLog.AVG_CLIENT_SNR_DB])
             noiseFloor = float(beacon[APLog.NOISE_FLOOR_DBM])
             nwifi_detected = beacon[APLog.NWIFI_DETECTED].lower() == 'true'
@@ -161,10 +170,10 @@ class SensingOrchestra:
             nwifi_type = beacon[APLog.NWIFI_TYPE]
             if (band == WiFiBand.BAND_2_4_GHz):
                 self.channelParameters_2_4_GHz[channel].updateChannel_2_4_GHz(
-                    snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected)
+                    snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected, timestamp)
             elif (band == WiFiBand.BAND_5_GHz):
                 self.channelParameters_5_GHz[channel].updateChannel_5_GHz(
-                    snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type)
+                    snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type, timestamp)
             elif (band == WiFiBand.BAND_6_GHz):
                 # self.channelParameters[channel].updateChannel_6_GHz(
                 #     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)
@@ -172,7 +181,7 @@ class SensingOrchestra:
             else:
                 logging.error("Not a recognised band...")
             isDFSPresent = not self.channelParameters_5_GHz[channel].getDFSState()  # 1 DFS radar is not present
-            if (isDFSPresent):
+            if (band == WiFiBand.BAND_5_GHz and isDFSPresent):
                 logging.warning(f"DFS detected on channel {channel}...")
                 self.DFStimer.start_or_reset(beacon[APLog.CHANNEL])
                 break
@@ -267,9 +276,33 @@ class SensingOrchestra:
         self.isRunning = False
 
 
+def monitor():
+    process = psutil.Process(os.getpid())
+    avgCPU = 0
+    avgRAM = 0
+    avgcount = 0
+    maxCPU = 0
+    maxRAM = 0
+    minCPU = 1000
+    minRAM = 1000
+    while True:
+        cpu = process.cpu_percent(interval=1)          # CPU %
+        avgCPU += cpu
+        maxCPU = max(cpu, maxCPU)
+        minCPU = min(cpu, minCPU)
+        ram = process.memory_info().rss / (1024**2)    # RAM in MB
+        avgRAM += ram
+        maxRAM = max(ram, maxRAM)
+        minRAM = min(ram, minRAM)
+        avgcount += 1
+        print(f"[USAGE] CPU={cpu}% avg {avgCPU/avgcount:.2f} max {maxCPU:.2f} min {minCPU:.2f} RAM={ram:.2f} avg {avgRAM/avgcount:.2f} max {maxRAM:.2f} min {minRAM:.2f} MB")
+
+
 if __name__ == "__main__":
-    rrm = SensingOrchestra(WiFiBand.BAND_5_GHz)
+    rrm = SensingOrchestra()
     thread = threading.Thread(target=rrm.start)
+    # monitor_thread = threading.Thread(target=monitor, daemon=True)
+    # monitor_thread.start()
     try:
         thread.start()
         time.sleep(100)

@@ -1,8 +1,8 @@
 from datetime import datetime
-import math
 import time
 import logging
-from utils.WiFiBandEnum import DFSState
+from ControlLoops.FastLoop import FastLoop
+from .utilsSO.WiFiBandEnum import DFSState
 
 BAND_2_4_CHANNELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 BAND_5_CHANNELS = [36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112,
@@ -43,6 +43,7 @@ class ChannelInfo:
         self.DFSClients = set()
         self.alpha = self.getAlpha()
         self.threshold = 0.2
+        self.Fastloop = FastLoop()
 
         self.cusum_pos = {}
         self.cusum_neg = {}
@@ -55,7 +56,12 @@ class ChannelInfo:
     def getChannel(self):
         return self.channel
 
+    def createChange(self, type: str, value, avgValue):
+        map = {"type": type, "value": value, "avgValue": avgValue}
+        return map
+
     # Define reward function based on channel parameters
+
     def reward(self):
         if (not self.DFSState.value):
             return 0
@@ -83,7 +89,7 @@ class ChannelInfo:
         N = self.avgCount
         return min(0.3, 2 / (N + 1))
 
-    def detect_change(self, name, new_value, avg_value, threshold=0.2):
+    def detect_change(self, name, new_value, avg_value, timestamp, threshold=0.2):
         if avg_value == 0:
             return
 
@@ -95,10 +101,11 @@ class ChannelInfo:
 
             if now - last_time > self.alert_cooldown:
                 logging.warning(
-                    f"[ALERT][{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}][Channel {self.channel}] Sudden change in {name}: {new_value:.2f} (avg={avg_value:.2f}, dev={deviation_ratio*100:.1f}%)")
+                    f"[ALERT][{timestamp}][Band {self.band}][Channel {self.channel}] Sudden change in {name}: {new_value:.2f} (avg={avg_value:.2f}, dev={deviation_ratio*100:.1f}%)")
                 self.last_alert_time[name] = now
+                self.Fastloop.addChange(self.createChange(name, new_value, avg_value))
 
-    def cusum_update(self, name, new_value, mean):
+    def cusum_update(self, name, new_value, mean, timestamp):
         if name not in self.cusum_pos:
             self.cusum_pos[name] = 0
             self.cusum_neg[name] = 0
@@ -113,18 +120,20 @@ class ChannelInfo:
         if self.cusum_pos[name] > self.cusum_threshold:
             if now - self.last_alert_time[name] > self.alert_cooldown:
                 logging.warning(
-                    f"[CUSUM ALERT][{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}][Channel {self.channel}] {name} ↑ shift detected! deviation={deviation:.2f}")
+                    f"[CUSUM ALERT][{timestamp}][Band {self.band}][Channel {self.channel}] {name} ↑ shift detected! deviation={deviation:.2f}")
                 self.last_alert_time[name] = now
-            self.cusum_pos[name] = 0
+                self.cusum_pos[name] = 0
+                self.Fastloop.addChange(self.createChange(name, new_value, mean))
 
         elif self.cusum_neg[name] > self.cusum_threshold:
             if now - self.last_alert_time[name] > self.alert_cooldown:
                 logging.warning(
-                    f"[CUSUM ALERT][{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}][Channel {self.channel}] {name} ↓ shift detected! deviation={deviation:.2f}")
+                    f"[CUSUM ALERT][{timestamp}][Band {self.band}][Channel {self.channel}] {name} ↓ shift detected! deviation={deviation:.2f}")
                 self.last_alert_time[name] = now
-            self.cusum_neg[name] = 0
+                self.cusum_neg[name] = 0
+                self.Fastloop.addChange(self.createChange(name, new_value, mean))
 
-    def updateChannel_2_4_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected):
+    def updateChannel_2_4_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected, time):
         self.avgCount += 1
         self.clients.add(client)
         self.alpha = self.getAlpha()
@@ -140,24 +149,23 @@ class ChannelInfo:
         if nwifi_detected:
             self.interference += self.inteferenceWeight  # add a value for this
 
-        self.detect_change("SNR", snr, self.avgClientSNR)
-        self.detect_change("TX_power", tx_power, self.avg_tx_power)
-        self.detect_change("Throughput", throughput, self.avgThroughput)
-        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.detect_change("QoE", qoe, self.qoe)
-        self.detect_change("P95_retry", retry, self.avg_retry)
-        self.detect_change("P95_PER", PER, self.avg_PER)
+        self.detect_change("SNR", snr, self.avgClientSNR, time)
+        self.detect_change("TX_power", tx_power, self.avg_tx_power, time)
+        self.detect_change("Throughput", throughput, self.avgThroughput, time)
+        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor, time)
+        self.detect_change("QoE", qoe, self.qoe, time)
+        self.detect_change("P95_retry", retry, self.avg_retry, time)
+        self.detect_change("P95_PER", PER, self.avg_PER, time)
 
-        self.cusum_update("SNR", snr, self.avgClientSNR)
-        self.cusum_update("TX_power", tx_power, self.avg_tx_power)
-        self.cusum_update("Throughput", throughput, self.avgThroughput)
-        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.cusum_update("QoE", qoe, self.qoe)
-        self.cusum_update("P95_retry", retry, self.avg_retry)
-        self.cusum_update("P95_PER", PER, self.avg_PER)
+        self.cusum_update("SNR", snr, self.avgClientSNR, time)
+        self.cusum_update("TX_power", tx_power, self.avg_tx_power, time)
+        self.cusum_update("Throughput", throughput, self.avgThroughput, time)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor, time)
+        self.cusum_update("QoE", qoe, self.qoe, time)
+        self.cusum_update("P95_retry", retry, self.avg_retry, time)
+        self.cusum_update("P95_PER", PER, self.avg_PER, time)
 
-    def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type):
-        # TODO: call afunction to check radar present or not
+    def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type, time):
         if (self.DFSState == DFSState.NOT_AVAILABLE):
             return
         if (self.DFS and nwifi_type == "Radar"):
@@ -178,21 +186,21 @@ class ChannelInfo:
         self.avg_PER = self.updateEWMA(self.avg_PER, PER, self.alpha)
         self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
 
-        self.detect_change("SNR", snr, self.avgClientSNR)
-        self.detect_change("TX_power", tx_power, self.avg_tx_power)
-        self.detect_change("Throughput", throughput, self.avgThroughput)
-        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.detect_change("QoE", qoe, self.qoe)
-        self.detect_change("P95_retry", retry, self.avg_retry)
-        self.detect_change("P95_PER", PER, self.avg_PER)
+        self.detect_change("SNR", snr, self.avgClientSNR, time)
+        self.detect_change("TX_power", tx_power, self.avg_tx_power, time)
+        self.detect_change("Throughput", throughput, self.avgThroughput, time)
+        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor, time)
+        self.detect_change("QoE", qoe, self.qoe, time)
+        self.detect_change("P95_retry", retry, self.avg_retry, time)
+        self.detect_change("P95_PER", PER, self.avg_PER, time)
 
-        self.cusum_update("SNR", snr, self.avgClientSNR)
-        self.cusum_update("TX_power", tx_power, self.avg_tx_power)
-        self.cusum_update("Throughput", throughput, self.avgThroughput)
-        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.cusum_update("QoE", qoe, self.qoe)
-        self.cusum_update("P95_retry", retry, self.avg_retry)
-        self.cusum_update("P95_PER", PER, self.avg_PER)
+        self.cusum_update("SNR", snr, self.avgClientSNR, time)
+        self.cusum_update("TX_power", tx_power, self.avg_tx_power, time)
+        self.cusum_update("Throughput", throughput, self.avgThroughput, time)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor, time)
+        self.cusum_update("QoE", qoe, self.qoe, time)
+        self.cusum_update("P95_retry", retry, self.avg_retry, time)
+        self.cusum_update("P95_PER", PER, self.avg_PER, time)
 
     def clearDFSClients(self):
         self.DFSClients = set()
@@ -201,7 +209,7 @@ class ChannelInfo:
     def getDFSState(self):
         return self.DFSState.value  # 1 means no dfs radar present
 
-    def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time):
+    def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, time):
         self.avgCount += 1
         self.clients.add(client)
         self.alpha = self.getAlpha()
@@ -215,21 +223,21 @@ class ChannelInfo:
         self.avg_PER = self.updateEWMA(self.avg_PER, PER, self.alpha)
         self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
 
-        self.detect_change("SNR", snr, self.avgClientSNR)
-        self.detect_change("TX_power", tx_power, self.avg_tx_power)
-        self.detect_change("Throughput", throughput, self.avgThroughput)
-        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.detect_change("QoE", qoe, self.qoe)
-        self.detect_change("P95_retry", retry, self.avg_retry)
-        self.detect_change("P95_PER", PER, self.avg_PER)
+        self.detect_change("SNR", snr, self.avgClientSNR, time)
+        self.detect_change("TX_power", tx_power, self.avg_tx_power, time)
+        self.detect_change("Throughput", throughput, self.avgThroughput, time)
+        self.detect_change("NoiseFloor", noiseFloor, self.noiseFloor, time)
+        self.detect_change("QoE", qoe, self.qoe, time)
+        self.detect_change("P95_retry", retry, self.avg_retry, time)
+        self.detect_change("P95_PER", PER, self.avg_PER, time)
 
-        self.cusum_update("SNR", snr, self.avgClientSNR)
-        self.cusum_update("TX_power", tx_power, self.avg_tx_power)
-        self.cusum_update("Throughput", throughput, self.avgThroughput)
-        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor)
-        self.cusum_update("QoE", qoe, self.qoe)
-        self.cusum_update("P95_retry", retry, self.avg_retry)
-        self.cusum_update("P95_PER", PER, self.avg_PER)
+        self.cusum_update("SNR", snr, self.avgClientSNR, time)
+        self.cusum_update("TX_power", tx_power, self.avg_tx_power, time)
+        self.cusum_update("Throughput", throughput, self.avgThroughput, time)
+        self.cusum_update("NoiseFloor", noiseFloor, self.noiseFloor, time)
+        self.cusum_update("QoE", qoe, self.qoe, time)
+        self.cusum_update("P95_retry", retry, self.avg_retry, time)
+        self.cusum_update("P95_PER", PER, self.avg_PER, time)
 
     def getChannelMetrics(self):
         return self.qoe, self.avg_retry, self.avg_PER, self.channelUtilization
