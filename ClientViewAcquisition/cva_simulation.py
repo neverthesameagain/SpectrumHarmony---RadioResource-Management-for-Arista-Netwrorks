@@ -1,10 +1,6 @@
 """
 This module contains the main simulation script for the Client-View Acquisition (CVA) phase
 of the RRM-plus project.
-
-UPDATES (End-Term):
-- Added export logic for 'client_transport_qoe.csv' (AI Inference Data)
-- Added export logic for 'client_rtt_measurements.csv' (GNN/Location Data)
 """
 
 import os
@@ -17,15 +13,13 @@ from client_device import ClientDevice
 from client_personas import CLIENT_PERSONAS
 from environment import Environment
 
-# --- Physics & Config ---
 RSSI_MIN, RSSI_MAX = -70, -30
 RADIUS_M = 10.0
 
 
 def generate_acceptance_matrix_report(all_aps, all_clients):
     """
-    Generates the "Acceptance metrics by device class"
-    deliverable by aggregating stats from all APs.
+    Generates the "Acceptance metrics by device class" deliverable.
     """
     total_stats = defaultdict(lambda: {"attempts": 0, "success": 0, "rejects": 0})
     all_qoe_deltas = []
@@ -41,7 +35,7 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
             total_stats[persona_name]["rejects"] += metrics["rejects"]
 
     report_lines = []
-    report_lines.append("# Mid-Term Deliverable: Acceptance Metrics by Device Class")
+    report_lines.append("# End-Term Deliverable: Acceptance Metrics & AI Readiness")
     report_lines.append(
         f"\nThis report details the effectiveness of RRM steering actions across a simulated environment of **{len(all_aps)} APs** and **{len(all_clients)} clients**."
     )
@@ -91,7 +85,7 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
         else:
             acceptance_rate_str = "N/A"
 
-        capable_str = "✅ Yes" if persona_details["supports_80211v"] else "❌ No"
+        capable_str = "Yes" if persona_details["supports_80211v"] else "No"
 
         report_lines.append(
             f"| {name} | `{persona_details['oui']}` | {persona_details['os_class']} | {capable_str} | {attempts} | {successes} | {rejects} | **{acceptance_rate_str}** |"
@@ -100,13 +94,9 @@ def generate_acceptance_matrix_report(all_aps, all_clients):
     return "\n".join(report_lines)
 
 
-# ------------------------------------------------------------------
-# --- MAIN SIMULATION SCRIPT ---
-# ------------------------------------------------------------------
-
 if __name__ == "__main__":
     print("==========================================================")
-    print("== Full-Scale RRM Simulation w/ End-Term Telemetry ==")
+    print("== Full-Scale RRM Simulation")
     print("==========================================================\n")
 
     SIM_DURATION_HOURS = 1
@@ -116,10 +106,8 @@ if __name__ == "__main__":
         f"Simulating {SIM_DURATION_HOURS} hour ({TOTAL_STEPS} steps of {STEP_DURATION_S}s each)..."
     )
 
-    # 1. Create the World
     sim_environment = Environment()
 
-    # 2. Load APs and Clients from CSV files
     try:
         ap_df = pd.read_csv("synthetic_ap_layout.csv")
         client_df = pd.read_csv("synthetic_client_population.csv")
@@ -145,14 +133,12 @@ if __name__ == "__main__":
     print("--- Phase 1 Complete ---")
 
     print("\n--- Phase 2: Simulating High-Load Stress & RRM Checks ---")
-    # Sort APs by client count to find the busiest ones
     ap_by_clients = sorted(
         all_aps,
         key=lambda ap: sim_environment.get_ap_load(ap.ap_id)["client_count"],
         reverse=True,
     )
 
-    # Stress the busiest APs to trigger RRM actions and congestion
     stressed_aps = []
     for i in range(min(3, len(ap_by_clients))):
         ap = ap_by_clients[i]
@@ -160,7 +146,6 @@ if __name__ == "__main__":
         stressed_aps.append(ap.ap_id)
     print(f"[ENV]: STRESS: Setting {', '.join(stressed_aps)} airtime to 90%")
 
-    # Activate a hidden node near the 2nd busiest AP
     if len(ap_by_clients) > 1:
         hn_x = ap_by_clients[1].x + (RADIUS_M / 2)
         hn_y = ap_by_clients[1].y
@@ -185,51 +170,60 @@ if __name__ == "__main__":
     # --- GENERATE DELIVERABLES ---
     print("\n--- Generating Reports & Datasets ---")
 
-    # 1. Acceptance Report (Human Readable)
+    # 1. Acceptance Report
     acceptance_report_markdown = generate_acceptance_matrix_report(all_aps, all_clients)
     with open("acceptance_metrics_report.md", "w") as f:
         f.write(acceptance_report_markdown)
     print("✅ Generated 'acceptance_metrics_report.md'")
 
-    # 2. Telemetry Schema (Documentation)
+    # 2. Telemetry Schema
     os.system("python generate_telemetry_schema.py")
 
-    # ------------------------------------------------------------------
-    # --- NEW: EXPORT AI TRAINING DATA ---
-    # ------------------------------------------------------------------
+    # 3. Export AI Training Data
     print("\n--- Exporting AI Training Data (End-Term) ---")
 
     all_transport_logs = []
     all_rtt_logs = []
+    all_causal_logs = []
 
     for ap in all_aps:
         telemetry = ap.get_advanced_telemetry()
 
-        # Add AP context to transport logs
+        # Add AP context
         for log in telemetry["transport_logs"]:
             log["ap_id"] = ap.ap_id
             all_transport_logs.append(log)
 
-        # RTT logs already have AP ID
         all_rtt_logs.extend(telemetry["rtt_logs"])
 
-    # Export Transport QoE Data (for Inference Models)
+        # Add AP context to causal logs
+        for log in telemetry["causal_logs"]:
+            log["ap_id"] = ap.ap_id
+            all_causal_logs.append(log)
+
+    # CSV 1: Transport QoE (Bufferbloat Detection)
     if all_transport_logs:
         df_transport = pd.DataFrame(all_transport_logs)
         df_transport.to_csv("client_transport_qoe.csv", index=False)
-        print(
-            f"✅ Generated 'client_transport_qoe.csv' with {len(df_transport)} records."
-        )
+        print(f"Generated 'client_transport_qoe.csv' ({len(df_transport)} rows)")
     else:
-        print("⚠️ No Transport logs collected.")
+        print("No Transport logs collected.")
 
-    # Export RTT Data (for GNN/Location Models)
+    # CSV 2: RTT Data (GNN/Location)
     if all_rtt_logs:
         df_rtt = pd.DataFrame(all_rtt_logs)
         df_rtt.to_csv("client_rtt_measurements.csv", index=False)
-        print(f"✅ Generated 'client_rtt_measurements.csv' with {len(df_rtt)} records.")
+        print(f"Generated 'client_rtt_measurements.csv' ({len(df_rtt)} rows)")
     else:
-        print("⚠️ No RTT logs collected (Check client 802.11mc support).")
+        print("No RTT logs collected.")
+
+    # CSV 3: Causal Inference Data (Uplift Modeling)
+    if all_causal_logs:
+        df_causal = pd.DataFrame(all_causal_logs)
+        df_causal.to_csv("causal_inference_data.csv", index=False)
+        print(f"Generated 'causal_inference_data.csv' ({len(df_causal)} rows)")
+    else:
+        print("No Causal logs collected (Check stress levels).")
 
     print("\n==========================================================")
     print("== Simulation Finished Successfully ==")

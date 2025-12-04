@@ -1,59 +1,114 @@
-# RRM+ Client-View Acquisition Simulation
+RRM+ Client-View Acquisition Simulation
 
-This project provides a high-fidelity simulation of a Wi-Fi network to test and evaluate an advanced Radio Resource Management (RRM) system. The simulation models a diverse population of client devices and Access Points (APs) to assess the effectiveness of an intelligent RRM scheduler in optimizing the network through client steering.
+This project provides a high-fidelity simulation of an enterprise Wi-Fi network. It tests basic connectivity and also generates data for training the AI models (Graph Neural Networks, Causal Inference, and Anomaly Detection).
 
-## Key Features
+The simulation models a diverse population of client devices (from iPhones to legacy IoT sensors) and an intelligent Access Point architecture that captures deep telemetry—from Layer 2 MAC stats down to Layer 4 Transport metrics and 802.11mc fine timing.
 
-- **Realistic Client Behavior:** Simulates a variety of client device types (defined in `client_personas.py`) with different capabilities, including support for 802.11v, different operating systems, and unique roaming characteristics.
-- **Advanced RRM Scheduler:** The APs implement a sophisticated RRM scheduler that monitors client Quality of Experience (QoE) and AP load to make intelligent steering decisions.
-- **Predictive QoE Model:** Utilizes a mock machine-learning model to predict a client's post-roam QoE on a potential new AP, enabling more intelligent, data-driven steering.
-- **Active vs. Passive Inference:** Correctly models the two primary RRM strategies:
-    - **Active Inference:** Gracefully steering 802.11v-capable clients using BSS Transition Management requests.
-    - **Passive Inference:** Monitoring non-802.11v clients and using disruptive actions (forced disconnection) as a last resort.
-- **Detailed Reporting:** Generates a detailed markdown report (`acceptance_metrics_report.md`) summarizing the effectiveness of steering actions by device class, OS, and capability.
+# Key Features
 
-## Project Structure
+## 1. Realistic Client & Physics Engine
 
-The project is organized into several key Python modules:
+- **Device Personas:** Simulates specific hardware behaviors (e.g., an iPhone 15 Pro roams differently than a legacy ESP32 sensor).
 
-- `cva_simulation.py`: The main driver script that initializes and runs the entire simulation.
-- `persona_generator.py`: A utility script to generate the synthetic AP layout and client population files required for the simulation.
-- `environment.py`: Defines the physical simulation environment, managing AP locations, client positions, and global network state like airtime utilization.
-- `access_point.py`: Implements the AP, including the core RRM scheduling logic, the QoE prediction model, and client management.
-- `client_device.py`: Implements the client device, simulating its movement, QoE calculation, scanning behavior, and response to steering commands.
-- `client_personas.py`: A configuration module that defines the characteristics of all simulated client device types.
-- `generate_telemetry_schema.py`: A script that generates a markdown file describing the telemetry data that would be collected in a real-world deployment.
+- **Physics-Based Environment:** Calculates Path Loss, RSSI, SNR, and simulates realistic interference patterns (including Hidden Nodes).
 
-## Setup and Installation
+- **Transport Layer Simulation:** Goes beyond Wi-Fi signal strength to simulate TCP/QUIC latency (Bufferbloat), Jitter, and Packet Loss, allowing the system to detect "silent" network issues.
 
-The simulation requires Python 3 and a few common libraries.
+## 2. Intelligent RRM Scheduler
 
-1.  **Prerequisites:** Ensure you have Python 3 installed.
-2.  **Install Dependencies:** Install the required libraries using pip.
-    ```bash
-    pip install pandas numpy
-    ```
+- **Active & Passive Steering:** Uses 802.11v BSS-TM for capable clients and forced dissociation for legacy clients.
 
-## How to Run the Simulation
+- **Predictive QoE:** Uses a mock ML model to rank candidate APs based on predicted post-roam quality.
 
-Running the simulation is a two-step process.
+- **Adaptive Telemetry:** Automatically adjusts polling intervals based on client stability and network load.
 
-1.  **Generate the Simulation Scenario:**
-    First, run the `persona_generator.py` script. This will create the `synthetic_ap_layout.csv` and `synthetic_client_population.csv` files that define the environment for the simulation.
-    ```bash
-    python persona_generator.py
-    ```
+## 3. Causal Inference Engine
 
-2.  **Run the Main Simulation:**
-    Once the scenario files are generated, run the main simulation script.
-    ```bash
-    python cva_simulation.py
-    ```
-    The simulation will run for a configured duration, and you will see log output in your terminal as it progresses.
+- **Counterfactual Generation:** The system randomly holds back valid steering actions (creates a "Control Group") to measure the actual uplift of RRM decisions.
+
+- **Closed-Loop Validation:** Logs both the state before an action and the result after a delay, enabling true Uplift Modeling.
+
+## 4. 802.11mc Location Services
+
+- **Fine Timing Measurement (FTM):** Simulates RTT-based distance measurements (with realistic multipath noise) for modern clients, enabling precise interference geolocation.
+
+# The AI Data Ecosystem
+
+This simulation generates three critical datasets for the End-Term AI models. Here is what they are and why they matter:
+
+## A. The "Diagnosis" Dataset (client_transport_qoe.csv)
+
+What it contains: TCP RTT, Jitter, and Retransmission rates correlated with AP Load and SNR.
+
+AI Model Role: Trains Inference / Anomaly Detection Models.
+
+Why: To teach the AI how to distinguish between Coverage holes (Low Signal) and Congestion (Bufferbloat). A client with strong signal but high latency needs a different solution (Load Balancing) than a client with weak signal (Steering).
+
+## B. The "Map" Dataset (client_rtt_measurements.csv)
+
+- **What it contains:** Distance measurements (in meters) between clients and APs.
+
+- **AI Model Role:** Trains Graph Neural Networks (GNN).
+
+- **Why:** By feeding distance + failure rates into a GNN, the system can triangulate "Invisible Interference Hotspots" (e.g., a microwave oven at coordinates X,Y) that are degrading performance for everyone in that specific zone.
+
+## C. The "Judge" Dataset (causal_inference_data.csv)
+
+- **What it contains:** Records of Treatment (Steered) vs. Control (Held Back) events, including Pre_QoE (Baseline) and Post_QoE (Outcome).
+
+- **AI Model Role:** Trains Uplift Models (Causal Forests).
+
+- **Why:** To move beyond simple "Average Improvement." This data teaches the AI to predict exactly how much a specific client will benefit from a steer, filtering out luck and environmental noise.
+
+# Project Structure
+
+- **cva_simulation.py:** The orchestrator. Runs the physics loop, manages the clock, and exports the final AI datasets.
+
+- **client_device.py:** The physics engine. Simulates movement, calculates signal math, and generates the new Transport/RTT telemetry.
+
+- **access_point.py:** The "Brain." Collects telemetry, runs the RRM logic, and manages the Causal Holdout groups.
+
+- **environment.py:** The world state. Manages global interference (Hidden Nodes) and AP load.
+
+- **client_personas.py:** Configuration file defining device capabilities (OUI, OS, 802.11k/v/r support).
+
+- **persona_generator.py:** Utility to create random but realistic office layouts.
+
+# How to Run
+
+## Install Dependencies:
+
+```bash
+pip install pandas numpy
+```
+
+## Generate the World:
+
+Create a new random office layout and client population.
+
+```bash
+python persona_generator.py
+
+```
+
+## Run the Simulation:
+
+This will run the physics engine (default: 1 hour) and generate all reports.
+
+```bash
+python cva_simulation.py
+```
 
 ## Simulation Outputs
 
-After a successful run, the simulation will generate or update the following files:
+After running the simulation, you will find these files in your directory:
 
-- `acceptance_metrics_report.md`: A detailed report containing a summary of RRM KPIs and a breakdown of steering success and failure rates by device class.
-- `telemetry_schema.md`: A markdown file outlining the schema for the types of telemetry data this RRM system would generate.
+- **acceptance_metrics_report.md:** A human-readable report summarizing steering success rates and device compatibility.
+
+- **telemetry_schema.md:** Technical documentation of the database schema for the backend team.
+
+- **client_transport_qoe.csv:** Raw training data for the Inference Model.
+
+- **client_rtt_measurements.csv:** Raw training data for the GNN Location Model.
+
+- **causal_inference_data.csv:** Raw training data for the Causal Uplift Model.
