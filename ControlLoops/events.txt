@@ -1,0 +1,4 @@
+Required Events
+1. Microwave burst - sudden, broadband rise in noise floor on multiple APs, many clients see low RSSI / packet retries,
+2. Radar/ DFS event - DFS radar signature on channel
+3. Exam hall - per-AP high airtime usage, high queue depths, spike in active clients, drop in throughput and increased latency.

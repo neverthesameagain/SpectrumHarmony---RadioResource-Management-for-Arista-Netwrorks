@@ -8,6 +8,7 @@ from .utilsSO.WiFiBandEnum import WiFiBand
 from .utilsSO.CSVParserSO import CSVParserSO
 from .MAB import MAB
 from ControlLoops.InterferenceGraph import InterferenceGraph
+from ControlLoops.EventLoop import EventLoop
 import os
 import time
 import psutil
@@ -34,6 +35,7 @@ class SensingOrchestra:
         self.isRunning = True
         self.graph = InterferenceGraph()
         self.APname = name
+        self.eventLoop = EventLoop()
         # not use DFS channel for 30 minutes after a DFS radar encounter
         self.DFStimer = DFSTimerManager(30 * 60, self.clearDFSClients_5_GHz)
         logging.info("Initiating Sensing Orchestra...")
@@ -168,12 +170,17 @@ class SensingOrchestra:
             busy_time = float(beacon[APLog.BUSY_TIME])
             total_time = float(beacon[APLog.TOTAL_TIME])
             nwifi_type = beacon[APLog.NWIFI_TYPE]
+            airtime = float(beacon[APLog.AIRTIME_UTILIZATION])
             if (band == WiFiBand.BAND_2_4_GHz):
                 self.channelParameters_2_4_GHz[channel].updateChannel_2_4_GHz(
                     snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected, timestamp)
+                self.eventLoop.detect_event_2_4_GHz(timestamp, band, beacon[APLog.CHANNEL], airtime, retry,
+                                                    nwifi_detected, nwifi_type, tx_power)
             elif (band == WiFiBand.BAND_5_GHz):
                 self.channelParameters_5_GHz[channel].updateChannel_5_GHz(
                     snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type, timestamp)
+                self.eventLoop.detect_event_5_GHz(timestamp, band, beacon[APLog.CHANNEL], nwifi_type, airtime, retry
+                                                  )
             elif (band == WiFiBand.BAND_6_GHz):
                 # self.channelParameters[channel].updateChannel_6_GHz(
                 #     rssi, noiseFloor, throughput, client, qoe, tx_power, busy_time, total_time)

@@ -33,7 +33,7 @@ class SlowLoop:
         colors = nx.coloring.greedy_color(self.graph_2_4_GHz, strategy="smallest_last")
         color_map = [colors[node] for node in self.graph_2_4_GHz.nodes()]
         self.colouring_2_4_GHz = color_map
-        print(color_map, "2.4 GHz")
+        print("SLOWLOOP", color_map, "2.4 GHz")
         pos = nx.spring_layout(self.graph_2_4_GHz)
         nx.draw(
             self.graph_2_4_GHz,
@@ -44,14 +44,13 @@ class SlowLoop:
         )
         plt.savefig(f"graphs/graph_2_4_{self.counter}_GHz.png", dpi=300, bbox_inches="tight")
         plt.close()
-        self.counter += 1
 
     def colourGraph_5_GHz(self):
         self.graph_5_GHz = self.graph.getGraph_5_Ghz()
         colors = nx.coloring.greedy_color(self.graph_5_GHz, strategy="smallest_last")
         color_map = [colors[node] for node in self.graph_5_GHz.nodes()]
         self.colouring_5_GHz = color_map
-        print(color_map, "5 GHz")
+        print("SLOWLOOP", color_map, "5 GHz")
         pos = nx.spring_layout(self.graph_5_GHz)
         nx.draw(
             self.graph_5_GHz,
@@ -62,6 +61,7 @@ class SlowLoop:
         )
         plt.savefig(f"graphs/graph_5_{self.counter}_GHz.png", dpi=300, bbox_inches="tight")
         plt.close()
+        self.counter += 1
 
     def getColours_2_4_GHz(self):
         return self.colouring_2_4_GHz

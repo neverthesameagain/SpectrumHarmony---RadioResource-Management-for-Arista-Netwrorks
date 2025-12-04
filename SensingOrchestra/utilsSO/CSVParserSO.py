@@ -31,6 +31,7 @@ class CSVParserSO:
                 row[APLog.UL_PER] = float(row[APLog.UL_PER])
                 row[APLog.BUSY_TIME] = float(row[APLog.BUSY_TIME])
                 row[APLog.TOTAL_TIME] = float(row[APLog.TOTAL_TIME])
+                row[APLog.AIRTIME_UTILIZATION] = float(row[APLog.AIRTIME_UTILIZATION])
 
                 data.append(row)
         return data

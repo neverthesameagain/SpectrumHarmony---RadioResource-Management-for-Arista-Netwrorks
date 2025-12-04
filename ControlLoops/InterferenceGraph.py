@@ -102,14 +102,14 @@ class InterferenceGraph():
     def handle_2_4_GHz(self, rssi, c1, w1, c2, w2, clientA, clientB, edgeweight):
         isEdge = self.isEdgePresent_2_4_GHz(rssi, c1, w1, c2, w2)
         if (isEdge):
-            self.updategraph_2_4_GHz([clientA, clientB, edgeweight])  # TODO: update edge weight
+            self.updategraph_2_4_GHz([clientA, clientB, edgeweight])
         elif (self.graph_2_4_Ghz.has_edge(clientA, clientB)):
             self.graph_2_4_Ghz.remove_edge(clientA, clientB)
 
     def handle_5_GHz(self, rssi, c1, w1, c2, w2, clientA, clientB, edgeweight):
         isEdge = self.isEdgePresent_5_GHz(rssi, c1, w1, c2, w2)
         if (isEdge):
-            self.updategraph_5_GHz([clientA, clientB, edgeweight])  # TODO: update edge weight
+            self.updategraph_5_GHz([clientA, clientB, edgeweight])
         elif (self.graph_5_Ghz.has_edge(clientA, clientB)):
             self.graph_5_Ghz.remove_edge(clientA, clientB)
 
