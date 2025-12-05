@@ -25,7 +25,7 @@ class InterferenceGraph():
         self.chanToIdx_5_GHz = {ch: idx for idx, ch in enumerate(BAND_5_CHANNELS)}
 
     def start(self):
-        file_path = os.path.join(base_dir, "data", "interference_edges.csv")
+        file_path = os.path.join(base_dir, "data", "interference_edges_balanced.csv")
         self.simulateRadioInput(file_path)
 
     def __new__(cls, *args, **kwargs):

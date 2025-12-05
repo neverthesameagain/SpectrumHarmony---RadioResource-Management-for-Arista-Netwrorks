@@ -1,0 +1,14 @@
+{
+  "2_4": {
+    "mse": 0.0018029943877947627,
+    "mae": 0.029242323939732424,
+    "r2": 0.6859639036761016,
+    "preds_csv": "/home2/student/rrm/ControlLoops/models/gcn_2_4_nodes_preds_ensemble.csv"
+  },
+  "5": {
+    "mse": 10.035516819287686,
+    "mae": 1.1992648528366086,
+    "r2": 0.7132021252628923,
+    "preds_csv": "/home2/student/rrm/ControlLoops/models/gcn_5_nodes_preds_ensemble.csv"
+  }
+}

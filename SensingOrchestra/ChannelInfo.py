@@ -244,25 +244,18 @@ class ChannelInfo:
 
     def printChannel(self):
         logging.info("--------------------------------\n")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'BAND:':25} {self.band}")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'CHANNEL:':25} {self.channel}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'NOISE FLOOR (dBm):':25} {self.noiseFloor}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'AVG CLIENT SNR (dB):':25} {self.avgClientSNR}")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'AVG COUNT:':25} {self.avgCount}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'AVG THROUGHPUT (Mbps):':25} {self.avgThroughput}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'CHANNEL UTILIZATION:':25} {self.channelUtilization}")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'INTERFERENCE:':25} {self.interference}")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'CLIENTS:':25} {self.clients}")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'QOE:':25} {self.qoe}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'TX POWER (dBm):':25} {self.avg_tx_power}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'CHANNEL WIDTH (MHz):':25} {self.channel_width}")
-        logging.info(
-            f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'INTERFERENCE WEIGHT:':25} {self.inteferenceWeight}")
-        logging.info(f"[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] {self.band}  {'DFS:':25} {self.DFS}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'BAND:':25} {self.band}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'CHANNEL:':25} {self.channel}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'NOISE FLOOR (dBm):':25} {self.noiseFloor}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'AVG CLIENT SNR (dB):':25} {self.avgClientSNR}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'AVG COUNT:':25} {self.avgCount}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'AVG THROUGHPUT (Mbps):':25} {self.avgThroughput}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'CHANNEL UTILIZATION:':25} {self.channelUtilization}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'INTERFERENCE:':25} {self.interference}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'CLIENTS:':25} {self.clients}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'QOE:':25} {self.qoe}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'TX POWER (dBm):':25} {self.avg_tx_power}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'CHANNEL WIDTH (MHz):':25} {self.channel_width}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'INTERFERENCE WEIGHT:':25} {self.inteferenceWeight}")
+        logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'DFS:':25} {self.DFS}")
         logging.info("")
