@@ -27,5 +27,5 @@ class FastLoop():
         while self.queue:
             change = self.queue.popleft()
             # apply the change or whatever
-            print(f"[FASTLOOP] Change : {change["type"]} Value : {change["value"]}")
+            print(f"[FASTLOOP] Change : {change['type']} Value : {change['value']}")
     
