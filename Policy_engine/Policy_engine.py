@@ -121,8 +121,25 @@ class PrivacyVault:
         return h.hexdigest()[:16]
 
 class AuditLogger:
-    def __init__(self):
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    def __init__(self, log_file="rrm_audit.log"):
+        # Create a named logger to avoid interference with other modules
+        self.logger = logging.getLogger("RRM_Policy_Audit")
+        self.logger.setLevel(logging.INFO)
+        
+        # Check if handlers exist to avoid duplicates if re-initialized
+        if not self.logger.handlers:
+            # Create Formatter
+            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+            # 1. File Handler: Output to disk
+            file_handler = logging.FileHandler(log_file)
+            file_handler.setFormatter(formatter)
+            self.logger.addHandler(file_handler)
+
+            # 2. Stream Handler: Output to console/stdout
+            console_handler = logging.StreamHandler()
+            console_handler.setFormatter(formatter)
+            self.logger.addHandler(console_handler)
 
     def log_decision(self, decision: Dict):
         entry = {
@@ -134,12 +151,12 @@ class AuditLogger:
             "regulatory_domain": decision.get("country_code"),
             "change_details": decision.get("details")
         }
-        logging.info(f"AUDIT: {json.dumps(entry)}")
+        self.logger.info(f"AUDIT: {json.dumps(entry)}")
 
 class PolicyEngine:
     def __init__(self):
         self.privacy = PrivacyVault()
-        self.audit = AuditLogger()
+        self.audit = AuditLogger("rrm_audit.log") # Explicitly set log file name
         self.change_history = {} 
 
     def _get_regulatory_rule(self, channel: int, country: str) -> Optional[Tuple[int, bool]]:
