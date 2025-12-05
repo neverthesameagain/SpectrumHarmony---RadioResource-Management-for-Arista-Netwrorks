@@ -5,9 +5,10 @@ import torch
 import numpy as np
 import networkx as nx
 import matplotlib
-from ControlLoops.InterferenceGraph import InterferenceGraph
-from ControlLoops.Explainability import ExplainabilityLayer
-from ControlLoops.CausalAnalysis import CausalAnalysis
+from ControlLoops.interference_graph import InterferenceGraph
+from ControlLoops.graph_colouring import colour_graph
+from ControlLoops.explainability import ExplainabilityLayer
+from ControlLoops.causal_analysis import CausalAnalysis
 from Safe_RL.CQL_Training import QNetwork
 from Safe_RL.Testing import greedy_action_from_q, constrained_apply_action
 import os
@@ -42,7 +43,7 @@ class SlowLoop:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.q_net = QNetwork(state_dim=14, action_dim=9).to(self.device)
         
-        model_path = os.path.join("Safe RL", "cql_q1.pt")
+        model_path = os.path.join("Safe_RL", "cql_q1.pt")
         if os.path.exists(model_path):
             try:
                 self.q_net.load_state_dict(torch.load(model_path, map_location=self.device))
@@ -61,8 +62,8 @@ class SlowLoop:
             print("[SlowLoop] Starting Optimization Cycle...")
             
             # 1. Graph Coloring (Channel Allocation)
-            self.colourGraph_2_4_GHz()
-            self.colourGraph_5_GHz()
+            self.colour_graph_2_4_ghz()
+            self.colour_graph_5_ghz()
             
             # 2. Safe RL Optimization (Power/Width/OBSS)
             self.run_safe_rl_optimization()
@@ -145,8 +146,11 @@ class SlowLoop:
         self.prev_action_vec = safe_action
         print(f"[SlowLoop] Applied Safe RL Configuration. Uplift: {uplift:.2f}")
 
-    def colourGraph_2_4_GHz(self):
-        self.graph_2_4_GHz = self.graph.getGraph_2_4_Ghz()
+    def colour_graph_2_4_ghz(self):
+        # ... (implementation)
+        pass # Placeholder for replace logic, actual content is kept by tool if I don't change it? No, I must provide content.
+        # Wait, replace_file_content replaces the chunk. I should use multi_replace.
+        self.graph_2_4_GHz = self.graph.get_graph_2_4_ghz()
         if len(self.graph_2_4_GHz.nodes()) == 0:
              print("[SlowLoop] No nodes in 2.4GHz graph.")
              return
@@ -176,8 +180,8 @@ class SlowLoop:
         plt.savefig(f"graphs/graph_2_4_{self.counter}_GHz.png", dpi=300, bbox_inches="tight")
         plt.close()
 
-    def colourGraph_5_GHz(self):
-        self.graph_5_GHz = self.graph.getGraph_5_Ghz()
+    def colour_graph_5_ghz(self):
+        self.graph_5_GHz = self.graph.get_graph_5_ghz()
         if len(self.graph_5_GHz.nodes()) == 0:
              print("[SlowLoop] No nodes in 5GHz graph.")
              return

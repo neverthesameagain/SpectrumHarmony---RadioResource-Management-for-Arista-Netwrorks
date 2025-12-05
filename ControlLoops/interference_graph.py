@@ -26,23 +26,23 @@ class InterferenceGraph():
 
     def start(self):
         file_path = os.path.join(base_dir, "data", "interference_edges_balanced.csv")
-        self.simulateRadioInput(file_path)
+        self.simulate_radio_input(file_path)
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super(InterferenceGraph, cls).__new__(cls)
         return cls._instance
 
-    def updateChannel_2_4_Ghz(self, channel):
+    def update_channel_2_4_ghz(self, channel):
         self.currentChannel_2_4_Ghz = channel
 
-    def updateChannel_5_Ghz(self, channel):
+    def update_channel_5_ghz(self, channel):
         self.currentChannel_5_Ghz = channel
 
-    def updateChannelWidth_2_4_Ghz(self, width):
+    def update_channel_width_2_4_ghz(self, width):
         self.currentChannelWidth_2_4_Ghz = width
 
-    def updateChannelWidth_5_Ghz(self, width):
+    def update_channel_width_5_ghz(self, width):
         self.currentChannelWidth_5_Ghz = width
 
     def channel_overlap_2_4_GHz(self, c1, w1, c2, w2):
@@ -51,23 +51,23 @@ class InterferenceGraph():
     def channel_overlap_5_GHz(self, c1, w1, c2, w2):
         return not (c1 + w1/2 <= c2 - w2/2 or c2 + w2/2 <= c1 - w1/2)
 
-    def isEdgePresent_2_4_GHz(self, rssi, c1, w1, c2, w2):
+    def is_edge_present_2_4_ghz(self, rssi, c1, w1, c2, w2):
         if self.channel_overlap_2_4_GHz(c1, w1, c2, w2) and rssi < self.rssiThreshold:
             return True
         return False
 
-    def isEdgePresent_5_GHz(self, rssi, c1, w1, c2, w2):
+    def is_edge_present_5_ghz(self, rssi, c1, w1, c2, w2):
         if self.channel_overlap_5_GHz(c1, w1, c2, w2) and rssi < self.rssiThreshold:
             return True
         return False
 
-    def getGraph_2_4_Ghz(self):
+    def get_graph_2_4_ghz(self):
         return self.graph_2_4_Ghz
 
-    def getGraph_5_Ghz(self):
+    def get_graph_5_ghz(self):
         return self.graph_5_Ghz
 
-    def convertbandToIdx(self, band, channel):
+    def convert_band_to_idx(self, band, channel):
         if (band == WiFiBand.BAND_2_4_GHz):
             return channel-1
         elif (band == WiFiBand.BAND_5_GHz):
@@ -79,14 +79,14 @@ class InterferenceGraph():
             logging.error("Not a recognised band...")
         return 0
 
-    def simulateRadioInput(self, file):
+    def simulate_radio_input(self, file):
         parser = CSVParser()
         beacons = parser.parseCSV(file)
         print("Interference Graph ", file)
         for beacon in beacons:
             band = beacon[APLog.BAND]
-            channelA = self.convertbandToIdx(band, beacon[APLog.CHANNEL_A])
-            channelB = self.convertbandToIdx(band, beacon[APLog.CHANNEL_B])
+            channelA = self.convert_band_to_idx(band, beacon[APLog.CHANNEL_A])
+            channelB = self.convert_band_to_idx(band, beacon[APLog.CHANNEL_B])
             widthA = beacon[APLog.WIDTH_A_MHZ]
             widthB = beacon[APLog.WIDTH_B_MHZ]
             clientA = beacon[APLog.AP_A]
@@ -100,20 +100,20 @@ class InterferenceGraph():
                 self.handle_5_GHz(distance, channelA, widthA, channelB, widthB, clientA, clientB, edgeweight)
 
     def handle_2_4_GHz(self, rssi, c1, w1, c2, w2, clientA, clientB, edgeweight):
-        isEdge = self.isEdgePresent_2_4_GHz(rssi, c1, w1, c2, w2)
+        isEdge = self.is_edge_present_2_4_ghz(rssi, c1, w1, c2, w2)
         if (isEdge):
-            self.updategraph_2_4_GHz([clientA, clientB, edgeweight])
+            self.update_graph_2_4_ghz([clientA, clientB, edgeweight])
         elif (self.graph_2_4_Ghz.has_edge(clientA, clientB)):
             self.graph_2_4_Ghz.remove_edge(clientA, clientB)
 
     def handle_5_GHz(self, rssi, c1, w1, c2, w2, clientA, clientB, edgeweight):
-        isEdge = self.isEdgePresent_5_GHz(rssi, c1, w1, c2, w2)
+        isEdge = self.is_edge_present_5_ghz(rssi, c1, w1, c2, w2)
         if (isEdge):
-            self.updategraph_5_GHz([clientA, clientB, edgeweight])
+            self.update_graph_5_ghz([clientA, clientB, edgeweight])
         elif (self.graph_5_Ghz.has_edge(clientA, clientB)):
             self.graph_5_Ghz.remove_edge(clientA, clientB)
 
-    def updategraph_2_4_GHz(self, edge: list):
+    def update_graph_2_4_ghz(self, edge: list):
         src = edge[0]
         dest = edge[1]
         weight = edge[2]
@@ -126,7 +126,7 @@ class InterferenceGraph():
         else:
             self.graph_2_4_Ghz.add_edge(src, dest, weight=weight)
 
-    def updategraph_5_GHz(self, edge: list):
+    def update_graph_5_ghz(self, edge: list):
         src = edge[0]
         dest = edge[1]
         weight = edge[2]

@@ -184,10 +184,10 @@ if __name__ == "__main__":
     dataset = generate_cql_dataset(env, num_steps=24 * 500)
 
     # save as a pickle file
-    with open("C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/cql_dataset.pkl", "wb") as f:
+    with open("cql_dataset.pkl", "wb") as f:
         pickle.dump(dataset, f)
 
     # save dataset to CSV   
-    save_sarsa_csv(dataset, filename="C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/cql_dataset.csv")
+    save_sarsa_csv(dataset, filename="cql_dataset.csv")
 
 

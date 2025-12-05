@@ -43,7 +43,7 @@ class ChannelInfo:
         self.DFSClients = set()
         self.alpha = self.getAlpha()
         self.threshold = 0.2
-        self.Fastloop = FastLoop()
+        self.fast_loop = FastLoop()
 
         self.cusum_pos = {}
         self.cusum_neg = {}
@@ -53,10 +53,10 @@ class ChannelInfo:
         self.last_alert_time = {}
         logging.info(f"Creating band: {band} channel : {channel}")
 
-    def getChannel(self):
+    def get_channel(self):
         return self.channel
 
-    def createChange(self, type: str, value, avgValue):
+    def create_change(self, type: str, value, avgValue):
         map = {"type": type, "value": value, "avgValue": avgValue}
         return map
 
@@ -82,10 +82,10 @@ class ChannelInfo:
                      0.05 * (1 - client_penalty))
         return estReward
 
-    def updateEWMA(self, prev_value, new_value, alpha):
+    def update_ewma(self, prev_value, new_value, alpha):
         return alpha * new_value + (1 - alpha) * prev_value
 
-    def getAlpha(self):
+    def get_alpha(self):
         N = self.avgCount
         return min(0.3, 2 / (N + 1))
 
@@ -103,7 +103,7 @@ class ChannelInfo:
                 logging.warning(
                     f"[ALERT][{timestamp}][Band {self.band}][Channel {self.channel}] Sudden change in {name}: {new_value:.2f} (avg={avg_value:.2f}, dev={deviation_ratio*100:.1f}%)")
                 self.last_alert_time[name] = now
-                self.Fastloop.addChange(self.createChange(name, new_value, avg_value))
+                self.fast_loop.add_change(self.create_change(name, new_value, avg_value))
 
     def cusum_update(self, name, new_value, mean, timestamp):
         if name not in self.cusum_pos:
@@ -133,19 +133,19 @@ class ChannelInfo:
                 self.cusum_neg[name] = 0
                 self.Fastloop.addChange(self.createChange(name, new_value, mean))
 
-    def updateChannel_2_4_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected, time):
+    def update_channel_2_4_ghz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_detected, time):
         self.avgCount += 1
         self.clients.add(client)
-        self.alpha = self.getAlpha()
-        self.noiseFloor = self.updateEWMA(self.noiseFloor, noiseFloor, self.alpha)
-        self.avgClientSNR = self.updateEWMA(self.avgClientSNR, snr, self.alpha)
-        self.avgThroughput = self.updateEWMA(self.avgThroughput, throughput, self.alpha)
+        self.alpha = self.get_alpha()
+        self.noiseFloor = self.update_ewma(self.noiseFloor, noiseFloor, self.alpha)
+        self.avgClientSNR = self.update_ewma(self.avgClientSNR, snr, self.alpha)
+        self.avgThroughput = self.update_ewma(self.avgThroughput, throughput, self.alpha)
         self.max_tx = max(self.max_tx, tx_power)
-        self.avg_tx_power = self.updateEWMA(self.avg_tx_power, tx_power, self.alpha)
-        self.qoe = self.updateEWMA(self.qoe, qoe, self.alpha)
-        self.avg_retry = self.updateEWMA(self.avg_retry, retry, self.alpha)
-        self.avg_PER = self.updateEWMA(self.avg_PER, PER, self.alpha)
-        self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
+        self.avg_tx_power = self.update_ewma(self.avg_tx_power, tx_power, self.alpha)
+        self.qoe = self.update_ewma(self.qoe, qoe, self.alpha)
+        self.avg_retry = self.update_ewma(self.avg_retry, retry, self.alpha)
+        self.avg_PER = self.update_ewma(self.avg_PER, PER, self.alpha)
+        self.channelUtilization = self.update_ewma(self.channelUtilization, busy_time / total_time, self.alpha)
         if nwifi_detected:
             self.interference += self.inteferenceWeight  # add a value for this
 
@@ -165,7 +165,7 @@ class ChannelInfo:
         self.cusum_update("P95_retry", retry, self.avg_retry, time)
         self.cusum_update("P95_PER", PER, self.avg_PER, time)
 
-    def updateChannel_5_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type, time):
+    def update_channel_5_ghz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, nwifi_type, time):
         if (self.DFSState == DFSState.NOT_AVAILABLE):
             return
         if (self.DFS and nwifi_type == "Radar"):
@@ -175,16 +175,16 @@ class ChannelInfo:
             return
         self.avgCount += 1
         self.clients.add(client)
-        self.alpha = self.getAlpha()
-        self.noiseFloor = self.updateEWMA(self.noiseFloor, noiseFloor, self.alpha)
-        self.avgClientSNR = self.updateEWMA(self.avgClientSNR, snr, self.alpha)
-        self.avgThroughput = self.updateEWMA(self.avgThroughput, throughput, self.alpha)
+        self.alpha = self.get_alpha()
+        self.noiseFloor = self.update_ewma(self.noiseFloor, noiseFloor, self.alpha)
+        self.avgClientSNR = self.update_ewma(self.avgClientSNR, snr, self.alpha)
+        self.avgThroughput = self.update_ewma(self.avgThroughput, throughput, self.alpha)
         self.max_tx = max(self.max_tx, tx_power)
-        self.avg_tx_power = self.updateEWMA(self.avg_tx_power, tx_power, self.alpha)
-        self.qoe = self.updateEWMA(self.qoe, qoe, self.alpha)
-        self.avg_retry = self.updateEWMA(self.avg_retry, retry, self.alpha)
-        self.avg_PER = self.updateEWMA(self.avg_PER, PER, self.alpha)
-        self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
+        self.avg_tx_power = self.update_ewma(self.avg_tx_power, tx_power, self.alpha)
+        self.qoe = self.update_ewma(self.qoe, qoe, self.alpha)
+        self.avg_retry = self.update_ewma(self.avg_retry, retry, self.alpha)
+        self.avg_PER = self.update_ewma(self.avg_PER, PER, self.alpha)
+        self.channelUtilization = self.update_ewma(self.channelUtilization, busy_time / total_time, self.alpha)
 
         self.detect_change("SNR", snr, self.avgClientSNR, time)
         self.detect_change("TX_power", tx_power, self.avg_tx_power, time)
@@ -202,26 +202,26 @@ class ChannelInfo:
         self.cusum_update("P95_retry", retry, self.avg_retry, time)
         self.cusum_update("P95_PER", PER, self.avg_PER, time)
 
-    def clearDFSClients(self):
+    def clear_dfs_clients(self):
         self.DFSClients = set()
         self.DFSState = DFSState.AVAILABLE
 
-    def getDFSState(self):
+    def get_dfs_state(self):
         return self.DFSState.value  # 1 means no dfs radar present
 
-    def updateChannel_6_GHz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, time):
+    def update_channel_6_ghz(self, snr, noiseFloor, throughput, client, qoe, retry, PER, tx_power, busy_time, total_time, time):
         self.avgCount += 1
         self.clients.add(client)
-        self.alpha = self.getAlpha()
-        self.noiseFloor = self.updateEWMA(self.noiseFloor, noiseFloor, self.alpha)
-        self.avgClientSNR = self.updateEWMA(self.avgClientSNR, snr, self.alpha)
-        self.avgThroughput = self.updateEWMA(self.avgThroughput, throughput, self.alpha)
+        self.alpha = self.get_alpha()
+        self.noiseFloor = self.update_ewma(self.noiseFloor, noiseFloor, self.alpha)
+        self.avgClientSNR = self.update_ewma(self.avgClientSNR, snr, self.alpha)
+        self.avgThroughput = self.update_ewma(self.avgThroughput, throughput, self.alpha)
         self.max_tx = max(self.max_tx, tx_power)
-        self.avg_tx_power = self.updateEWMA(self.avg_tx_power, tx_power, self.alpha)
-        self.qoe = self.updateEWMA(self.qoe, qoe, self.alpha)
-        self.avg_retry = self.updateEWMA(self.avg_retry, retry, self.alpha)
-        self.avg_PER = self.updateEWMA(self.avg_PER, PER, self.alpha)
-        self.channelUtilization = self.updateEWMA(self.channelUtilization, busy_time / total_time, self.alpha)
+        self.avg_tx_power = self.update_ewma(self.avg_tx_power, tx_power, self.alpha)
+        self.qoe = self.update_ewma(self.qoe, qoe, self.alpha)
+        self.avg_retry = self.update_ewma(self.avg_retry, retry, self.alpha)
+        self.avg_PER = self.update_ewma(self.avg_PER, PER, self.alpha)
+        self.channelUtilization = self.update_ewma(self.channelUtilization, busy_time / total_time, self.alpha)
 
         self.detect_change("SNR", snr, self.avgClientSNR, time)
         self.detect_change("TX_power", tx_power, self.avg_tx_power, time)
@@ -239,10 +239,10 @@ class ChannelInfo:
         self.cusum_update("P95_retry", retry, self.avg_retry, time)
         self.cusum_update("P95_PER", PER, self.avg_PER, time)
 
-    def getChannelMetrics(self):
+    def get_channel_metrics(self):
         return self.qoe, self.avg_retry, self.avg_PER, self.channelUtilization
 
-    def printChannel(self):
+    def print_channel(self):
         logging.info("--------------------------------\n")
         logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'BAND:':25} {self.band}")
         logging.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {self.band}  {'CHANNEL:':25} {self.channel}")

@@ -239,7 +239,7 @@ def train_cql(transitions: List[Dict],
 # the main code
 if __name__ == "__main__":
     # path to your dataset pickle file
-    dataset_path = r"C:\Users\gayat\OneDrive\Desktop\Academics\Inter_IIT_Tech_Meet\Post_Mid_Term\cql_dataset.pkl"
+    dataset_path = "cql_dataset.pkl"
 
     # try to load dataset either from memory or from disk
     try:
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     q2 = model_info["q2"]
 
     # save trained model if desired
-    torch.save(q1.state_dict(), "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/cql_q1.pt")
-    torch.save(q2.state_dict(), "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/cql_q2.pt")
+    torch.save(q1.state_dict(), "cql_q1.pt")
+    torch.save(q2.state_dict(), "cql_q2.pt")
 
 

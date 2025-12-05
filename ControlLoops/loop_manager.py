@@ -1,12 +1,12 @@
 import threading
 import time
-from ControlLoops.FastLoop import FastLoop
-from ControlLoops.SlowLoop import SlowLoop
-from ControlLoops.EventLoop import EventLoop
-from ControlLoops.Explainability import ExplainabilityLayer
-from ControlLoops.InterferenceGraph import InterferenceGraph
-from SensingOrchestra.SensingOrchestra import SensingOrchestra
-from ControlLoops.GNN_Training import run_pipeline
+from ControlLoops.fast_loop import FastLoop
+from ControlLoops.slow_loop import SlowLoop
+from ControlLoops.event_loop import EventLoop
+from ControlLoops.explainability import ExplainabilityLayer
+from ControlLoops.interference_graph import InterferenceGraph
+from SensingOrchestra.sensing_orchestra import SensingOrchestra
+from ControlLoops.gnn_training import run_pipeline
 
 class LoopManager:
     def __init__(self):

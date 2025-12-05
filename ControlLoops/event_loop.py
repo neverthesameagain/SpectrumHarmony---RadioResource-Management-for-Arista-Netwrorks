@@ -1,6 +1,6 @@
 from datetime import datetime
 from ControlLoops.utils.CSVParser import CSVParser
-from SensingOrchestra.ChannelInfo import BAND_5_CHANNELS
+from SensingOrchestra.channel_info import BAND_5_CHANNELS
 from SensingOrchestra.utilsSO.WiFiBandEnum import WiFiBand
 import ControlLoops.utils.APLogsColumns as APLog
 import logging
@@ -44,7 +44,7 @@ class EventLoop:
 
     def start(self):
         file_path = os.path.join(base_dir, "data", "interference_edges.csv")
-        self.simulateRadioInput(file_path)
+        self.simulate_radio_input(file_path)
 
     def update_baseline(self, channel, rxPower):
         if channel not in self.noiseBaseline:
@@ -56,7 +56,7 @@ class EventLoop:
     def get_baseline(self, channel):
         return self.noiseBaseline.get(channel, -90)
 
-    def convertbandToIdx(self, band, channel):
+    def convert_band_to_idx(self, band, channel):
         if (band == WiFiBand.BAND_2_4_GHz):
             return channel-1
         elif (band == WiFiBand.BAND_5_GHz):
@@ -114,7 +114,7 @@ class EventLoop:
             return False
         return True
 
-    def detect_event_2_4_GHz(self, timestamp, band, channel, airtimeA, retryA, nwifiDetectedA, nwifiTypeA, rxPower):
+    def detect_event_2_4_ghz(self, timestamp, band, channel, airtimeA, retryA, nwifiDetectedA, nwifiTypeA, rxPower):
         baseline = self.get_baseline(channel)
         if self.detect_microwave(band, retryA, nwifiDetectedA, nwifiTypeA, rxPower, baseline):
             if self.check_timeout("microwave", (band, channel), timestamp):
@@ -122,8 +122,8 @@ class EventLoop:
                     print(f"Event : Microwave detected on 2.4 GHz band on channel {channel}")
                     self.last_channel["microwave"] = channel
                     # Push to FastLoop
-                    from ControlLoops.FastLoop import FastLoop
-                    FastLoop().addChange({"type": "Interference", "value": "Microwave", "channel": channel, "band": "2.4GHz"})
+                    from ControlLoops.fast_loop import FastLoop
+                    FastLoop().add_change({"type": "Interference", "value": "Microwave", "channel": channel, "band": "2.4GHz"})
 
         if self.detect_exam_hall(airtimeA, retryA):
             if self.check_timeout("exam", (band, channel), timestamp):
@@ -131,17 +131,17 @@ class EventLoop:
                     print(f"Event : Exam hall detected on 2.4 GHz band on channel {channel}")
                     self.last_channel["exam_2_4"] = channel
                     # Push to FastLoop
-                    from ControlLoops.FastLoop import FastLoop
+                    from ControlLoops.fast_loop import FastLoop
                     FastLoop().addChange({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "2.4GHz"})
 
-    def detect_event_5_GHz(self, timestamp, band, channel, nwifiTypeA, airtimeA, retryA):
+    def detect_event_5_ghz(self, timestamp, band, channel, nwifiTypeA, airtimeA, retryA):
         if self.detect_dfs_radar(band, channel, nwifiTypeA):
             if self.check_timeout("dfs", (band, channel), timestamp):
                 if channel != self.last_channel["dfs"]:
                     print(f"Event : DFS radar detected on 5 GHz band on channel {channel}")
                     self.last_channel["dfs"] = channel
                     # Push to FastLoop
-                    from ControlLoops.FastLoop import FastLoop
+                    from ControlLoops.fast_loop import FastLoop
                     FastLoop().addChange({"type": "DFS", "value": "Radar", "channel": channel, "band": "5GHz"})
 
         if self.detect_exam_hall(airtimeA, retryA):
@@ -150,16 +150,16 @@ class EventLoop:
                     print(f"Event : Exam hall detected on 5 GHz band on channel {channel}")
                     self.last_channel["exam_5"] = channel
                     # Push to FastLoop
-                    from ControlLoops.FastLoop import FastLoop
+                    from ControlLoops.fast_loop import FastLoop
                     FastLoop().addChange({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "5GHz"})
 
-    def simulateRadioInput(self, file):
+    def simulate_radio_input(self, file):
         parser = CSVParser()
         beacons = parser.parseCSV(file)
         print("Event Loop ", file)
         for beacon in beacons:
             band = beacon[APLog.BAND]
-            channelA = self.convertbandToIdx(beacon[APLog.BAND], beacon[APLog.CHANNEL_A])
+            channelA = self.convert_band_to_idx(beacon[APLog.BAND], beacon[APLog.CHANNEL_A])
             airtimeA = beacon[APLog.AIRTIME_A]
             retryA = beacon[APLog.P95_RETRY_A]
             nwifiDetectedA = beacon[APLog.NWIFI_DETECTED_A]
@@ -168,10 +168,10 @@ class EventLoop:
             radarPenalty = beacon[APLog.RADAR_PENALTY]
             timestamp = beacon[APLog.TIMESTAMP]
             if (band == WiFiBand.BAND_2_4_GHz):
-                self.detect_event_2_4_GHz(timestamp, band, beacon[APLog.CHANNEL_A], airtimeA, retryA,
+                self.detect_event_2_4_ghz(timestamp, band, beacon[APLog.CHANNEL_A], airtimeA, retryA,
                                           nwifiDetectedA, nwifiTypeA, rxPower)
             elif (band == WiFiBand.BAND_5_GHz):
-                self.detect_event_5_GHz(timestamp, band, beacon[APLog.CHANNEL_A], nwifiTypeA,
+                self.detect_event_5_ghz(timestamp, band, beacon[APLog.CHANNEL_A], nwifiTypeA,
                                         airtimeA, retryA)
 
 
