@@ -25,15 +25,15 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-# Robust import of InterferenceGraph
+# Robust import of wifi_band_enum
 try:
-    from ControlLoops.interference_graph import InterferenceGraph
+    from ControlLoops.interference_graph import wifi_band_enum
 except Exception as e_primary:
     try:
-        from interference_graph import InterferenceGraph
+        from interference_graph import wifi_band_enum
     except Exception as e_fallback:
         raise ImportError(
-            "Failed to import InterferenceGraph.\n"
+            "Failed to import wifi_band_enum.\n"
             f"Primary error: {e_primary}\nFallback error: {e_fallback}\n"
             f"PROJECT_ROOT used: {PROJECT_ROOT}\nsys.path start: {sys.path[:5]}"
         )
@@ -527,7 +527,7 @@ def train_and_save_ridge(X_np: np.ndarray, A_np: np.ndarray, y_np: np.ndarray,
 # Main pipeline (per-band)
 # ----------------------------
 def run_pipeline(use_ensemble: bool = True):
-    ig = InterferenceGraph()
+    ig = wifi_band_enum()
     try:
         ig.start()
     except Exception as e:

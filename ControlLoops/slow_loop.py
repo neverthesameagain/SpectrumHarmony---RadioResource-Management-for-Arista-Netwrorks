@@ -6,11 +6,10 @@ import numpy as np
 import networkx as nx
 import matplotlib
 from ControlLoops.interference_graph import InterferenceGraph
-from ControlLoops.graph_colouring import colour_graph
 from ControlLoops.explainability import ExplainabilityLayer
 from ControlLoops.causal_analysis import CausalAnalysis
-from Safe_RL.CQL_Training import QNetwork
-from Safe_RL.Testing import greedy_action_from_q, constrained_apply_action
+from safe_rl.cql_training import QNetwork
+from safe_rl.testing import greedy_action_from_q, constrained_apply_action
 import os
 
 matplotlib.use("Agg")
@@ -43,7 +42,7 @@ class SlowLoop:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.q_net = QNetwork(state_dim=14, action_dim=9).to(self.device)
         
-        model_path = os.path.join("Safe_RL", "cql_q1.pt")
+        model_path = os.path.join("safe_rl", "cql_q1.pt")
         if os.path.exists(model_path):
             try:
                 self.q_net.load_state_dict(torch.load(model_path, map_location=self.device))

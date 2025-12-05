@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from WiFi_Simulator_Modeling import Environment, AccessPoint, Client
+from safe_rl.wifi_simulator_modeling import Environment, AccessPoint, Client
 from datetime import timedelta
 import csv
 import pickle

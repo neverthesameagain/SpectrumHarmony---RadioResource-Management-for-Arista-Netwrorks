@@ -5,7 +5,7 @@ from ControlLoops.slow_loop import SlowLoop
 from ControlLoops.event_loop import EventLoop
 from ControlLoops.explainability import ExplainabilityLayer
 from ControlLoops.interference_graph import InterferenceGraph
-from SensingOrchestra.sensing_orchestra import SensingOrchestra
+from sensing_orchestra.sensing_orchestra import SensingOrchestra
 from ControlLoops.gnn_training import run_pipeline
 
 class LoopManager:
@@ -18,15 +18,15 @@ class LoopManager:
         self.explainer = ExplainabilityLayer()
         self.graph = InterferenceGraph()
         
-        self.fastLoopThread = threading.Thread(target=self.fastLoop.start)
-        self.slowLoopThread = threading.Thread(target=self.slowLoop.start)
-        self.eventLoopThread = threading.Thread(target=self.eventLoop.start)
-        self.orchestraThread = threading.Thread(target=self.orchestra.start)
+        self.fastLoopThread = threading.Thread(target=self.fastLoop.start, daemon=True)
+        self.slowLoopThread = threading.Thread(target=self.slowLoop.start, daemon=True)
+        self.eventLoopThread = threading.Thread(target=self.eventLoop.start, daemon=True)
+        self.orchestraThread = threading.Thread(target=self.orchestra.start, daemon=True)
         # Assuming graph.start exists and is needed based on original code
-        self.graphThread = threading.Thread(target=self.graph.start)
+        self.graphThread = threading.Thread(target=self.graph.start, daemon=True)
         
         # GNN Learning Loop (Background Thread)
-        self.gnnThread = threading.Thread(target=self.run_gnn_loop)
+        self.gnnThread = threading.Thread(target=self.run_gnn_loop, daemon=True)
 
     def run_gnn_loop(self):
         """Periodically runs the GNN training pipeline."""
@@ -59,14 +59,12 @@ class LoopManager:
         self.orchestraThread.start()
         self.gnnThread.start() # Start GNN Loop
         
-        self.fastLoopThread.join()
-        self.slowLoopThread.join()
-        self.eventLoopThread.join()
-        self.orchestraThread.join()
-        self.graphThread.join()
-        self.gnnThread.join()
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("\n[LoopManager] Stopping RRM-Plus Controller...")
 
 if __name__ == "__main__":
     manager = LoopManager()
     manager.start()
-time.sleep(sleepTime)

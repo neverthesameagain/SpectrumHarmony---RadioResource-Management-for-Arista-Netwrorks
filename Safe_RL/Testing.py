@@ -1,9 +1,10 @@
 import random
+import os
 from datetime import datetime, timedelta
 import torch
-from CQL_Training import QNetwork
-from WiFi_Simulator_Modeling import Environment, AccessPoint, Client
-from Dataset_Generation import get_state, compute_reward
+from safe_rl.cql_training import QNetwork
+from safe_rl.wifi_simulator_modeling import Environment, AccessPoint, Client
+from safe_rl.dataset_generation import get_state, compute_reward
 import pandas as pd
 import numpy as np
 
@@ -357,15 +358,15 @@ def evaluate_policy_results(csv_paths):
 
 # load trained q1
 q1 = QNetwork(state_dim=14, action_dim=9)
-q1.load_state_dict(torch.load("C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/cql_q1.pt", map_location="cpu"))
+q1.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "cql_q1.pt"), map_location="cpu"))
 q1.eval()
 
 seed = 123
 days = 20
 
-save_path_cql = "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/results_cql.csv"
-save_path_random = "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/results_random.csv"
-save_path_static = "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/results_static.csv"
+save_path_cql = os.path.join(os.path.dirname(__file__), "results", "results_cql.csv")
+save_path_random = os.path.join(os.path.dirname(__file__), "results", "results_random.csv")
+save_path_static = os.path.join(os.path.dirname(__file__), "results", "results_static.csv")
 
 df_cql    = run_policy_simulation(make_env(), policy_type="cql",    q1=q1, days=days, save_path=save_path_cql,    seed=seed)
 df_random = run_policy_simulation(make_env(), policy_type="random", q1=None, days=days,save_path=save_path_random, seed=seed)

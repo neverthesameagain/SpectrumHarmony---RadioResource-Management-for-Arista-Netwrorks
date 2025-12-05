@@ -1,8 +1,8 @@
 import networkx as nx
-import ControlLoops.utils.APLogsColumns as APLog
-from SensingOrchestra.ChannelInfo import BAND_5_CHANNELS
-from SensingOrchestra.utilsSO.WiFiBandEnum import WiFiBand
-from .utils.CSVParser import CSVParser
+import ControlLoops.utils.ap_logs_columns as APLog
+from sensing_orchestra.channel_info import BAND_5_CHANNELS
+from sensing_orchestra.utils_so.wifi_band_enum import WiFiBand
+from .utils.csv_parser import CSVParser
 import logging
 import os
 

@@ -1,8 +1,8 @@
 from datetime import datetime
-from ControlLoops.utils.CSVParser import CSVParser
-from SensingOrchestra.channel_info import BAND_5_CHANNELS
-from SensingOrchestra.utilsSO.WiFiBandEnum import WiFiBand
-import ControlLoops.utils.APLogsColumns as APLog
+from ControlLoops.utils.csv_parser import CSVParser
+from sensing_orchestra.channel_info import BAND_5_CHANNELS
+from sensing_orchestra.utils_so.wifi_band_enum import WiFiBand
+import ControlLoops.utils.ap_logs_columns as APLog
 import logging
 import os
 
@@ -43,7 +43,7 @@ class EventLoop:
         print("Event loop initiated...")
 
     def start(self):
-        file_path = os.path.join(base_dir, "data", "interference_edges.csv")
+        file_path = os.path.join(base_dir, "data", "interference_edges_balanced.csv")
         self.simulate_radio_input(file_path)
 
     def update_baseline(self, channel, rxPower):
@@ -132,7 +132,7 @@ class EventLoop:
                     self.last_channel["exam_2_4"] = channel
                     # Push to FastLoop
                     from ControlLoops.fast_loop import FastLoop
-                    FastLoop().addChange({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "2.4GHz"})
+                    FastLoop().add_change({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "2.4GHz"})
 
     def detect_event_5_ghz(self, timestamp, band, channel, nwifiTypeA, airtimeA, retryA):
         if self.detect_dfs_radar(band, channel, nwifiTypeA):
@@ -142,7 +142,7 @@ class EventLoop:
                     self.last_channel["dfs"] = channel
                     # Push to FastLoop
                     from ControlLoops.fast_loop import FastLoop
-                    FastLoop().addChange({"type": "DFS", "value": "Radar", "channel": channel, "band": "5GHz"})
+                    FastLoop().add_change({"type": "DFS", "value": "Radar", "channel": channel, "band": "5GHz"})
 
         if self.detect_exam_hall(airtimeA, retryA):
             if self.check_timeout("exam", (band, channel), timestamp):
@@ -151,7 +151,7 @@ class EventLoop:
                     self.last_channel["exam_5"] = channel
                     # Push to FastLoop
                     from ControlLoops.fast_loop import FastLoop
-                    FastLoop().addChange({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "5GHz"})
+                    FastLoop().add_change({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "5GHz"})
 
     def simulate_radio_input(self, file):
         parser = CSVParser()
@@ -175,5 +175,6 @@ class EventLoop:
                                         airtimeA, retryA)
 
 
-eventLoop = EventLoop()
-eventLoop.start()
+if __name__ == "__main__":
+    eventLoop = EventLoop()
+    eventLoop.start()

@@ -1,13 +1,14 @@
 import pandas as pd
+import os
 import matplotlib.pyplot as plt
 
 # -------------------------------
 # 1️⃣ Load and label the datasets
 # -------------------------------
 paths = {
-    "CQL": "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/results_cql.csv",
-    "Random": "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/results_random.csv",
-    "Static": "C:/Users/gayat/OneDrive/Desktop/Academics/Inter_IIT_Tech_Meet/Post_Mid_Term/results_static.csv"
+    "CQL": os.path.join(os.path.dirname(__file__), "results", "results_cql.csv"),
+    "Random": os.path.join(os.path.dirname(__file__), "results", "results_random.csv"),
+    "Static": os.path.join(os.path.dirname(__file__), "results", "results_static.csv")
 }
 
 dfs = []
