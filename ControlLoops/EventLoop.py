@@ -121,11 +121,18 @@ class EventLoop:
                 if channel != self.last_channel["microwave"]:
                     print(f"Event : Microwave detected on 2.4 GHz band on channel {channel}")
                     self.last_channel["microwave"] = channel
+                    # Push to FastLoop
+                    from ControlLoops.FastLoop import FastLoop
+                    FastLoop().addChange({"type": "Interference", "value": "Microwave", "channel": channel, "band": "2.4GHz"})
+
         if self.detect_exam_hall(airtimeA, retryA):
             if self.check_timeout("exam", (band, channel), timestamp):
                 if channel != self.last_channel["exam_2_4"]:
                     print(f"Event : Exam hall detected on 2.4 GHz band on channel {channel}")
                     self.last_channel["exam_2_4"] = channel
+                    # Push to FastLoop
+                    from ControlLoops.FastLoop import FastLoop
+                    FastLoop().addChange({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "2.4GHz"})
 
     def detect_event_5_GHz(self, timestamp, band, channel, nwifiTypeA, airtimeA, retryA):
         if self.detect_dfs_radar(band, channel, nwifiTypeA):
@@ -133,11 +140,18 @@ class EventLoop:
                 if channel != self.last_channel["dfs"]:
                     print(f"Event : DFS radar detected on 5 GHz band on channel {channel}")
                     self.last_channel["dfs"] = channel
+                    # Push to FastLoop
+                    from ControlLoops.FastLoop import FastLoop
+                    FastLoop().addChange({"type": "DFS", "value": "Radar", "channel": channel, "band": "5GHz"})
+
         if self.detect_exam_hall(airtimeA, retryA):
             if self.check_timeout("exam", (band, channel), timestamp):
                 if channel != self.last_channel["exam_5"]:
                     print(f"Event : Exam hall detected on 5 GHz band on channel {channel}")
                     self.last_channel["exam_5"] = channel
+                    # Push to FastLoop
+                    from ControlLoops.FastLoop import FastLoop
+                    FastLoop().addChange({"type": "ExamHall", "value": "QuietHours", "channel": channel, "band": "5GHz"})
 
     def simulateRadioInput(self, file):
         parser = CSVParser()
